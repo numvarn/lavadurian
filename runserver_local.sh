@@ -1,1 +1,1 @@
-./manage.py runserver --settings=DurianLava.local_settings
+./manage.py runserver --settings=lavadurian.settings_local
