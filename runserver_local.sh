@@ -1,1 +1,0 @@
-./manage.py runserver --settings=lavadurian.settings_local
