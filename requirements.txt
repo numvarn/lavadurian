@@ -1,1 +1,16 @@
 django>=3.0, < 4.0
+netaddr
+psycopg2
+dj-database-url
+django-allauth
+Pillow
+django-ckeditor
+django-bootstrap4
+timeago
+djangorestframework
+markdown
+django-filter
+dj-rest-auth
+django-storages
+google-cloud-storage
+cloudinary

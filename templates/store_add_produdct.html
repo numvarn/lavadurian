@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% load bootstrap4 %}
+
+{% block title %}
+    {{title}}
+{%endblock%}
+
+{% block subtitle %}
+    {{subtitle}}
+{% endblock %}
+
+
+{% block content %}
+<form method="post"  enctype="multipart/form-data">
+{% csrf_token %}
+<div class="row">
+    <div class="col-md-7">
+        <div class="card card-header-actions mb-4">
+            <div class="card-header">
+                กรอกรายละเอียดสินค้า
+                <a class="btn btn-primary btn-sm" href="{% url 'store-setting' store.id %}">ยกเลิก</a>
+            </div>
+            <div class="card-body">
+                {% bootstrap_form form %}
+                <button type="submit" class="btn btn-success">เพิ่มสินค้า</button>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div class="card mb-4">
+            <div class="card-header">รูปภาพของสิ้นค้า</div>
+            <div class="card-body">
+                {{ formset.management_form }}
+                {% for form in formset %}
+                    <div class="mb-4">{{ form }}</div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+{% endblock %}

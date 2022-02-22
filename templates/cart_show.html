@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+{% block title %}
+    {{title}}
+{%endblock%}
+
+{% block subtitle %}
+    {{subtitle}}
+{% endblock %}
+
+{% block content %}
+<style>
+    .quantity {
+        width: 60px;
+    }
+    .value {
+        width: 90px;
+    }
+</style>
+
+<div class="card card-header-actions mx-auto mb-4">
+    <div class="card-header">
+        สรุปข้อมูล
+        <div>
+            <a class="btn btn-danger btn-icon" href="#" data-toggle="modal" data-target="#clearCartModal">
+                <i data-feather="trash-2"></i>
+            </a>
+            <a class="btn btn-success btn-icon" href="{% url 'shopping' %}" alt="เลือกซื้อสินค้าต่อ" data-target="#exampleModal{{item.id}}">
+                <i data-feather="shopping-cart"></i>
+            </a>
+            <a class="btn btn-warning btn-icon" href="{% url 'cart-checkout' %}" alt="ยืนยันการสั่งซื้อ" data-target="#exampleModal{{item.id}}">
+                <i data-feather="check"></i>
+            </a>
+        </div>
+    </div>
+    <div class="card-body">
+        {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{message}}
+                <button class="close" type="button" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            {% endfor %}
+        {% endif %}
+        <div class="row">
+            <div class="col">
+                <div class="mb-2">น้ำหนักรวม: {{total_weight|floatformat:'2'|intcomma}} กก.</div>
+                <div class="mb-2">ราคารวม: {{summation|floatformat:'2'|intcomma}} บาท</div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Clear Cart Modal -->
+<div class="modal fade" id="clearCartModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">ยืนยันการล้างตะกร้าสินค้า</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            </div>
+            <div class="modal-body">
+                รายการสินค้าที่ท่านเลือกไว้จะถูกลบออกจากตะกร้าทั้งหมด
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">ปิดหน้าต่าง</button>
+                <a class="btn btn-primary" type="button" href="{% url 'cart-clear' %}">ยืนยันการล้าง</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% for item in items %}
+<div class="card card-header-actions mx-auto mb-4">
+    <div class="card-header">
+        <a href="{% url 'shopping-product-view' item.product.id %}">{{item.gene_choice}}</a>
+        <div>
+            <a class="btn btn-blue btn-icon" href="#" alt="ลบสินค้าออกจากตะกร้า" data-toggle="modal" data-target="#exampleModal{{item.id}}">
+                <i data-feather="trash-2"></i>
+            </a>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-8">
+                <div class="mb-2">เกรด: {{item.grade_choice}}</div>
+                <div class="mb-2">ราคา: {{item.product.price|floatformat:'0'}} บาท/กก.</div>
+                <div class="mb-4">น้ำหนัก: {{item.product.weight|floatformat:'2'}} กก./ลูก</div>
+
+                <div class="mb-2 small">จำนวนที่มีขาย : {{item.product.values}} ลูก</div>
+                <div class="mb-2 small">ผู้ขาย : {{item.product.store.name}}</div>
+                <div class="mb-4 small">ติดต่อ : {{item.product.store.phone1}} / {{item.product.store.phone2}}</div>
+
+                <div class="mb-2 text-success">ราคารวม: {{item.total_price|floatformat:'2'|intcomma}} บาท</div>
+            </div>
+            <div class="col-4 text-right">
+                <div class="mb-2">
+                    <input id="{{item.id}}" name="{{item.id}}" class="quantity" type="number" min="1" max="{{item.product.values}}" value="{{item.quantity}}">
+                </div>
+                <div class="mb-2">
+                    <a class="btn btn-primary btn-sm update" href="#">อัปเดท</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal{{item.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">ยืนยันการลบสินค้าออกจากตระกร้า</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            </div>
+            <div class="modal-body">กระบวนการนี้จะไม่สามารถย้อนคืนได้</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">ปิดหน้าต่าง</button>
+                <a class="btn btn-primary" href="{% url 'item-delete' item.id %}">ยืนยันการลบ</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}

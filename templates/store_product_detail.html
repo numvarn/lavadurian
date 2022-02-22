@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% load bootstrap4 %}
+{% load custom_tags %}
+{% load humanize %}
+
+{% block title %}
+{{title}}
+{%endblock%}
+
+{% block subtitle %}
+{{subtitle}}
+{% endblock %}
+
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <div class="card card-header-actions mb-4">
+            <div class="card-header">
+                ยอดการสั่งซื้อ
+                <a class="btn btn-primary btn-sm" href="{% url 'store-setting' product.store.id %}">กลับ</a>
+            </div>
+            <div class="card-body">
+                <div class="row mb-4">
+                    <div class="col-md-4">จำนวนยอดสั่ง</div>
+                    <div class="col-md-4 text-dark">{{items|length}} รายการ</div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col-md-4">จำนวนลูกค้า</div>
+                    <div class="col-md-4 text-dark">{{buyer|length}} ราย</div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col-md-4">จำนวนลูก</div>
+                    <div class="col-md-4 text-dark">{{total_values}} ลูก</div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col-md-4">รวมยอดขาย</div>
+                    <div class="col-md-4 text-dark">{{total_price|floatformat:'0'|intcomma}} บาท</div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col-md-4">ยอดสั่งล่าสุด</div>
+                    <div class="col-md-8 text-dark">{{lastest_item_date|thai_time}}</div>
+                </div>
+            </div>
+        </div>
+        <div class="card card-header-actions mb-4">
+            <div class="card-header">
+                รายละเอียดสินค้า
+                <a class="btn btn-primary btn-sm" href="{% url 'store-setting' product.store.id %}">กลับ</a>
+            </div>
+            <div class="card-body">
+                <div class="row mb-4">
+                    <div class="col-md-4">วันที่อัปเดทสินค้า</div>
+                    <div class="col-md-8 text-dark">{{product.date_update|thai_time}}</div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col-md-4">เกรดทุเรียน</div>
+                    <div class="col-md-8 text-dark">{{product.grade_choice}}</div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col-md-4">สายพันธ์ุ</div>
+                    <div class="col-md-8 text-dark">{{product.gene_choice}}</div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col-md-4">จำนวนที่มีขาย (ลูก)</div>
+                    <div class="col-md-8 text-dark">{{product.values}}</div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col-md-4">ราคาต่อกิโลกรัม</div>
+                    <div class="col-md-8 text-dark">{{product.price}}</div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col-md-4">น้ำหนักเฉลี่ยต่อลูก</div>
+                    <div class="col-md-8 text-dark">{{product.weight}}</div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col-md-4">รายละเอียดเพิ่มเติม</div>
+                    <div class="col-md-8 text-dark">{{product.desc|linebreaks}}</div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col-md-4">สถานะการขาย</div>
+                    <div class="col-md-8 text-dark">{{product.status_choice}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        {% for image in images %}
+        <div class="card mb-2" style="width: 100%;">
+            <img class="card-img-top" src="{{image.url}}" alt="product image">
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

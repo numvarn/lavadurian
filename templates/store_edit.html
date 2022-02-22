@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% load bootstrap4 %}
+{% load custom_tags %}
+
+{% block title %}
+    {{title}}
+{%endblock%}
+
+{% block subtitle %}
+    {{subtitle}}
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <div class="card card-header-actions mb-4">
+            <div class="card-header">
+                แก้ไขข้อมูลร้านค้า
+                <a class="btn btn-primary btn-sm" href="{% url 'store-setting' store.id %}">ยกเลิก</a>
+            </div>
+            <div class="card-body">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% bootstrap_form form %}
+                    <button type="submit" class="btn btn-success">แก้ไขร้านค้า</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card mb-2 card-header-actions mb-4">
+            <div class="card-header">
+                รูปภาพใบประกาศรับรอง
+                <a class="btn btn-primary btn-sm" href="{% url 'store-certificate' store.id %}" target="_blank">แสดง</a>
+            </div>
+            <div class="card-body">
+                <div class="text-center mb-4">
+                    หากร้านของท่านมีใบรับรองใด ๆ สามารแสดงได้เพื่อสร้างความน่าเชื่อถือให้แก่ผู้ซื้อ
+                </div>
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% bootstrap_form cer_form %}
+                    <button type="submit" class="btn btn-success">บันทึกใบประกาศ</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

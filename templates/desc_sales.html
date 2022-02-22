@@ -1,0 +1,169 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load socialaccount %}
+{% providers_media_js %}
+
+{% block title %}
+{{title}}
+{% endblock %}
+
+{% block subtitle %}
+{{subtitle}}
+{% endblock %}
+
+{% block content %}
+<div class="alert alert-primary border-0 mb-4 mt-3 px-md-4">
+    <div class="position-relative">
+        <div class="row justify-content-between">
+            <div class="col text-left align-top">
+                <h2 class="text-primary mb-4">ขั้นตอนที่ 1 ลงทะเบียนใช้งานระบบ</h2>
+                <p>ผู้ซื้อสามารถลงทะเบียนเพื่อซื้อสินค้าในระบบได้ 2 ช่องทางคือ</p>
+                <ol>
+                    <li>ลงทะเบียนใช้งานระบบในฐานะผู้ซื้อ ด้วยการกรอกข้อมูล ชื่อ-สกุล, อีเมล, รหัสสำหรับเข้าใช้งานระบบ
+                        <ul>
+                            <li><a href="/customer/register">สร้างบัญชีผู้ซื้อ</a> หรือ</li>
+                            <li><a href="/members/login">เข้าสู่ระบบ</a></li>
+                        </ul>
+                    </li>
+                    <li>หรือ ลงทะเบียนผ่าน facebook
+                        <a class="btn btn-icon btn-facebook mx-1" href="/members/login"><i
+                                class="fab fa-facebook-f fa-fw fa-sm"></i></a>
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="alert alert-success border-0 mb-4 mt-3 px-md-4">
+    <div class="position-relative">
+        <div class="row justify-content-between">
+            <div class="col text-left align-top">
+                <h2 class="text-primary mb-4">ขั้นตอนที่ 2 เลือกซื้อสินค้า</h2>
+                <p>ผู้ซื้อเลือกซื้อสินค้าทุเรียนออนไลน์ผ่านตลาดทุเรียนภูเขาไฟล์ออนไลน์
+                    ซึ่งสามารถคัดกรองสินค้าให้ตรงกับความต้องการของผู้ซื้อ ได้ดังนี้</p>
+                <ol>
+                    <li>เลือกสินค้าโดยตรงจากสวน</li>
+                    <li>เลือกจากน้ำหนักของทุเรียนทั้งลูก</li>
+                    <li>เลือกจากราคาต่อกิโลกรัม</li>
+                    <li>เลือกจากสายพันธ์ทุเรียน</li>
+                    <li>เลือกจากเกรดการคัดทุเรียน</li>
+                    <li>เลือกจากลักษณะการขาย พร้อมขาย หรือ สั่งจองล่วงหน้า</li>
+                </ol>
+                <p>
+                    เลือกสินค้าที่ต้องการใส่ลงตระกร้าสินค้า และทำการปรับจำนวนลูกทุเรียนตามความต้องการ
+                    จากนั้นสามารถเลือกซื้อสินค้ารายการอื่น ๆ ต่อไปได้ตามความต้องการ
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="alert alert-primary border-0 mb-4 mt-3 px-md-4">
+    <div class="position-relative">
+        <div class="row justify-content-between">
+            <div class="col text-left align-top">
+                <h2 class="text-primary mb-4">ขั้นตอนที่ 3 ยืนยันการสั่งซื้อ</h2>
+                <p>
+                    เมื่อผู้ซื้อสินค้าเลือกสินค้า และจำนวนตามความต้องการเรียบร้อยแล้ว สามารถยืนยันการสั่งซื้อ
+                    โดยทำการตรวจสอบข้อมูลก่อนการสั่งซื้อดังนี้
+                </p>
+                <p>
+                    1) ค่าใช้จ่ายที่ผู้ชื้อจะต้องชำระให้ผู้ขาย ประกอบไปด้วย
+                </p>
+                <p>
+                <ol>
+                    <li>ค่าทุเรียนรวม</li>
+                    <li>ค่ากล่องสำหรับการขนส่ง</li>
+                    <li>ค่าบริการขนส่งจากไปรษณีไทย</li>
+                </ol>
+                </p>
+                <p>
+                    2) ชื่อ สกุล เบอร์โทร ที่อยู่ ของผู้รับสินค้า
+                    หากเป็นการซื้อครั้งแรกผู้ซื้อจะต้องกรอกและบันทึกเข้าสู่ระบบฯ
+                </p>
+                <p>
+                    เมื่อตรวจสอบ และบันทึกข้อมูลครบถ้วนแล้ว ผู้ซื้อสามารถยืนยันการสั่งซื้อได้ทันที
+                </p>
+                <p>
+                    โดยสถานะคำสั่งซื้อ จะเป็น <span class="text-warning">"รอรับออร์เดอร์"</span>
+                    ซึ่งผู้ซื้อจะต้องรอให้ผู้ขายทำการตรวจสอบสินค้าของตนเองให้แน่ใจว่าสามารถดำเนินการตามคำสั่งซื้อได้หรือไม่
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="alert alert-success border-0 mb-4 mt-3 px-md-4">
+    <div class="position-relative">
+        <div class="row justify-content-between">
+            <div class="col text-left align-top">
+                <h2 class="text-primary mb-4">ขั้นตอนที่ 4 ผู้ขายตอบรับคำสั่งซื้อ</h2>
+                <p>ผู้ขายสินค้า ตรวจสอบคำสั่งซื้อของผู้ซื้อ โดยมีขั้นตอนดังนี้</p>
+                <ol>
+                    <li>ตรวจสอบน้ำหนักของทุเรียนรวมอีกครั้ง หากทุเรียนที่ต้องการส่งมีความคลาดเคลื่อนจากที่ลูกค้าสั่ง
+                        จะทำการปรับแก้น้ำหนักใหม่อีกครั้ง</li>
+                    <li>หากไม่สามารถจัดส่งสินค้าได้ตามคำสั่งซื้อ ปรับสถานะคำสั่งซื้อเป็น <span
+                            class="text-warning">"ยกเลิก"</span></li>
+                    <li>หากสามารถจัดส่งสินค้าได้ตามคำสั่งซื้อ ปรับสถานะคำสั่งซื้อเป็น <span
+                            class="text-warning">"รอการชำระเงิน"</span></li>
+                    <li>กรณีเป็นสินค้า "สั่งจองล่วงหน้า" สามารถรับคำสั่งซื้อนั้นไว้ก่อน โดยปรับสถานะคำสั่งซื้อเป็น <span
+                            class="text-warning">"รับออร์เดอร์"</span>
+                        เมื่อพร้อมจัดส่งสินค้าแล้วจะปรับสถานะคำสั่งซื้อเป็น <span
+                            class="text-warning">"รอการชำระเงิน"</span></li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="alert alert-primary border-0 mb-4 mt-3 px-md-4">
+    <div class="position-relative">
+        <div class="row justify-content-between">
+            <div class="col text-left align-top">
+                <h2 class="text-primary mb-4">ขั้นตอนที่ 5 ผู้ซื้อชำระเงิน</h2>
+                <p>ผู้ซื้อสามารถชำระเงินได้เมื่อคำสั่งซื้อของท่านอยู่ในสถานะ <span
+                        class="text-warning">"รอการชำระเงิน"</span> โดย</p>
+                <ol>
+                    <li>โอนเงินไปยังบัญชีธนาคารของผู้ซื้อขาย ที่ได้แจ้งไว้ในหน้ารายละเอียดคำสั่งซื้อ</li>
+                    <li>ทำการแจ้งโอน โดยกรอกรายละเอียดพร้อมแนบหลักฐานการโอนเงิน ในหน้ารายละเอียดคำสั่งซื้อของท่าน</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="alert alert-success border-0 mb-4 mt-3 px-md-4">
+    <div class="position-relative">
+        <div class="row justify-content-between">
+            <div class="col text-left align-top">
+                <h2 class="text-primary mb-4">ขั้นตอนที่ 6 จัดส่งสินค้า</h2>
+                <p>เมื่อผู้ขายตรวจสอบการชำเงินว่าถูกต้องแล้ว ทำเนินการดังต่อไปนี้</p>
+                <ol>
+                    <li>บรรจุสินค้าในกล่อง และส่งสินค้ากับไปรษณีไทยในรูปแบบ EMS</li>
+                    <li>บันทึกหมายเลขพัสดุลงในระบบ เพื่อใช้สำหรับตรวจสอบสถานะการขนส่งสินค้า</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="alert alert-primary border-0 mb-4 mt-3 px-md-4">
+    <div class="position-relative">
+        <div class="row justify-content-between">
+            <div class="col text-left align-top">
+                <h2 class="text-primary mb-4">ขั้นตอนที่ 7 รับสินค้า รีวิวสินค้า ให้คำแนะนำในการบริการแก่ผู้ขาย</h2>
+                <ol>
+                    <li>ผู้ซื้อสามารถติดตามสถานะการส่งสินค้าผ่านหมายเลขพัสดุ
+                        ที่มีรายละเอียดอยู่ในหน้ารายละเอียดคำสั่งซื้อ</li>
+                    <li>เมื่อผู้ซื้อได้รับสินค้าแล้ว คำสั่งซื้อจะเปลี่ยนเป็น <span
+                            class="text-warning">"ดำเนินการเสร็จสิ้น"</span></li>
+                    <li>ผู้ซื้อสามารถให้คะแนนแก่การบริการ สินค้า หรือให้ข้อเสนอแนะแก้ผู้ขาย
+                        ได้ตั้งแต่คำสั่งซื้อเปลี่ยนสถานะเป็น <span class="text-warning">"ชำระเงินแล้ว"</span></li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

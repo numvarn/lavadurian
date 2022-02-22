@@ -1,0 +1,35 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <div>{{message}}</div>
+        <br />
+        <div>สามารถตรวจสอบคำสั่งซื้อของท่านได้ที่ <a href="{{link}}">{{link}}</a></div>
+        <br />
+        {% if order.status == 3%}
+            <div>การชำระเงิน ท่านสามารถชำระด้วยการโอนผ่านธนาคาร ตามรายชื่อบัญชีต่อไปนี้</div>
+            {% for bookbank in bookbanks %}
+            <br />
+            <div>
+                <div>ธนาคาร {{bookbank.bank_choice}}</div>
+                <div>สาขา {{bookbank.bank_branch}}</div>
+                <div>ประเภทบัญชี {{bookbank.account_type_choice}}</div>
+                <div>ชื่อบัญชี {{bookbank.account_name}}</div>
+                <div>เลขที่บัญชี {{bookbank.account_number}}</div>
+                <div>-----------------------------------</div>
+            </div>
+            {% endfor %}
+            <br />
+            <div>และแจ้งการโอนได้ที่ <a href="{{link_transfer}}">แจ้งการชำระเงิน</a></div>
+        {% elif order.status == 6 %}
+            <div>
+                <div>ทางสวน/ร้าน {{order.store.name}} ได้จัดส่งสินค้าของท่านผ่านบริการไปรษณีไทยเรียบร้อยแล้ว</div>
+                <br /> 
+                <div>ท่านสามารถติดตามสถานะของการขนส่งได้จากหมายเลขพัสดุ <a href="https://track.thailandpost.co.th/?trackNumber={{tracker.tracker}}" target="_blank">{{tracker.tracker}}</a></div>
+            </div>
+        {% endif %}
+        <br />
+        <div>ชาวสวนทุเรียนภูเขาไฟ จังหวัดศรีสะเกษขอขอบพระคุณท่านเป็นอย่างสูง</div>
+    </body>
+</html>

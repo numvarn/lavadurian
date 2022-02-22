@@ -1,0 +1,152 @@
+{% extends 'base.html' %}
+
+{% load bootstrap4 %}
+{% load custom_tags %}
+{% load humanize %}
+
+{% block title %}
+    {{title}}
+{%endblock%}
+
+{% block subtitle %}
+    {{subtitle}}
+{% endblock %}
+
+{% block content %}
+<style>
+    #dataTable {
+        font-size: 15px;
+    }
+</style>
+<div class="row mb-4">
+    <div class="col-lg-7">
+        <div class="card card-header-actions mb-4">
+            <div class="card-header">
+                รายการสินค้า
+                <div>
+                    <a class="btn btn-success btn-icon mr-2" href="{% url 'store-edit' store.id %}"><i data-feather="edit"></i></a>
+                    {% if store.status == 1 %}
+                    <a class="btn btn-primary btn-icon mr-2" href="{% url 'store-add' store.id %}"><i data-feather="plus"></i></a>
+                    <a class="btn btn-info btn-icon mr-2" href="{% url 'store-sales' store.id %}"><i data-feather="flag"></i></a>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="datatable table-responsive">
+                    <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>สินค้า</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for product in products %}
+                            <tr class="text-dark">
+                                <td class="text-left">
+                                    <div class="row">
+                                        <div class="col-7">
+                                            <div class="mb-1 h6 font-weight-500">ลำดับที่ {{forloop.counter}}</div>
+                                            <div class="mb-3 h5"><a href="{% url 'store-product' product.id %}" alt="แสดงรายละเอียด">{{product.gene_choice}}</a></div>
+                                            <div class="mb-1">เกรด: {{product.grade_choice}}</div>
+                                            <div class="mb-1">ราคา: {{product.price}}</div>
+                                            <div class="mb-3">น้ำหนัก: {{product.weight}}</div>
+                                            <div class="mb-1">ขายได้: {{product.total_quantity.quantity__sum}}</div>
+                                            <div class="mb-1">สถานะ: <span class="text-success">{{product.status_choice}}</span></div>
+                                        </div>
+                                        <div class="col-5 text-right">
+                                            <div class="mb-4 font-weight-700 text-success h3">{{product.values}}</div>
+                                            <div>
+                                                <a class="btn btn-success btn-icon mr-2" href="{% url 'store-product-edit' product.id %}" alt="แก้ไข"><i data-feather="edit"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="mb-1">อัปเดต: {{product.date_update|thai_time}}</div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-5">
+        <div class="card mb-4">
+            <div class="card-header">
+                <ul class="nav nav-pills card-header-pills" id="cardPill" role="tablist">
+                    <li class="nav-item"><a class="nav-link active" id="overview-pill" href="#bankShow" data-toggle="tab" role="tab" aria-controls="overview" aria-selected="true">รายชื่อบัญชีธนาคาร</a></li>
+                    <li class="nav-item"><a class="nav-link" id="example-pill" href="#bankAdd" data-toggle="tab" role="tab" aria-controls="example" aria-selected="false">เพิ่มบัญชี</a></li>
+                </ul>
+            </div>
+            <div class="card-body">
+                <div class="tab-content" id="cardPillContent">
+                    <div class="tab-pane fade show active" id="bankShow" role="tabpanel" aria-labelledby="overview-pill">
+                        {% if bookbanks|length == 0%}
+                        <div class="alert alert-success mb-4" role="alert">
+                            ในฐานะผู้ขายท่านต้องเพิ่มบัญชีธนาคาร ตามรายละเอียดที่กำหนดเพื่อให้ผู้ซื้อใช้สำหรับการชำระค่าสินค้าที่ซื้อจากท่าน
+                        </div>
+                        {% else %}
+                        {% for bookbank in bookbanks %}
+                            <div class="alert alert-success mb-4" role="alert">
+                                <div class="mb-2">ธนาคาร {{bookbank.bank_choice}}</div>
+                                <div class="mb-2">สาขา {{bookbank.bank_branch}}</div>
+                                <div class="mb-2">ประเภทบัญชี {{bookbank.account_type_choice}}</div>
+                                <div class="mb-2">ชื่อบัญชี {{bookbank.account_name}}</div>
+                                <div class="mb-2">เลขที่บัญชี {{bookbank.account_number}}</div>
+                                {% if bookbank.transfer_count == 0%}
+                                <div class="text-right">
+                                    <a data-toggle="modal" data-target="#exampleModalCenter" href="#">ลบทิ้ง</a>
+                                </div>
+                                {% endif %}
+                            </div>
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalCenterTitle">ยืนยันการลบบัญชีสำหรับการชำระเงิน</h5>
+                                            <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            กระบวนการนี้ไม่สามารถย้อนกลับได้ หากท่านมั่นใจกดกรุณายืนยัน
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button class="btn btn-secondary" type="button" data-dismiss="modal">ยกเลิก</button>
+                                            <a class="btn btn-success" href="{% url 'bookbank-delete' bookbank.id %}">ยืนยันการลบ</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+
+                    <div class="tab-pane fade" id="bankAdd" role="tabpanel" aria-labelledby="example-pill">
+                        <form method="post" action="/bookbank/save/"  enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {% bootstrap_form bank_form %}
+                            <button type="submit" class="btn btn-success">เพิ่มบัญชีธนาคาร</button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="card mb-4">
+            <div class="card-header">สรุปจำนวนรายการสั่งซื้อตามสถานะ</div>
+            <div class="card-body">
+                {% for status in status_choice %}
+                <div class="row mb-2 small text-dark">
+                    <div class="col-lg-5 col-5">{{status.label}}</div>
+                    <div class="col-lg-7 col-7 text-right">{{status.value|intcomma}}</div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+
+{% load humanize %}
+{% load bootstrap4 %}
+{% load custom_tags %}
+
+{% block title %}
+    {{title}}
+{%endblock%}
+
+{% block subtitle %}
+    {{subtitle}}
+{% endblock %}
+
+{% block content %}
+<style>
+    .datatable {
+        font-size: 1rem!important;
+    }
+</style>
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card mb-4">
+            <div class="card-header">รายการสั่งซื้อของฉัน</div>
+            <div class="card-body">
+                <div class="datatable table-responsive">
+                    <table class="table table-bordered table-hover" id="dataTable" data-order='[[ 0, "desc" ]]' width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th class="text-center">คำสั่งซื้อ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for order in orders %}
+                            <tr>
+                                <td class="text-left">
+                                    <div class="row">
+                                        <div class="col-8">
+                                            <div class="mb-2"><a href="{% url 'order-detail' order.id %}">หมายเลข {{order.id}}</a></div>
+                                            <div class="mb-2 text-success">ยอดเงิน: {{order.total_price|floatformat:'0'|intcomma}} บาท</div>
+                                            <div class="mb-2">ผู้ขาย: {{order.store}}</div>
+                                            <div class="mb-2">วันที่: {{order.date_created|thai_time}}</div>
+                                            <div class="mb-2">สถานะ: {{order.status_choice}}</div>
+                                        </div>
+                                        <div class="col-4 text-right">
+                                            <a class="btn btn-success btn-icon mr-2 mb-2" href="{% url 'order-detail' order.id %}"><i data-feather="link"></i></a>
+                                            {% if order.status < 4 %}
+                                            <a class="btn btn-success btn-icon mr-2 mb-2 text-white" hrdf="#" data-toggle="modal" data-target="#exampleModalCenter-{{order.id}}"><i data-feather="trash-2"></i></a>
+                                            {% endif %}
+                                            
+                                            {% if order.transfer_notif != '' %}
+                                            <a class="btn btn-success btn-icon mr-2 mb-2" href="{{order.transfer_notif}}" target="_blank"><i data-feather="image"></i></a>
+                                            {% endif %}
+
+                                            <!-- MOdel Confirm Delete -->
+                                            <div class="modal fade" id="exampleModalCenter-{{order.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalCenterTitle">ท่านต้องการลบรายการสั่งซื้อนี้หรือไม่</h5>
+                                                            <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            กระบวนการนี้ไม่สามารถย้อนคืนได้ กรุณาทำการยืนยันหากท่านแน่ใจ
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button class="btn btn-secondary" type="button" data-dismiss="modal">ยกเลิก</button>
+                                                            <a class="btn btn-success" href="{% url 'order-delete' order.id %}">ยืนยันการลบ</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- end modal -->
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="card mb-4">
+            <div class="card-header">ข้อมูลของฉัน</div>
+            <div class="card-body">
+                {% for address in addressbook.receive_address.all %}
+                <div class="mb-4">
+                    <div class="mb-2">บันทึกช่วยจำ : {{address.name}}</div>
+                    <div class="mb-2">ชื่อผู้รับ : {{address.receiver}}</div>
+                    <div class="mb-2">
+                        ที่อยู่ : {{address.address}}
+                        จังหวัด {{province|get_at_index:forloop.counter0}},
+                        {{address.postcode}}
+                    </div>
+                    <div class="mb-2">เบอร์โทร : {{address.phone}}</div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

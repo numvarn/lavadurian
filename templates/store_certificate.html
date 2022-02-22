@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% load bootstrap4 %}
+{% load custom_tags %}
+
+{% block title %}
+{{title}}
+{%endblock%}
+
+{% block subtitle %}
+{{subtitle}}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="card-columns">
+        
+        <div class="card">
+            <div class="card-body text-center">
+                ทะเบียนพาณิช
+            </div>
+            <a href="{{certificate.commercial_regis.url}}" target="_blank">
+                <img class="card-img-top" src="{{certificate.commercial_regis.url}}" alt="ใบรับรอง">
+            </a>
+        </div>
+
+        <div class="card">
+            <div class="card-body text-center">
+                ใบอนุญาตสะสมอาหาร
+                {{certificate.food_storage_license.url}}
+            </div>
+            {% if certificate.food_storage_license.url %}
+            <a href="{{certificate.food_storage_license.url}}" target="_blank">
+                <img class="card-img-top" src="{{certificate.food_storage_license.url}}" alt="ใบรับรอง">
+            </a>
+            {% else %}
+            <a href="{{default}}" target="_blank">
+                <img class="card-img-top" src="{{default}}" alt="ใบรับรอง">
+            </a>
+            {% endif %}
+        </div>
+
+        <div class="card">
+            <div class="card-body text-center">
+                ใบประกาศ GMP
+            </div>
+            {% if certificate.gmp_regis.url %}
+            <a href="{{certificate.gmp_regis.url}}" target="_blank">
+                <img class="card-img-top" src="{{certificate.gmp_regis.url}}" alt="ใบรับรอง">
+            </a>
+            {% else %}
+            <a href="{{default}}" target="_blank">
+                <img class="card-img-top" src="{{default}}" alt="ใบรับรอง">
+            </a>
+            {% endif %}
+        </div>
+
+        <div class="card">
+            <div class="card-body text-center">
+                ใบประกาศ OTOP
+            </div>
+            {% if certificate.otop_regis.url %}
+            <a href="{{certificate.otop_regis.url}}" target="_blank">
+                <img class="card-img-top" src="{{certificate.otop_regis.url}}" alt="ใบรับรอง">
+            </a>
+            {% else %}
+            <a href="{{default}}" target="_blank">
+                <img class="card-img-top" src="{{default}}" alt="ใบรับรอง">
+            </a>
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+{% endblock %}

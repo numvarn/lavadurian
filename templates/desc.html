@@ -1,0 +1,147 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    {{title}}
+{% endblock %}
+
+{% block subtitle %}
+    {{subtitle}}
+{% endblock %}
+
+{% block content %}
+<style>
+    .video-card {
+        padding: 3px;
+    }
+</style>
+<div class="row">
+    <div class="col-lg-6">
+        <div class="card mb-4">
+            <div class="card-body">
+                <h6>ทุเรียนภูเขาไฟศรีสะเกษ</h6>
+                <hr class="mt-1" />
+                <div class="d-flex align-items-cetner justify-content-between mb-3">
+                    <div class="medium">
+                       <div class="mb-4">
+                        <span class="text-dark">“ทุเรียนภูเขาไฟศรีสะเกษ (Lava Durian Sisaket)”</span> หมายถึง ทุเรียนพันธุ์หมอนทอง พันธุ์ชะนี พันธุ์ ก้านยาว ทุเรียน ที่มีรสชาติหวานมัน มีกลิ่นหอมปานกลาง เนื้อละเอียด แห้ง สีเนื้อเหลืองสม่ำเสมอทั้งผล ซึ่งปลูกใน พื้นที่ อ่าเภอขุนหาญ อ่าเภอกันทรลักษ์ และอ่าเภอศรีรัตนะ ของจังหวัดศรีสะเกษ 
+                       </div>
+                       <div class="mb-4">
+                        <span class="text-dark">“ผู้ผลิต”</span> หมายถึง เกษตรกร หรือ กลุ่มเกษตรกร ที่ปลูกทุเรียนภูเขาไฟศรีสะเกษ และต้องขึ้นทะเบียนกับ หน่วยงาน องค์กรที่จังหวัดศรีสะเกษมอบหมาย และยอมรับเงื่อนไขการตรวจรับรอง 
+                       </div>
+                       <div class="mb-4">
+                        <span class="text-dark">“ผู้ประกอบการค้า”</span> หมายถึง บุคคลธรรมดา หรือนิติบุคคล ซึ่งเป็นผู้จ่าหน่ายสินค้าทุเรียนภูเขาไฟศรีสะเกษ และต้องซื้อกับเกษตรกรที่ขึ้นทะเบียนเป็นผู้ผลิตทุเรียนภูเขาไฟศรีสะเกษ และขึ้นทะเบียนผู้ค้ากับหน่วยงาน องค์กรที่ จังหวัดศรีสะเกษมอบหมาย และยอมรับเงื่อนไขการตรวจรับรอง 
+                       </div>
+                       <div class="mb-4">
+                        <span class="text-dark">“การขึ้นทะเบียนเป็นผู้ผลิตทุเรียนภูเขาไฟศรีสะเกษ”</span> หมายถึง ผู้ได้รับการประกาศขึ้นทะเบียน เป็นผู้ผลิต ทุเรียนภูเขาไฟศรีสะเกษ และได้รับอนุญาตให้ใช้ชื่อ “ทุเรียนภูเขาไฟศรีสะเกษ”
+                       </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-body">
+                <h6>มาตรฐานทุเรียนภูเขาไฟศรีสะเกษ</h6>
+                <hr class="mt-1" />
+                <div class="d-flex align-items-cetner justify-content-between medium mb-2">
+                    <div class="medium">
+                        สวนทุเรียนที่ได้รับการคัดเลือกเป็นสวนทุเรียนคุณภาพจะต้องปฏิบัติตามหลักเกณฑ์ดังนี้
+                    </div>
+                </div>
+                <div class="d-flex align-items-cetner justify-content-between mb-3">
+                    <div class="medium">
+                        1.เกษตรกรปฏิบัติดูแลสวนทุเรียนได้ถูกต้องตามหลักวิชาการอย่างสม่ำเสมอ เช่น การป้องกันกำจัดศัตรูพืช การตัดแต่งกิ่ง-ดอก-ผล การใส่ปุ๋ย เป็นต้น
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-cetner justify-content-between mb-3">
+                    <div class="medium">
+                        2.เป็นสวนที่ผ่านการตรวจรับรองมาตรฐานการผลิตพืช “เกษตรดีที่เหมาะสม (GAP)” ระดับแปลง โดยกรมวิชาการเกษตร
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-cetner justify-content-between mb-3">
+                    <div class="medium">
+                        3.มีการจัดเก็บข้อมูล ในระบบ QR Code (Quick Response Code) เพื่อให้ผู้บริโภคมีความมั่นใจ สามารถตรวจสอบย้อนกลับไปยังผู้ผลิตได้
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-body">
+                <h6>ระบบการจัดการคุณภาพพืช (GAP)</h6>
+                <hr class="mt-1" />
+                <div class="d-flex align-items-cetner justify-content-between mb-3">
+                    <div class="medium">
+                        ระบบการจัดการคุณภาพพืช (GAP) เป็นขั้นตอนการปฏิบัติที่มุ้งเน้นให้เกษตรกรผลิตพืชชนิดนั้น ๆ โดยค่านึงถึง การจัดการตามความต้องการในการพัฒนาการของพืชในแต่ละช่วง ตั้งแต่เริ่มปลูก ดูแลรักษา จนเก็บเกี่ยวซึ่งจะท่าให้ ได้ผลผลิตมีคุณภาพสูง ลดต้นทุน และปลอดภัยจากสารพิษตกค้างในผลผลิต
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-lg-6">
+        <div class="card mb-4">
+            <div class="card-body video-card">
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/NWIyMACEVSU"></iframe>
+                </div>  
+            </div>
+        </div>    
+        <div class="card mb-4">
+            <div class="card-body">
+                <h6>กระบวนการผลิต</h6>
+                <hr class="mt-1" />
+                <div class="d-flex align-items-cetner justify-content-between mb-3">
+                    <div class="medium">
+                        จากค่าขอขึ้นทะเบียนสิ่งบ่งชี้ทางภูมิศาสตร์ ทุเรียนภูเขาไฟศรีสะเกษ ระบุไว้ว่าทุเรียนที่จะได้รับเป็นสินค้าสิ่งบ่งชี้ ทางภูมิศาสตร์ในนาม ทุเรียนภูเขาไฟศรีสะเกษ ต้องปฏิบัติ ดังนี้
+                    </div>
+                </div>
+                <div class="d-flex align-items-cetner justify-content-between mb-3">
+                    <div class="medium">
+                        1) ต้องผ่านการรับรองระบบการจัดการคุณภาพพืช (GAP) จากกรมวิชาการเกษตร ท่าให้ผลผลิตปลอดภัย จากสารพิษ
+                    </div>
+                </div>
+                <div class="d-flex align-items-cetner justify-content-between mb-3">
+                    <div class="medium">
+                        2) ระยะเวลาการเก็บเกี่ยวทุเรียนภูเขาไฟศรีสะเกษที่เหมาะสม คือช่วงปลายเดือนพฤษภาคม – ต้นเดือน มิถุนายน แล้วแต่สภาพภูมิอากาศของแต่ละปี ซึ่งเป็นระยะที่ทุเรียนสุกแก่เต็มที่พร้อมบริโภค
+                    </div>
+                </div>
+                <div class="d-flex align-items-cetner justify-content-between mb-3">
+                    <div class="medium">
+                        3)  ทุเรียนภูเขาไฟศรีสะเกษต้องได้จัดเก็บข้อมูลในระบบ QR-Code (Quick Response Code) เพื่อให้ ผู้บริโภคมีความมั่นใจสามารถตรวจสอบย้อนกลับไปที่แปลงปลูกได้
+                    </div>
+                </div>
+                <hr class="mt-1" />
+                <div class="d-flex align-items-cetner justify-content-between mb-3">
+                    <div class="medium">
+                        ดังนั้นเกษตรกรที่จะผลิตสินค้าสิ่งบ่งชี้ทางภูมิศาสตร์ ทุเรียนภูเขาไฟศรีสะเกษ จะต้องทราบถึงการปฏิบัติตาม มาตรฐานระบบการจัดการคุณภาพพืช (GAP) และระบบการตรวจสอบย้อนกลับ QR-Code 
+                    </div>
+                </div>
+                <div class="d-flex align-items-cetner justify-content-between mb-3">
+                    <div class="medium">
+                        ระบบการจัดการคุณภาพพืช (GAP) คือ การปฏิบัติเพื่อป้องกัน หรือลดความเสี่ยงของอันทรายที่เกิดขึ้น ระหว่างการเพาะปลูก การเก็บเกี่ยวและการจัดการหลังการเก็บเกี่ยว เพื่อให้ได้ผลผลิตที่มีคุณภาพ ปลอดภัย และ เหมาะสมต่อการบริโภค โดยอันตรายต่างๆที่ อาจพบได้ในสินค้าเกษตรและอาหาร ได้แก่ 
+                    </div>
+                </div>
+                <div class="d-flex align-items-cetner justify-content-between mb-3">
+                    <div class="medium">
+                        ชีวภาพ : จุลินทรีย์ที่ท่าให้เกิดโรค เช่น แบคทีเรีย ไวรัส ปาราสิต 
+                    </div>
+                </div>
+                <div class="d-flex align-items-cetner justify-content-between mb-3">
+                    <div class="medium">
+                        เชื้อราเคมี : โลหะหนัก สารพิษตามธรรมชาติในพืช สารเคมีทางการเกษตร สารเติมแต่ง/วัตถุเจือปนอาหาร 
+                    </div>
+                </div>
+                <div class="d-flex align-items-cetner justify-content-between mb-3">
+                    <div class="medium">
+                        กายภาพ : วัสดุแปลกปลอม เช่น กรวด หิน ดิน เศษแก้ว โลหะ ไม้ พลาสติก
+                    </div>
+                </div>
+            </div>
+        </div>      
+    </div>
+</div>
+{% endblock %}

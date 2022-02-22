@@ -1,0 +1,155 @@
+{% load custom_tags %}
+
+<div id="layoutSidenav_nav">
+    <nav class="sidenav shadow-right sidenav-light">
+        <div class="sidenav-menu">
+            <div class="nav accordion" id="accordionSidenav">
+                <div class="sidenav-menu-heading">Menu</div>
+                <a class="nav-link" href="{% url 'home' %}">
+                    <div class="nav-link-icon"><i data-feather="home"></i></div>
+                    หน้าแรก
+                </a>
+                <a class="nav-link" href="{% url 'news-page' %}">
+                    <div class="nav-link-icon"><i data-feather="rss"></i></div>
+                    ประชาสัมพันธ์
+                </a>
+                <a class="nav-link" href="{% url 'desc-sales' %}">
+                    <div class="nav-link-icon"><i data-feather="info"></i></div>
+                    ขั้นตอนการซื้อ
+                </a>
+                <a class="nav-link" href="{% url 'store-list-view' %}">
+                    <div class="nav-link-icon"><i data-feather="user-check"></i></div>
+                    รายชื่อผู้ค้าทุเรียน
+                </a>
+                <a class="nav-link" href="{% url 'shopping' %}">
+                    <div class="nav-link-icon"><i data-feather="shopping-cart"></i></div>
+                    เลือกซื้อทุเรียน
+                </a>
+                
+                <div class="sidenav-menu-heading">Shopping</div>
+                <div class="nav-link collapsed">
+                    <div class="nav-link-icon"><i data-feather="filter"></i></div>
+                    ลักษณะการขาย
+                </div>
+                <nav class="sidenav-menu-nested nav accordion" id="filterStatus">
+                    <div class="custom-control custom-radio">
+                        <input class="custom-control-input" id="status0" type="radio" name="status" value="0">
+                        <label class="custom-control-label" for="status0">ทั้งหมด</label>
+                    </div>
+                    <div class="custom-control custom-radio">
+                        <input class="custom-control-input" id="status1" type="radio" name="status" value="1">
+                        <label class="custom-control-label" for="status1">พร้อมขาย</label>
+                    </div>
+                    <div class="custom-control custom-radio">
+                        <input class="custom-control-input" id="status2" type="radio" name="status" value="2">
+                        <label class="custom-control-label" for="status2">สั่งจองล่วงหน้า</label>
+                    </div>
+                </nav>
+
+                <div class="nav-link collapsed">
+                    <div class="nav-link-icon"><i data-feather="filter"></i></div>
+                    เลือกจากพื้นที่ปลูก
+                </div>
+                <nav class="sidenav-menu-nested nav accordion" id="filterDistrict">
+                    <div class="custom-control custom-radio">
+                        <input class="custom-control-input" id="district0" type="radio" name="district" value="all">
+                        <label class="custom-control-label" for="district0">ทั้งหมด</label>
+                    </div>
+                    <div class="custom-control custom-radio">
+                        <input class="custom-control-input" id="district1" type="radio" name="district" value="1">
+                        <label class="custom-control-label" for="district1">กันทรลักษณ์</label>
+                    </div>
+                    <div class="custom-control custom-radio">
+                        <input class="custom-control-input" id="district2" type="radio" name="district" value="2">
+                        <label class="custom-control-label" for="district2">ขุนหาญ</label>
+                    </div>
+                    <div class="custom-control custom-radio">
+                        <input class="custom-control-input" id="district3" type="radio" name="district" value="3">
+                        <label class="custom-control-label" for="district3">ศรีรัตนะ</label>
+                    </div>
+                </nav>
+
+                <div class="nav-link collapsed">
+                    <div class="nav-link-icon"><i data-feather="filter"></i></div>
+                    เลือกเกรดทุเรียน
+                </div>
+                <nav class="sidenav-menu-nested nav accordion" id="filterGrade">
+                    <div class="custom-control custom-radio">
+                        <input class="custom-control-input" id="grade0" type="radio" name="grade" value="all">
+                        <label class="custom-control-label" for="grade0">ทั้งหมด</label>
+                    </div>
+                    <div class="custom-control custom-radio">
+                        <input class="custom-control-input" id="grade1" type="radio" name="grade" value="normal">
+                        <label class="custom-control-label" for="grade1">เกรดคุณภาพ</label>
+                    </div>
+                    <div class="custom-control custom-radio">
+                        <input class="custom-control-input" id="grade2" type="radio" name="grade" value="premium">
+                        <label class="custom-control-label" for="grade2">เกรดพรีเมี่ยม</label>
+                    </div>
+                </nav>
+                
+                <div class="nav-link collapsed">
+                    <div class="nav-link-icon"><i data-feather="filter"></i></div>
+                    เลือกสายพันธุ์ทุเรียน
+                </div>
+                <nav class="sidenav-menu-nested nav accordion" id="filterGene">
+                    <div class="custom-control custom-checkbox">
+                        <input class="custom-control-input" id="gene1" type="checkbox">
+                        <label class="custom-control-label" for="gene1">ทุเรียนภูเขาไฟ</label>
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                        <input class="custom-control-input" id="gene2" type="checkbox">
+                        <label class="custom-control-label" for="gene2">ก้านยาว</label>
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                        <input class="custom-control-input" id="gene3" type="checkbox">
+                        <label class="custom-control-label" for="gene3">หมอนทอง</label>
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                        <input class="custom-control-input" id="gene4" type="checkbox">
+                        <label class="custom-control-label" for="gene4">ชะนี</label>
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                        <input class="custom-control-input" id="gene5" type="checkbox">
+                        <label class="custom-control-label" for="gene5">กระดุม</label>
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                        <input class="custom-control-input" id="gene6" type="checkbox">
+                        <label class="custom-control-label" for="gene6">หลงลับแล</label>
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                        <input class="custom-control-input" id="gene7" type="checkbox">
+                        <label class="custom-control-label" for="gene7">พวงมณี</label>
+                    </div>
+                </nav>
+
+                <div class="sidenav-menu-heading">Trader</div>
+                <a class="nav-link">
+                    <div class="nav-link-icon"><i data-feather="users"></i></div>
+                    ผู้ประกอบการ
+                </a>
+                <div id="collapseTrader" data-parent="#accordionSidenav">
+                    <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavPages">
+                        <a class="nav-link" href="{% url 'store-list-view' %}">รายชื่อผู้ค้าทุเรียน</a>
+                        {% if not user.is_authenticated %}
+                        <a class="nav-link" href="{% url 'member-regis' %}">ลงทะเบียนผู้ค้าใหม่</a>
+                        <a class="nav-link" href="{% url 'member-login' %}">เข้าสู่ระบบ</a>
+                        {% elif request.user|has_group:"trader" %}
+                        <a class="nav-link" href='{% url "store-front" %}'>จัดการร้านค้า</a>                        
+                        {% endif %}
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <div class="sidenav-footer">
+            <div class="sidenav-footer-content">
+                <div class="sidenav-footer-subtitle">Logged in as:</div>
+                {% if user.is_authenticated %}
+                <div class="sidenav-footer-title">{{user.first_name}} {{user.last_name}}</div>
+                {% else %}
+                <div class="sidenav-footer-title">บุคคลทั่วไป</div>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+</div>

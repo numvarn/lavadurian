@@ -1,0 +1,318 @@
+{% extends 'base.html' %}
+
+{% load humanize %}
+{% load bootstrap4 %}
+{% load custom_tags %}
+
+{% block title %}
+{{title}}
+{%endblock%}
+
+{% block subtitle %}
+{{subtitle}}
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-7">
+        <div class="card mb-4">
+            <div class="card-header">รายการสินค้าในตะกร้า</div>
+            <div class="card-body">
+                <table class="table table-bordered table-hover" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>สินค้า</th>
+                            <th class="text-right value">ราคา</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in items %}
+                        <tr>
+                            <td>
+                                <div class="mb-2"><span class="text-green"><a
+                                            href="{% url 'shopping-product-view' item.product.id %}">{{item.gene_choice}}</a></span>
+                                </div>
+                                <div class="mb-2 text-success">จำนวนที่สั่งซื้อ : {{item.quantity}} ลูก</div>
+                                <div class="mb-4 text-success">นน.รวม : {{item.total_weight}} กก.</div>
+
+                                <div class="mb-2">เกรด : {{item.grade_choice}}</div>
+                                <div class="mb-2">ราคาต่อ กก. : {{item.product.price}} บาท</div>
+                                <div class="mb-2">นน.ต่อลูก : {{item.product.weight}} กก.</div>
+                                <div class="mb-2">จำนวนที่มีขาย : {{item.product.values}} ลูก</div>
+                                <div class="mb-2">ผู้ขาย : {{item.product.store.name}}</div>
+                            </td>
+                            <td class="text-right">
+                                {{item.total_price|floatformat:'2'|intcomma}}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        <tr>
+                            <td class="text-right">จำนวนลูก</td>
+                            <td class="text-right">{{total_values}}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-right">น้ำหนักรวม</td>
+                            <td class="text-right">{{total_weight|floatformat:'2'|intcomma}}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-right text-dark">ค่าทุเรียนรวม</td>
+                            <td class="text-right text-primary">{{cart.item_price|floatformat:'0'|intcomma}}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-right text-dark">ค่ากล่องขนาด 1 ลูก จำนวน {{cart.boxsize_1|floatformat:'0'}} กล่อง</td>
+                            <td class="text-right text-primary">{{cart.box_1_cost|floatformat:'0'}}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-right text-dark">ค่ากล่องขนาด 2 ลูก จำนวน {{cart.boxsize_2|floatformat:'0'}} กล่อง</td>
+                            <td class="text-right text-primary">{{cart.box_2_cost|floatformat:'0'}}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-right text-dark">ค่าขนส่ง</td>
+                            <td class="text-right text-primary">{{shipping_cost|floatformat:'0'|intcomma}}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-right text-dark">ราคารวม</td>
+                            <td class="text-right text-success">{{summation|floatformat:'0'|intcomma}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-5">
+        {% if not user.is_authenticated %}
+        <div class="card">
+            <div class="card-header">
+                <ul class="nav nav-pills card-header-pills" id="cardPill" role="tablist">
+                    <li class="nav-item"><a class="nav-link active" id="overview-pill" href="#overviewPill" data-toggle="tab" role="tab" aria-controls="overview" aria-selected="true">ข้อมูลผู้ซื้อ</a></li>
+                    <li class="nav-item"><a class="nav-link" id="example-pill" href="#loginPill" data-toggle="tab" role="tab" aria-controls="example" aria-selected="false">เข้าสู่ระบบ</a></li>
+                    <li class="nav-item"><a class="nav-link" id="example-pill" href="#registerPill" data-toggle="tab" role="tab" aria-controls="example" aria-selected="false">ลงทะเบียนผู้ซื้อ</a></li>
+                </ul>
+            </div>
+            <div class="card-body">
+                <div class="tab-content" id="cardPillContent">
+                    <!-- Info Tab -->
+                    <div class="tab-pane fade show active" id="overviewPill" role="tabpanel"
+                        aria-labelledby="overview-pill">
+                        <p class="card-text">
+                            {% if messages %}
+                            {% for message in messages %}
+                            <div class="alert alert-danger" role="alert">
+                                {{ message }}
+                            </div>
+                            {% endfor %}
+                            {% endif %}
+                        </p>
+                        <div>
+                            <div class="alert alert-info" role="alert">
+                                <div class="mb-4">ยังไม่สามารถยืนยันการสั่งซื้อสินค้าได้ภายในตอนี้
+                                    เนื่องจากผู้ใช้งานปัจจุบันยังไม่ได้ล็อคอินเข้าสู่ระบบ</div>
+                                <ul>
+                                    <li>ล็อคอินสู่เข้าระบบ หรือ</li>
+                                    <li>ลงทะเบียนผู้ซื้อ</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Log-in Tab -->
+                    <div class="tab-pane fade" id="loginPill" role="tabpanel" aria-labelledby="login-pill">
+                        <h5 class="card-title">ล็อคอินเข้าสู่ระบบ</h5>
+                        {% if messages %}
+                        {% for message in messages %}
+                        <div class="alert alert-danger" role="alert">
+                            {{ message }}
+                        </div>
+                        {% endfor %}
+                        {% endif %}
+                        <p class="card-text">
+                            <form method="POST" action="/cart/login/" autocomplete="off">
+                                {% csrf_token %}
+                                <div class="form-group"><label class="text-gray-600 small"
+                                        for="emailExample">อีเมลแอดเดรส</label>
+                                    <input class="form-control form-control-solid py-4" type="text" placeholder=""
+                                        aria-label="Email Address" aria-describedby="emailExample" name="user"
+                                        required />
+                                </div>
+                                <div class="form-group"><label class="text-gray-600 small"
+                                        for="passwordExample">รหัสผ่าน</label>
+                                    <input class="form-control form-control-solid py-4" type="password" placeholder=""
+                                        aria-label="Password" aria-describedby="passwordExample" name="password"
+                                        required />
+                                </div>
+                                <div class="form-group d-flex align-items-center justify-content-between mb-0">
+                                    <div>
+                                        <div class="custom-control custom-control-solid custom-checkbox"><input
+                                                class="custom-control-input small" id="customCheck1"
+                                                type="checkbox" /><label class="custom-control-label"
+                                                for="customCheck1">จดจำรหัสผ่านเอาไว้</label></div>
+                                    </div>
+                                </div>
+                                <br>
+                                <button class="btn btn-primary btn-user btn-block" type="submit">Login</button>
+                            </form>
+                        </p>
+                    </div>
+
+                    <!-- Register Tab -->
+                    <div class="tab-pane fade" id="registerPill" role="tabpanel" aria-labelledby="register-pill">
+                        <h5 class="card-title">ลงทะเบียนผู้ซื้อ</h5>
+                        <p class="card-text">
+                            <form class="user" method="post" action="/cart/regis/" oninput='password2.setCustomValidity(password2.value != password1.value ? "Passwords do not match." : "")'>
+                                {% csrf_token %}
+                                <div class="form-row">
+                                    <div class="col-md-6">
+                                        <div class="form-group"><label class="small mb-1"
+                                                for="inputFirstName">ชื่อจริง</label><input class="form-control py-4"
+                                                id="inputFirstName" type="text" placeholder="กรอกชื่อจริง"
+                                                name="firstname" /></div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group"><label class="small mb-1"
+                                                for="inputLastName">นามสกุล</label><input class="form-control py-4"
+                                                id="inputLastName" type="text" placeholder="กรอกนามสกุล"
+                                                name="lastname" /></div>
+                                    </div>
+                                </div>
+                                <div class="form-group"><label class="small mb-1"
+                                        for="inputEmailAddress">อีเมล</label><input class="form-control py-4"
+                                        id="inputEmailAddress" type="email" aria-describedby="emailHelp"
+                                        placeholder="กรอกอีเมลแอดเดรส" name="email" /></div>
+                                <div class="form-row">
+                                    <div class="col-md-6">
+                                        <div class="form-group"><label class="small mb-1"
+                                                for="inputPassword">รหัสผ่าน</label><input class="form-control py-4"
+                                                id="inputPassword" type="password" placeholder="กรอกรหัสผ่าน"
+                                                name="password1" /></div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group"><label class="small mb-1"
+                                                for="inputConfirmPassword">รหัสผ่าน</label><input
+                                                class="form-control py-4" id="inputConfirmPassword" type="password"
+                                                placeholder="ยืนยันรหัสผ่านอีกครั้ง" name="password2" /></div>
+                                    </div>
+                                </div>
+                                <div class="form-group mt-4 mb-0">
+                                    <button class="btn btn-primary btn-user btn-block"
+                                        type="submit">ยืนยันการสร้างบัญชี</button>
+                                </div>
+                            </form>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <!-- Authenticated User -->
+        <div class="card">
+            <div class="card-header">
+                <ul class="nav nav-pills card-header-pills" id="cardPill" role="tablist">
+                    <li class="nav-item"><a class="nav-link active" id="overview-pill" href="#overviewPill"
+                            data-toggle="tab" role="tab" aria-controls="overview" aria-selected="true">ข้อมูลผู้ซื้อ</a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" id="example-pill" href="#examplePill" data-toggle="tab"
+                            role="tab" aria-controls="example" aria-selected="false">ที่อยู่ในการจัดส่ง</a></li>
+                </ul>
+            </div>
+            <div class="card-body">
+                <div class="tab-content" id="cardPillContent">
+                    <div class="tab-pane fade show active" id="overviewPill" role="tabpanel"
+                        aria-labelledby="overview-pill">
+                        <h5 class="card-title">ข้อมูลสำหรับการจัดส่ง</h5>
+                        <p class="card-text">
+                            <!-- Show Addressbook -->
+                            <!-- If Assress book is empty -->
+                            {% ifequal addressbook '' %}
+                            <div class="alert alert-info" role="alert">
+                                <div class="mb-4">ยังไม่มีที่อยู่สำหรับการจัดส่งสินค้า ลูกค้ากรุณาสร้างบัญชีที่อยู่ก่อนที่จะยืนยันรายการสินค้า โดยทำตามขั้นตอน</div>
+                                <ul>
+                                    <li><div class="mb-2">สร้างที่อยู่สำหรับการจัดส่ง</div></li>
+                                    <li><div class="mb-2">เลือกที่อยู่สำหรับการจัดส่งจากรายการ</div></li>
+                                    <li><div class="mb-2">ยืนยันการสั่งซื้อ</div></li>
+                                </ul>
+                            </div>
+                            {% else %}
+                            <!-- Confirm Order -->
+                            <form id="confirmorder" method="POST" action="/cart/completed/" autocomplete="off">
+                                {% csrf_token %}
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">ที่อยู่ในการจัดส่ง</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for address in addressbook.receive_address.all %}
+                                        <tr>
+                                            <td>
+                                                <input type="radio" name="address" value="{{address.id}}" required>
+                                            </td>
+                                            <td>
+                                                <div class="mb-2">บันทึกช่วยจำ : {{address.name}}</div>
+                                                <div class="mb-2">ชื่อผู้รับ : {{address.receiver}}</div>
+                                                <div class="mb-2">
+                                                    ที่อยู่ : {{address.address}}
+                                                    จังหวัด {{province|get_at_index:forloop.counter0}},
+                                                    {{address.postcode}}
+                                                </div>
+                                                <div class="mb-2">เบอร์โทร : {{address.phone}}</div>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+
+                                <div class="form-group">
+                                    <label for="exampleFormControlTextarea1">แจ้งความต้องการให้ผู้ขายทราบ</label>
+                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="customer_request"></textarea>
+                                </div>
+
+                                <button class="btn btn-primary btn-user btn-block" type="button" data-toggle="modal" data-target="#exampleModalCenter">ยืนยันการสั่งซื้อ</button>
+                                
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalCenterTitle">ยืนยันการสั่งซื้อ</h5>
+                                                <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                รายการสั่งซื้อและข้อมูลที่อยู่สำหรับการจัดส่งของท่านจะถูกส่งไปยังผู้จำหน่ายสินค้า โดย 
+                                                <ul>
+                                                    <li>หากท่านสั่งสินค้าจากร้านเพียงหนึ่งร้าน จะมีการการสั่งซื้อเพียงรายการเดียว หรือ</li>
+                                                    <li>หากมีหลายหลายร้าน รายการจะแยกออกตามจำนวนร้านค้า</li>
+                                                </ul>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button class="btn btn-secondary" type="button" data-dismiss="modal">ตรวจสอบอีกครั้ง</button>
+                                                <button class="btn btn-primary" type="submit">ยืนยันการสั่งซื้อ</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </form>
+                            {% endifequal %}
+                        </p>
+                    </div>
+                    <!-- Add address form -->
+                    <div class="tab-pane fade" id="examplePill" role="tabpanel" aria-labelledby="example-pill">
+                        <h5 class="card-title">เพิ่มบัญชีที่อยู่สำหรับการจัดส่ง</h5>
+                        <p class="card-text">
+                            <div class="mb-4">ท่านสามารถกรอกชื่อ ที่อยู่ เป็นของคนอื่นได้ในกรณีที่สั่งสินค้าแทนผู้ชื้อรายอื่น</div>
+                            <form id="address" method="post" action="/cart/add-address/" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                {% bootstrap_form address_form %}
+                                <button type="submit" class="btn btn-success">บันทึกที่อยู่</button>
+                            </form>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

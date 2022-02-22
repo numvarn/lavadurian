@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% load bootstrap4 %}
+
+{% block title %}
+    {{title}}
+{%endblock%}
+
+{% block subtitle %}
+    {{subtitle}}
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card card-header-actions mb-4">
+            <div class="card-header">
+                แก้ไขน้ำหนักสินค้าตามจริง
+            </div>
+            <div class="card-body">
+                <div class="mb-4 h5">
+                    แก้ไขน้ำหนักรวมของสินค้าจำนวน {{quantity}} ลูก
+                </div>
+                <form method="post" action=""  enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% bootstrap_form form %}
+                    <button type="submit" class="btn btn-success">แก้ไขน้ำหนัก</button>
+                    <a class="btn btn-success" href="{% url 'order-detail' order_id %}">ยกเลิก</a>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="card card-header-actions mb-4">
+            <div class="card-header">
+                สินค้าที่สั่ง
+            </div>
+            <div class="card-body">
+                <h5 class="card-title text-primary">
+                    {% if request.GET.store != None %}
+                    <a href="{% url 'shopping-product-view' product.id %}?store={{request.GET.store}}">{{product.gene_choice}} ({{product.grade_choice}})</a>
+                    {% else %}
+                    <a href="{% url 'shopping-product-view' product.id %}">{{product.gene_choice}} ({{product.grade_choice}})</a>
+                    {% endif %}
+                </h5>
+                <div class="card-text small text-dark">
+                    <div class="row mb-2">
+                        <div class="col">น้ำหนัก (กก.)</div>
+                        <div class="col text-right">{{product.weight}}</div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col">ราคา (ต่อ/กก.)</div>
+                        <div class="col text-right">{{product.price|floatformat:0}}</div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col">ราคารวม (บาท)</div>
+                        <div class="col text-right">{{product.price_total}}</div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col">จำนวน (ลูก)</div>
+                        <div class="col text-right">{{product.values}}</div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col">ลักษณะการขาย</div>
+                        <div class="col text-right">{{product.status_choice}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

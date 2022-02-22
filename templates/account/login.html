@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+{% load static %}
+{% load socialaccount %}
+{% load i18n %}
+{% providers_media_js %}
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>ทุเรียนภูเขาไฟ ศรีสะเกษ</title>
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Prompt|Sarabun&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="{% static 'assets/img/favicon.png' %}" />
+    <script data-search-pseudo-elements defer
+        src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.24.1/feather.min.js"
+        crossorigin="anonymous"></script>
+    <style>
+        .reset label {
+            display: none;
+        }
+
+        input[type=text],
+        input[type=password] {
+            background-color: #ecf0f6;
+            border-color: #ecf0f6;
+            border: 1px solid #c5ccd6;
+            display: block;
+            width: 100%;
+            height: calc(1.5em + 1rem + 2px);
+            padding: 0.5rem 1rem;
+            border-radius: 0.35rem;
+            /* padding-bottom: 1.5rem !important; */
+        }
+    </style>
+</head>
+
+<body class="bg-primary">
+    <div id="layoutAuthentication">
+        <div id="layoutAuthentication_content">
+            <main>
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-xl-5 col-lg-6 col-md-8 col-sm-11">
+                            <div class="card my-5">
+                                <div class="card-body text-center">
+                                    <div class="h3 font-weight-light mb-3">เข้าสู่ระบบเพื่อซื้อสินค้า</div>
+                                    <!-- <a class="btn btn-icon btn-facebook mx-1" href="javascript:void(0);"><i class="fab fa-facebook-f fa-fw fa-sm"></i></a> -->
+                                    <a href="{% provider_login_url " facebook" method="js_sdk" %}"
+                                        class="btn btn-block btn-social btn-facebook"
+                                        style="background-color:#3b5998;text-align:center">
+                                        <i class="fab fa-facebook-f fa-fw fa-sm"></i>
+                                        &nbsp;
+                                        Sign in with Facebook
+                                    </a>
+                                    <br>
+                                    <br>
+                                    <div class="small text-center"><a href="{% url 'home' %}">กลับสู่หน้าหลัก</a></div>
+                                </div>
+                                <hr class="my-0" />
+                                <div class="card-body p-5">
+                                    {% if messages %}
+                                    {% for message in messages %}
+                                    <div class="alert alert-danger" role="alert">
+                                        {{ message }}
+                                    </div>
+                                    {% endfor %}
+                                    {% endif %}
+
+                                    <form class="login" method="POST" action="{% url 'account_login' %}">
+                                        {% csrf_token %}
+                                        {{ form.as_p }}
+                                        {% if redirect_field_value %}
+                                        <input type="hidden" name="{{ redirect_field_name }}"
+                                            value="{{ redirect_field_value }}" />
+                                        {% endif %}
+                                        <div class="form-group"><a class="small"
+                                                href="{% url 'account_reset_password' %}">ท่านลืมรหัสผ่านใช่หรือไม่
+                                                ?</a></div>
+                                        <button class="btn btn-primary btn-user btn-block" type="submit">Login</button>
+                                    </form>
+                                </div>
+                                <hr class="my-0" />
+                                <div class="card-body px-5 py-4">
+                                    <div class="small text-center">ไม่เคยใช้งาน ? <a
+                                            href="{% url 'customer-regis' %}">สร้างบัญชีผู้ซื้อ</a> | <a
+                                            href="{% url 'member-regis' %}">สร้างบัญชีผู้ค้า</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+        <div id="layoutAuthentication_footer">
+            {% include 'footer.html' %}
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
+        crossorigin="anonymous"></script>
+    <script src="{% static 'js/scripts.js' %}"></script>
+</body>
+
+</html>

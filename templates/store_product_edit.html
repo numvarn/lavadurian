@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% load bootstrap4 %}
+{% load custom_tags %}
+
+{% block title %}
+    {{title}}
+{%endblock%}
+
+{% block subtitle %}
+    {{subtitle}}
+{% endblock %}
+
+
+{% block content %}
+<form method="post"  enctype="multipart/form-data">
+{% csrf_token %}
+<div class="row">
+    <div class="col-md-8">
+        <div class="card card-header-actions mb-4">
+            <div class="card-header">
+                กรอกรายละเอียดสินค้า
+                <a class="btn btn-primary btn-sm" href="{% url 'store-setting' product.store.id %}">ยกเลิก</a>
+            </div>
+            <div class="card-body">
+                {% bootstrap_form form %}
+                <button type="submit" class="btn btn-success">บันทึกการแก้ไข</button>
+                {% ifequal item_count 0 %}
+                <a href="" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">ลบสินค้า</a>
+                {% endifequal %}
+            </div>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">ยืนยันการลบสินค้า</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    </div>
+                    <div class="modal-body">
+                        กระบวนการนี้ไม่สามารถย้อนคืนได้ ข้อมูลสินค้าของท่านจะถูกลบทิ้งและไม่สามารถกู้คืนได้ หากแน่ใจกดปุ่ม "ยืนยันการลบ"
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">ยกเลิก</button>
+                        <a class="btn btn-primary" href="{% url 'store-product-delete' product.id %}">ยืนยันการลบ</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end modal -->
+    </div>
+    <div class="col-md-4">
+        <div class="card mb-2">
+            <div class="card-header">รูปภาพของสิ้นค้า</div>
+            <div class="card-body">
+                <div class="text-center mb-2">
+                    สามารถทำการอัปโหลดรูปภาพสินค้าได้ไม่เกิน {{max_img_up}} ภาพ
+                </div>
+                {{ formset.management_form }}
+                {% for form in formset %}
+                    <div class="mb-4">{{ form }}</div>
+                {% endfor %}
+            </div>
+        </div>
+        {% for image in images %}
+        <div class="card mb-2" style="width: 100%;">
+            <img class="card-img-top" src="{{image.url}}" alt="product image">
+            <div class="card-body">
+                <p class="card-text text-center">
+                    <a class="btn btn-primary" href="{% url 'image-delete' image.id %}">ลบรูปภาพ</a>
+                </p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+</form>
+{% endblock %}

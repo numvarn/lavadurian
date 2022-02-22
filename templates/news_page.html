@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{title}}
+{%endblock%}
+
+{% block subtitle %}
+    {{subtitle}}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="card-columns">
+        {% for content in news %}
+        <div class="card">
+            <div>
+                <img class="card-img-top" src="{{content.image.url}}" alt="Card image cap">
+            </div>
+            <div class="card-body">
+                <a href="{%url 'news-detail' content.id %}"><h5 class="card-title">{{content.title}}</h5></a>
+                <p class="card-text"><small class="text-muted">เผยแพร่เมื่อ : {{content.date_created}}</small></p>
+                <p class="card-text">
+                    {{content.body|striptags|linebreaks|truncatechars:200}}
+                </p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

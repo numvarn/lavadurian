@@ -1,0 +1,153 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load custom_tags %}
+{% load template_func %}
+
+{% block title %}
+{{title}}
+{%endblock%}
+
+{% block subtitle %}
+{{subtitle}}
+{% endblock %}
+
+{% block content %}
+<style>
+    input.form-control {
+        border: 1px solid #c5ccd6 !important;
+        width: 100% !important;
+    }
+</style>
+<div class="card-columns">
+    <div class="card mb-4">
+        <div class="card-body">
+            <form class="form-inline" method="get" action="/store/list/">
+                <div class="col-12">
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><i data-feather="search"></i></div>
+                        </div>
+                        <input class="form-control form-control-solid py-4" name="q" type="search"
+                            placeholder="ค้นหาร้าน" aria-label="Search" />
+                    </div>
+                    <!--
+                    <div>
+                        <button class="btn btn-primary btn-user btn-block" type="submit">ค้นหาร้าน</button>
+                    </div>
+                    -->
+                </div>
+            </form>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                <div class="row">
+                    <div class="col-6">จำนวนร้าน</div>
+                    <div class="col-6 text-right">{{total_stores}} ร้าน</div>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div class="row">
+                    <div class="col-6"><a href="?{% url_replace request 'district' '1' %}">กันทรลักษณ์</a></div>
+                    <div class="col-6 text-right">{{district_list|get_at_index:0}} ราย</div>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div class="row">
+                    <div class="col-6"><a href="?{% url_replace request 'district' '2' %}">ขุนหาญ</a></div>
+                    <div class="col-6 text-right">{{district_list|get_at_index:1}} ราย</div>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div class="row">
+                    <div class="col-6"><a href="?{% url_replace request 'district' '3' %}">ศรีรัตนะ</a></div>
+                    <div class="col-6 text-right">{{district_list|get_at_index:2}} ราย</div>
+                </div>
+            </li>
+            <!--
+            <li class="list-group-item">
+                <div class="row">
+                    <div class="col-6"><a href="?{% url_replace request 'trader' 'เจ้าของสวน' %}">ชาวสวน</a></div>
+                    <div class="col-6 text-right">{{trader_type_1}} ราย</div>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div class="row">
+                    <div class="col-6"><a href="?{% url_replace request 'trader' 'ผู้ค้าคนกลาง' %}">ผู้ค้าคนกลาง</a></div>
+                    <div class="col-6 text-right">{{trader_type_2}} ราย</div>
+                </div>
+            </li>
+            -->
+            <li class="list-group-item">
+                <div class="row">
+                    <div class="col-6">จำนวนสินค้า</div>
+                    <div class="col-6 text-right">{{total_products}} รายการ</div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    {% for store in stores %}
+    <div class="card mb-4">
+        <div class="card-body">
+            <a href="{% url 'shopping' %}?store={{store.id}}">
+                <div class="card-title h3 text-primary">{{store.name}}</div>
+            </a>
+            <div class="mb-2 small">
+                โดย <span class="text-primary">{{store.owner}}</span> <span
+                    class="text-success">{{store.trader_type}}</span>
+            </div>
+            <div class="mb-4">
+                <div>
+                    <i class="fa fa-phone-square"></i> {{store.phone1}}
+                </div>
+                {% if store.phone2 != None %}
+                <div>
+                    <i class="fa fa-phone-square"></i> {{store.phone2}}
+                </div>
+                {% endif %}
+            </div>
+            {% if store.district != None %}
+            <div class="mb-2">
+                <span>เขตอำเภอ</span>
+                <span>{{store.district_choice}}</span>
+            </div>
+            {% endif %}
+            <div class="mb-2">
+                <span>มีสินค้ารอขาย</span>
+                <span>{{store.product_count}} รายการ</span>
+            </div>
+            <div>
+                <span>คะแนนจากลูกค้า</span>
+                <span class="text-right review-display">
+                    {% for i in store.review_rate %}
+                    {% if i <= store.review_avg %} <span class="fa fa-star checked"></span>
+                {% else %}
+                <span class="fa fa-star"></span>
+                {% endif %}
+                {% endfor %}
+                </span>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<style>
+    .row.review {
+        border-bottom: 1px solid #e3e6ec !important;
+    }
+
+    .review-display .checked {
+        color: orange;
+    }
+
+    .card-columns {
+        @include media-breakpoint-only(lg) {
+            column-count: 4;
+        }
+
+        @include media-breakpoint-only(xl) {
+            column-count: 5;
+        }
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{title}}
+{%endblock%}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <div class="card mb-4">
+            <img class="card-img-top" src="{{content.image.url}}" alt="Card image cap">
+            <div class="card-body">
+                <p class="card-text"><small class="text-muted">เผยแพร่เมื่อ : {{content.date_created}}</small></p>
+                <p class="card-text">
+                    {{content.body|safe}}
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card" style="width: 100%;">
+            <div class="card-header">
+              ข่าวประชาสัมพันธ์อื่น ๆ
+            </div>
+            <ul class="list-group list-group-flush">
+                {% for news in news_etc %}
+                <li class="list-group-item">
+                    <a href="{%url 'news-detail' news.id %}">{{news.title}}</a>
+                </li>
+                {% endfor %}
+            </ul>
+          </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,366 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load humanize %}
+{% load bootstrap4 %}
+{% load custom_tags %}
+
+{% block title %}
+    {{title}}
+{%endblock%}
+
+{% block subtitle %}
+    {{subtitle}}
+{% endblock %}
+
+{% block content %}
+<!-- jQuery -->
+<!-- XDSoft DateTimePicker -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css" integrity="sha256-DOS9W6NR+NFe1fUhEE0PGKY/fubbUCnOfTje2JMDw3Y=" crossorigin="anonymous" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js" integrity="sha256-FEqEelWI3WouFOo2VWP/uJfs1y8KJ++FLh2Lbqc8SJk=" crossorigin="anonymous"></script>
+
+<script>
+    $(function () {
+        $("#datetimepicker").datetimepicker({
+            format: 'Y-m-d H:i'
+        });
+    });
+</script>
+
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card card-header-actions mb-4">
+            <div class="card-header">
+                <ul class="nav nav-pills card-header-pills" id="cardPill" role="tablist">
+                    <li class="nav-item"><a class="nav-link active" id="overview-pill" href="#overviewPill" data-toggle="tab" role="tab" aria-controls="overview" aria-selected="true">ข้อมูล</a></li>
+                    {% if order.store.owner == request.user %}
+                    <li class="nav-item"><a class="nav-link" id="example-pill" href="#examplePill" data-toggle="tab" role="tab" aria-controls="example" aria-selected="false">สถานะ</a></li>
+                    <li class="nav-item"><a class="nav-link" id="example-pill" href="#trackingPill" data-toggle="tab" role="tab" aria-controls="example" aria-selected="false">พัสดุ</a></li>
+                    {% endif %}
+                </ul>
+
+                {% ifequal order.owner request.user %}
+                <a class="btn btn-success btn-icon mr-2" href="{% url 'order-my' %}"><i class="fa fa-backward"></i></a>
+                {% endifequal %}
+
+                {% ifequal order.store.owner request.user %}
+                <a class="btn btn-success btn-icon mr-2"
+                    href="{% url 'store-sales' order.store.id %}?status={{order.status}}"><i class="fa fa-backward"></i></a>
+                {% endifequal %}
+            </div>
+            <div class="card-body">
+                {% if messages %}
+                    {% for message in messages %}
+                    <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                        {{message}}
+                        <button class="close" type="button" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    {% endfor %}
+                {% endif %}
+                <div class="alert alert-info" role="alert">
+                    สถานะการสั่งซื้อ : {{order.status_display}}
+                    {% if order.status < 3 %}
+                    <ul>
+                        <li>ลูกค้ายังไม่สามารถชำระเงิน หรือแจ้งโอนได้จนกว่าผู้ขายจะรับออร์เดอร์ หรือ</li>
+                        <li>สถานะการสั่งซื้อจะเป็นรอการชำระเงิน</li>
+                    </ul>
+                    {% elif order.status == 3 %}
+                    <ul>
+                        <li>ลูกค้าสามารถชำระเงินและทำการอัปโหลดหลักฐานการโอนผ่านช่อง <a href="#transfer">แจ้งชำระเงิน</a></li>
+                    </ul>
+                    {% endif %}
+                </div>
+                <div class="tab-content" id="cardPillContent">
+                    <div class="tab-pane fade show active" id="overviewPill" role="tabpanel" aria-labelledby="overview-pill">
+                        <table class="table table-bordered table-hover" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>สินค้า</th>
+                                    <th class="text-right value">ราคา</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in items %}
+                                <tr>
+                                    <td>
+                                        <div class="row">
+                                            <div class="col-8">
+                                                <div class="mb-2">
+                                                    <span>
+                                                        <a href="{% url 'shopping-product-view' item.product.id %}" target="_blank">{{item.product}}</a>
+                                                    </span>
+                                                    {% if 4 <= order.status and order.status < 8 and order.owner == request.user %}
+                                                    <span>
+                                                        ( <a href="?{% url_replace request 'product' item.product.id %}#review">รีวิวสินค้า</a> )
+                                                    </span>
+                                                    {% endif %}
+                                                </div>
+                                                <div class="mb-2 text-success">จำนวน : {{item.quantity}} ลูก</div>
+                                                <div class="mb-4 text-success">
+                                                    น้ำหนักรวม : {{item.total_weight}} กก.
+                                                </div>
+        
+                                                <div class="mb-2">เกรด : {{item.grade_choice}}</div>
+                                                <div class="mb-2">ราคาต่อ กก. : {{item.product.price}} บาท</div>
+                                                <div class="mb-2">นน.ต่อลูก : {{item.product.weight}} กก. (ประมาณการ) </div>
+                                                <div class="mb-2">ผู้ขาย : {{item.product.store.name}}</div>
+                                                <div class="mb-4 text-success">ลักษณะ : {{item.status_choice}}</div>
+                                            </div>
+                                            <div class="col-4">
+                                                {% if order.store.owner == request.user %}
+                                                <div class="mb-2 text-right"><a class="btn btn-success btn-icon mr-2" href="{% url 'order-edit-weight' item.id %}"><i class="fa fa-edit"></i></a></div>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-right">{{item.price|floatformat:'0'|intcomma}}</td>
+                                </tr>
+                                {% endfor %}
+                                <tr>
+                                    <td class="text-right">จำนวนลูก</td>
+                                    <td class="text-right">{{total_values}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right">น้ำหนักรวม</td>
+                                    <td class="text-right">{{total_weight|floatformat:'2'|intcomma}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right">ค่าทุเรียนรวม</td>
+                                    <td class="text-right text-primary">{{order.item_price|floatformat:'0'|intcomma}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right">ค่ากล่องขนาด 1 ลูก จำนวน {{orderbox.boxsize_1}} กล่อง</td>
+                                    <td class="text-right text-primary">{{order.box_1}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right">ค่ากล่องขนาด 2 ลูก จำนวน {{orderbox.boxsize_2}} กล่อง</td>
+                                    <td class="text-right text-primary">{{order.box_2}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right">ค่าขนส่ง</td>
+                                    <td class="text-right text-primary">{{order.shipping|floatformat:'0'|intcomma}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right">ราคารวม</td>
+                                    <td class="text-right text-success">{{total_price|floatformat:'0'|intcomma}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    {% if order.store.owner == request.user %}
+                    <div class="tab-pane fade" id="examplePill" role="tabpanel" aria-labelledby="example-pill">
+                        <div class="mb-4">
+                            <form method="post" action="" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                {% bootstrap_form form %}
+                                <button type="submit" class="btn btn-success">ปรับสถานะออร์เดอร์</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="trackingPill" role="tabpanel" aria-labelledby="tracking-pill">
+                        <div class="mb-4">
+                            <div class="mb-4 text-dark">
+                                หมายเหตุ: เมื่อท่านบันทึกหมายเลขพัสดุแล้ว สถานะการสั่งซื้อจะเปลี่ยนเป็น "จัดส่งสินค้าแล้ว" ทันที
+                            </div>
+                            <form method="post" action="/tracking/save/" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                {% bootstrap_form form_tracking %}
+                                <button type="submit" class="btn btn-success">บันทึกหมายเลขพัสดุ</button>
+                            </form>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- reviews -->
+        {% for review in reviews %}
+        <div class="card card-header-actions mb-4">
+            <div class="card-header">
+                สินค้า #{{review.product.id}} {{review.product}}
+                <div>
+                    {{review.score}} คะแนน
+                </div>
+            </div>
+            <div class="card-body">{{review.comment|linebreaks}}</div>
+            <div class="card-footer text-right"><span class="text-gray">{{review.date_review|thai_time}}</span></div>
+        </div>
+        {% endfor %}
+
+        <!-- Review Form -->
+        {% if 4 <= order.status and order.status < 8 and request.GET.product != None %}
+        <link rel="stylesheet" href="{% static 'css/starrating.css' %}">
+        <div class="card" id="review">
+            <div class="card-header">รีวิวสินค้า</div>
+            <div class="card-body">
+                <div class="mb-4">
+                    เพื่อเป็นการสะท้อนคุณภาพของสินค้า และบริการของผู้ขายท่านสามารถให้ข้อมูลสะท้อนกลับไปยังเจ้าของร้านผ่านการรีวิว
+                    <ul>
+                        <li>สินค้าที่ท่านกำลังรีวิว <a href="{% url 'shopping-product-view' product_review.id %}" target="_blank">{{product_review}}</a></li>
+                    </ul>
+                </div>
+                <form method="post" action="/review/add/" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="rating-wrapper" style="width: 300px;">
+                        <div class="starrating risingstar d-flex justify-content-center flex-row-reverse">
+                            <input type="radio" id="star5" name="rating" value="5" required /><label for="star5" title="5 star">5</label>
+                            <input type="radio" id="star4" name="rating" value="4" required /><label for="star4" title="4 star">4</label>
+                            <input type="radio" id="star3" name="rating" value="3" required /><label for="star3" title="3 star">3</label>
+                            <input type="radio" id="star2" name="rating" value="2" required /><label for="star2" title="2 star">2</label>
+                            <input type="radio" id="star1" name="rating" value="1" required /><label for="star1" title="1 star">1</label>
+                        </div>
+                    </div>
+                    {% bootstrap_form review_form %}
+                    <button type="submit" class="btn btn-success">บันทึกการรีวิว</button>
+                </form>
+            </div>
+        </div>
+        {% endif %}
+        <!-- end reviews -->
+
+    </div>
+
+    <div class="col-lg-4">
+        <!-- หมายเลขพัสดุ -->
+        {% if tracker != '' %}
+        <div class="card mb-4">
+            <div class="card-header">หมายเลขติดตามพัสดุ</div>
+            <div class="card-body">
+                <div class="text-center h1">
+                    <a href="https://track.thailandpost.co.th/?trackNumber={{tracker.tracker}}" target="_blank">{{tracker.tracker}}</a>
+                </div>
+                <div class="text-center">{{tracker.status_choice}}</div>
+                <div class="text-center">{{tracker.date_updated|thai_time}}</div>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- ข้อความจากผู้ขาย -->
+        {% if order_messages|length != 0 or order.store.owner == request.user %}
+        <div class="card mb-4">
+            <div class="card-header">ข้อความจากผู้ขายสินค้า</div>
+            <ul class="list-group list-group-flush">
+                {% for message in order_messages %}
+                <li class="list-group-item">
+                    <div>{{message.message}}</div>
+                    <div class="small">{{message.date_created|thai_time}}</div>
+                </li>
+                {% endfor %}
+            </ul>
+            {% if order.store.owner == request.user %}
+            <div class="card-body">
+                <div class="mb-4">
+                    <form action="/message/save/" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {% bootstrap_form form_msg %}
+                        <button type="submit" class="btn btn-success">ส่งข้อความ</button>
+                    </form>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+        {% endif %}
+        
+        <!-- ที่อยู่ -->
+        <div class="card mb-4">
+            <div class="card-header">ที่อยู่สำหรับจัดส่ง</div>
+            <div class="card-body">
+                <div class="mb-4">{{order.receive_address.receiver}}</div>
+                <div class="mb-4">{{order.receive_address.address}}</div>
+                <div class="mb-4">จังหวัด {{order.province_choice}} {{order.receive_address.postcode}}</div>
+                <div class="mb-4">เบอร์โทรติดต่อ {{order.receive_address.phone}}</div>
+            </div>
+        </div>
+
+        <!-- ความต้องการของผู้ใช้ -->
+        {% if order.customer_request != "" %}
+        <div class="card mb-4">
+            <div class="card-header">ความต้องการของผู้ซื้อ</div>
+            <div class="card-body">
+                <div class="mb-4">{{order.customer_request|linebreaks}}</div>
+            </div>
+        </div>
+        {% endif %}
+        
+        {% if order.owner == request.user and order.status == 3 %}
+        <div class="card mb-4" id="transfer">
+            <div class="card-header">
+                <ul class="nav nav-pills card-header-pills" id="cardPill" role="tablist">
+                    <li class="nav-item"><a class="nav-link active" id="overview-pill" href="#overviewPill" data-toggle="tab" role="tab" aria-controls="overview" aria-selected="true">รายชื่อบัญชีธนาคาร</a></li>
+                    <li class="nav-item"><a class="nav-link" id="example-pill" href="#examplePill" data-toggle="tab" role="tab" aria-controls="example" aria-selected="false">แจ้งโอน</a></li>
+                </ul>
+            </div>
+            <div class="card-body">
+                <div class="tab-content" id="cardPillContent">
+                    <div class="tab-pane fade show active" id="overviewPill" role="tabpanel" aria-labelledby="overview-pill">
+                        {% for bookbank in bookbanks %}
+                        <div class="alert alert-success mb-4" role="alert">
+                            <div class="mb-2">ธนาคาร {{bookbank.bank_choice}}</div>
+                            <div class="mb-2">สาขา {{bookbank.bank_branch}}</div>
+                            <div class="mb-2">ประเภทบัญชี {{bookbank.account_type_choice}}</div>
+                            <div class="mb-2">ชื่อบัญชี {{bookbank.account_name}}</div>
+                            <div class="mb-2">เลขที่บัญชี {{bookbank.account_number}}</div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="tab-pane fade" id="examplePill" role="tabpanel" aria-labelledby="example-pill">
+                        <form action="/notif/save/" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {% bootstrap_form form %}
+                            <button type="submit" class="btn btn-success">แจ้งการชำระเงิน</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% elif order.status > 3  and order.status < 8%}
+        <div class="card mb-4" id="transfer">
+            <div class="card-header">แจ้งการชำระเงิน</div>
+            <div class="card-body">
+                <div class="mb-4 text-left">
+                    <div class="alert alert-success mb-4" role="alert">
+                        <div class="mb-2">เวลาโอน : {{transfer_notif.transfer_date|thai_time}}</div>
+                        <div class="mb-2">ธนาคาร : {{transfer_notif.bank_choice}}</div>
+                        <div class="mb-2">สาขา : {{transfer_notif.bookbank.bank_branch}}</div>
+                        <div class="mb-2"><a href="{{transfer_notif.image.url}}" target="_blank">หลักฐานการชำระเงิน</a></div>
+                    </div>
+                    {% if order.status == 5 and order.owner == request.user %}
+                    <form method="post" action="/notif/delete/" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <input type="hidden" name="transfer_notif" id="transfer_notif" value="{{transfer_notif.id}}">
+                        <!-- Button trigger modal -->
+                        <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#exampleModalCenter">ลบหลักฐานการแจ้งโอนทิ้ง</button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalCenterTitle">ยืนยันการลบหลักฐานการแจ้งโอน</h5>
+                                        <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                    </div>
+                                    <div class="modal-body text-left">
+                                        <ul>
+                                            <li>กระบวนการนี้ไม่สามารถย้อนกลับได้ กรุณาตรวจสอบให้แน่ใจก่อนยืนยัน</li>
+                                            <li>สถานะของคำสั่งซื้อจะย้อนกลับไปเป็น รองการชำระเงิน</li>
+                                        </ul>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn btn-secondary" type="button" data-dismiss="modal">ยกเลิก</button>
+                                        <button class="btn btn-primary" type="submit">ยืนยันการลบ</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

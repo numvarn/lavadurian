@@ -1,0 +1,84 @@
+{% extends 'base3.html' %}
+
+{% load bootstrap4 %}
+{% load custom_tags %}
+{% load humanize %}
+
+{% block title %}
+{{title}}
+{%endblock%}
+
+{% block subtitle %}
+{{subtitle}}
+{% endblock %}
+
+{% block content %}
+<style>
+    #dataTable {
+        font-size: 15px;
+    }
+</style>
+<div class="row">
+    <div class="col-lg-7">
+        <div class="card card-header-actions mb-4">
+            <div class="card-header">
+                {{status_display}}
+                <div>
+                    <!-- <a class="btn btn-primary btn-sm" href="{% url 'store-setting' store.id %}">กลับ</a> -->
+                    <a class="btn btn-success btn-icon mr-2" href="{% url 'store-setting' store.id %}"><i class="fa fa-backward"></i></a>
+                </div>
+            </div>
+            <div class="card-body" style="min-height: 480px;">
+                <div class="datatable table-responsive">
+                    <table class="table table-bordered table-hover" id="dataTable" data-order='[[ 0, "desc" ]]' width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th scope="col">ชื่อผู้สั่ง</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for order in orders %}
+                            <tr class="text-dark">
+                                <td>
+                                    <div class="row">
+                                        <div class="col-8">
+                                            <div class="mb-2 h6"><a href="{% url 'order-detail' order.id %}">#{{order.id}}</a></div>
+                                            <div class="mb-2">{{order.owner}}</div>
+                                            <div class="mb-2">นน.รวม: {{order.weight|floatformat:'2'|intcomma}} กก.</div>
+                                            <div class="mb-2">ค่าขนส่ง: {{order.shipping|floatformat:'0'|intcomma}} บาท</div>
+                                            <div class="mb-2 text-success">สถานะ: {{order.status_choice}}</div>
+                                        </div>
+                                        <div class="col-4 text-right mb-2 h5 text-success">
+                                            {{order.total_price|floatformat:'0'|intcomma}}
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            วันที่สั่ง: {{order.date_created|thai_time}}
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-5">
+        <div class="card">
+            <div class="card-header">สรุปจำนวนรายการสั่งซื้อตามสถานะ</div>
+            <div class="card-body">
+                {% for status in status_choice %}
+                <div class="row mb-2 small text-dark">
+                    <div class="col-lg-5 col-5"><a href="{% url 'store-sales' store.id %}?status={{status.status}}">{{status.label}}</a></div>
+                    <div class="col-lg-7 col-7 text-right">{{status.value|intcomma}}</div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock%}
