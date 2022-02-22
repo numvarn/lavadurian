@@ -1,4 +1,5 @@
 env/*
 db.sqlite3
-settings_local.py
 *.pyc
+settings_local.py
+runserver_local.py
