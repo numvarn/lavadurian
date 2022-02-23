@@ -78,7 +78,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'lavadurian.urls'
 
-# CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = False
 
 TEMPLATES = [
     {
