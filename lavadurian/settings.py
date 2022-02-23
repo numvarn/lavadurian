@@ -78,8 +78,6 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'lavadurian.urls'
 
-CSRF_COOKIE_SECURE = False
-
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
