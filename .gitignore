@@ -3,3 +3,4 @@ db.sqlite3
 *.pyc
 settings_local.py
 runserver_local.sh
+credentials.json
