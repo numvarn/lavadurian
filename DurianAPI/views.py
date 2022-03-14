@@ -364,7 +364,7 @@ def OrderWeightUpdateAPI(request):
             item_q = OrderItem.objects.filter(id=request.data['item_id'])
             # update weight & price in order-item
             for item in item_q:
-                if item.order.id == request.data['order_id']:
+                if item.order.id == int(request.data['order_id']):
                     check = True
                     item.weight = request.data['weight']
                     item.quantity = request.data['quantity']
