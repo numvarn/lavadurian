@@ -743,8 +743,6 @@ def BookBankUpdateAPI(request):
         if len(bookbanks) != 0:
             serializer = serializers.BookBankSerializer(data=request.data)
             if serializer.is_valid:
-                print(bookbanks[0])
-
                 check = serializer.update(bookbanks, request.data)
                 bookbank = BookBank.objects.get(id=request.data['id'])
 

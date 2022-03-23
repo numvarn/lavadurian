@@ -171,8 +171,8 @@ GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
 # ! google cloud storeage detail
 DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
 # STATICFILES_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
-GS_PROJECT_ID = 'electric-icon-342407'
-GS_BUCKET_NAME = 'lavadurian'
+GS_PROJECT_ID = 'lavadurianapp'
+GS_BUCKET_NAME = 'lavadurian_bucket'
 MEDIA_ROOT = "media/"
 UPLOAD_ROOT = 'media/uploads/'
 MEDIA_URL = 'https://storage.googleapis.com/{}/'.format(GS_BUCKET_NAME)
