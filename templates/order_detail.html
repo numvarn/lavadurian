@@ -255,7 +255,9 @@
     </div>
     {% endif %}
     <!---->
-    {% if order.owner == request.user and 2 <= order.status <= 3 %}
+    {% comment %} {% if order.owner == request.user and order.status == 3 %} {% endcomment %}
+    <!---->
+    {% if order.status == 2 or order.status == 3 %}
     <div class="card mb-4" id="transfer">
       <div class="card-header">
         <ul class="nav nav-pills card-header-pills" id="cardPill" role="tablist">
@@ -277,10 +279,14 @@
             {% endfor %}
           </div>
           <div class="tab-pane fade" id="examplePill" role="tabpanel" aria-labelledby="example-pill">
+            {% if order.status == 2 or order.status == 3 %}
             <form action="/notif/save/" method="post" enctype="multipart/form-data">
-              {% csrf_token %} {% bootstrap_form form %}
+              {% csrf_token %}
+              <!---->
+              {% bootstrap_form form %}
               <button type="submit" class="btn btn-success">แจ้งการชำระเงิน</button>
             </form>
+            {% endif %}
           </div>
         </div>
       </div>
