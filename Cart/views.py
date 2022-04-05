@@ -516,7 +516,7 @@ def orderDetail(request, id):
                             transfer_notif.bookbank.bank, BANK)
         # ผู้ซื้อ
         elif order.owner == request.user:
-            if order.status == 3:
+            if order.status == 3 or order.status == 2:
                 # Show transfers nitification form
                 form = TransferNotificationForm(
                     initial={'order': order, 'store': order.store})
