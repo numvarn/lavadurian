@@ -11,12 +11,11 @@ from django.db.models import Avg, Count, Q, Sum
 from django.core.mail import send_mail
 
 from Store.forms import AddProductForm, BankForm, CreateStoreForm, ProductImageForm, StoreCertificateForm
-from Store.models import ACCOUNT_TYPE, BANK, GENE_CHOICES, GRADE_CHOICES, PRODUCT_STATUS_CHOICES, SOCIAL_TYPE, STATUS_CHOICES, PRICE_FILTER, SocialQRCode, WEIGHT_FILTER, DISTRICT_CHOICES
-from Store.models import BookBank, Product, ProductImages, Review, Store, StoreCertificate
+from Store.models import ACCOUNT_TYPE, BANK, GENE_CHOICES, GRADE_CHOICES, PRODUCT_STATUS_CHOICES, SOCIAL_TYPE, STATUS_CHOICES, PRICE_FILTER, WEIGHT_FILTER, DISTRICT_CHOICES
+from Store.models import BookBank, Product, ProductImages, Review, Store, StoreCertificate, SocialQRCode
 from Cart.models import ORDER_STATUS_CHOICES, Order, OrderItem, TransferNotification
 from Cart.form import SetOrderStatus
 from Members.models import Trader
-import requests
 from lavadurian import settings
 from Cart.views import shippingCostCalculate
 import random

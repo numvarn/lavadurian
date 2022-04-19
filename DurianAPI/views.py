@@ -27,7 +27,7 @@ from django.db.models import Count
 import json
 from DurianAPI import serializers
 from Members.models import Trader
-from Store.models import BookBank, Product, ProductImages, SocialQRCode, Store
+from Store.models import BookBank, Product, ProductImages, SocialQRCode, Store, StoreLocation
 from Store.models import DISTRICT_CHOICES, STATUS_CHOICES, SOCIAL_TYPE
 from Store.views import getModelChoice
 from Cart.models import Order, OrderItem, TransferNotification
@@ -79,6 +79,7 @@ def GetStoreProfileAPI(request):
     bookbank_lt = []
     qrcode_lt = []
     status_lt = []
+    location_lt = []
 
     status_msg = HTTP_403_FORBIDDEN
 
@@ -144,6 +145,12 @@ def GetStoreProfileAPI(request):
         status_msg = HTTP_200_OK
         status = True
 
+        # * get store location
+        store_location = StoreLocation.objects.filter(store=store)
+        for location in store_location:
+            location_lt.append(
+                serializers.StoreLocationSerializer(location).data)
+
     profile['stores'] = store_lt
     profile['products'] = product_lt
     profile['orders'] = order_lt
@@ -152,6 +159,7 @@ def GetStoreProfileAPI(request):
     profile['bookbank'] = bookbank_lt
     profile['qrcode'] = qrcode_lt
     profile['orders_status'] = status_lt
+    profile['location'] = location_lt
 
     # return Response(profile)
     return Response({'status': status, 'message': msg, 'data': profile}, status=status_msg)
@@ -243,6 +251,37 @@ def GetOrderStatusAPI(request):
                 msg = "Successed"
 
         return Response({'status': status, 'message': msg, 'data': data}, status=HTTP_200_OK)
+
+
+'''
+For update / insert location in current store
+'''
+
+
+@csrf_exempt
+@api_view(["POST", ])
+@permission_classes((IsAuthenticated,))
+def UpdateLocationAPI(request):
+    data = {}
+    status = False
+    msg = "Permission denied"
+
+    if request.method == "POST" and request.data['store'] != None:
+        store = Store.objects.get(id=request.data['store'])
+        serializer = serializers.StoreLocationSerializer(data=request.data)
+        if serializer.is_valid():
+            # check current store location is exist
+            instance = StoreLocation.objects.filter(store=store)
+            if instance.count() > 0:
+                location = serializer.update(instance, serializer.data)
+            else:
+                location = serializer.create(store, serializer.data)
+
+            status = True
+            msg = "Successed"
+            data = serializer.data
+
+    return Response({'status': status, 'message': msg, 'data': data}, status=HTTP_200_OK)
 
 
 '''

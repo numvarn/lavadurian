@@ -1,7 +1,7 @@
 from django.urls import path, include
 from rest_framework import routers
 
-from DurianAPI.views import BookBankCreateAPI, BookBankDeleteAPI, BookBankUpdateAPI, GetOrderStatusAPI, OrderShippingUpdateAPI, OrderStatusUpdateAPI, OrderWeightUpdateAPI, ProductImageAddAPI, ProductImageDeleteAPI, QRCodeAddAPI, QRCodeDeleteAPI, SetStoreStatusAPI, TransferCheckAPI, UserViewSet, GetMyUserViewSet, LoginAPI, UserRegisAPI, CheckCitizenIDAPI, CheckEmailAPI
+from DurianAPI.views import BookBankCreateAPI, BookBankDeleteAPI, BookBankUpdateAPI, GetOrderStatusAPI, OrderShippingUpdateAPI, OrderStatusUpdateAPI, OrderWeightUpdateAPI, ProductImageAddAPI, ProductImageDeleteAPI, QRCodeAddAPI, QRCodeDeleteAPI, SetStoreStatusAPI, TransferCheckAPI, UpdateLocationAPI, UserViewSet, GetMyUserViewSet, LoginAPI, UserRegisAPI, CheckCitizenIDAPI, CheckEmailAPI
 from DurianAPI.views import AddNewStoreAPI, UpdateStoreAPI, DeleteStoreAPI
 from DurianAPI.views import ProductCreateAPI, ProductUpdateAPI, ProductDeleteAPI, GetStoreProfileAPI
 
@@ -32,6 +32,7 @@ urlpatterns = [
     path('api/store/edit', UpdateStoreAPI),
     path('api/store/delete', DeleteStoreAPI),
     path('api/store/status', SetStoreStatusAPI),
+    path('api/store/checkin', UpdateLocationAPI),
 
     path('api/qrcode/delete', QRCodeDeleteAPI),
     path('api/qrcode/add', QRCodeAddAPI),

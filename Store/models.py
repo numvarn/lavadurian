@@ -12,6 +12,8 @@ import os
 # * This Function is used for rename files && images 
 # * before upload by FileField or ImageField
 '''
+
+
 @deconstructible
 class PathAndRename(object):
 
@@ -24,6 +26,7 @@ class PathAndRename(object):
         filename = '{}.{}'.format(uuid4().hex, ext)
         # return the whole path to the file
         return os.path.join(self.path, filename)
+
 
 product_img_path = PathAndRename("uploads/product_imgs")
 qrcode_path = PathAndRename("uploads/qrcode_img")
@@ -112,6 +115,7 @@ WEIGHT_FILTER = (
     ('2.6_5', 'น้ำหนัก 2.6 ขึ้นไป'),
 )
 
+
 class Store(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
@@ -119,7 +123,8 @@ class Store(models.Model):
     about = models.TextField()
     phone1 = models.CharField(max_length=255)
     phone2 = models.CharField(max_length=255, blank=True, null=True)
-    district = models.IntegerField(choices=DISTRICT_CHOICES, blank=True, null=True)
+    district = models.IntegerField(
+        choices=DISTRICT_CHOICES, blank=True, null=True)
     status = models.IntegerField(choices=STATUS_CHOICES, default=0)
     date_created = models.DateTimeField(auto_now_add=True)
 
@@ -137,14 +142,17 @@ class Store(models.Model):
             local_dt = utc_date.replace(tzinfo=pytz.utc).astimezone(tz)
             now1 = tz.normalize(local_dt)
 
-            month_name = 'x มกราคม กุมภาพันธ์ มีนาคม เมษายน พฤษภาคม มิถุนายน กรกฎาคม สิงหาคม กันยายน ตุลาคม พฤศจิกายน ธันวาคม'.split()[now1.month]
+            month_name = 'x มกราคม กุมภาพันธ์ มีนาคม เมษายน พฤษภาคม มิถุนายน กรกฎาคม สิงหาคม กันยายน ตุลาคม พฤศจิกายน ธันวาคม'.split()[
+                now1.month]
             thai_year = now1.year + 543
             time_str = now1.strftime('%H:%M')
             # time_str = now1.strftime('%H:%M:%S')
-            
-            return "%d %s %d %s"%(now1.day, month_name, thai_year, time_str) # 30 ตุลาคม 2560 20:45:30
+
+            # 30 ตุลาคม 2560 20:45:30
+            return "%d %s %d %s" % (now1.day, month_name, thai_year, time_str)
         else:
             return '-'
+
 
 class Product(models.Model):
     store = models.ForeignKey(Store, on_delete=models.CASCADE)
@@ -163,6 +171,7 @@ class Product(models.Model):
             if choice[0] == self.gene:
                 return choice[1]
 
+
 class Review(models.Model):
     store = models.ForeignKey(Store, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
@@ -170,18 +179,25 @@ class Review(models.Model):
     order = models.IntegerField()
     comment = models.TextField()
     score = models.IntegerField(choices=SCORE_CHOICES)
-    date_review =  models.DateTimeField(auto_now_add=True)
+    date_review = models.DateTimeField(auto_now_add=True)
+
 
 class ProductImages(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     image = models.ImageField(upload_to=product_img_path)
 
+
 class StoreCertificate(models.Model):
     store = models.ForeignKey(Store, on_delete=models.CASCADE)
-    commercial_regis = models.ImageField(upload_to='uploads/certificates', blank=True, null=True)
-    food_storage_license = models.ImageField(upload_to='uploads/certificates', blank=True, null=True)
-    gmp_regis = models.ImageField(upload_to='uploads/certificates', blank=True, null=True)
-    otop_regis = models.ImageField(upload_to='uploads/certificates', blank=True, null=True)
+    commercial_regis = models.ImageField(
+        upload_to='uploads/certificates', blank=True, null=True)
+    food_storage_license = models.ImageField(
+        upload_to='uploads/certificates', blank=True, null=True)
+    gmp_regis = models.ImageField(
+        upload_to='uploads/certificates', blank=True, null=True)
+    otop_regis = models.ImageField(
+        upload_to='uploads/certificates', blank=True, null=True)
+
 
 class BookBank(models.Model):
     store = models.ForeignKey(Store, on_delete=models.CASCADE)
@@ -200,6 +216,7 @@ class BookBank(models.Model):
                 break
         return bank_choice+" : "+self.bank_branch+" : "+self.account_name
 
+
 class SocialQRCode(models.Model):
     store = models.ForeignKey(Store, on_delete=models.CASCADE)
     social = models.IntegerField(choices=SOCIAL_TYPE)
@@ -209,10 +226,34 @@ class SocialQRCode(models.Model):
     def __str__(self):
         return "QR Code of {} : {}".format(self.store, dict(SOCIAL_TYPE)[self.social])
 
+
+class StoreLocation(models.Model):
+    """Model definition for StoreLocation."""
+
+    # TODO: Define fields here
+    store = models.ForeignKey(Store, on_delete=models.CASCADE)
+    latitude = models.DecimalField(max_digits=9, decimal_places=6)
+    longitude = models.DecimalField(max_digits=9, decimal_places=6)
+    date_created = models.DateTimeField(auto_now_add=True)
+    date_update = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        """Meta definition for StoreLocation."""
+
+        verbose_name = 'StoreLocation'
+        verbose_name_plural = 'StoreLocations'
+
+    def __str__(self):
+        """Unicode representation of StoreLocation."""
+        return self.store.name
+
+
 '''
 # * This Function is used for delete files && images 
 # * before delete FileField or ImageField in model
 '''
+
+
 @receiver(models.signals.post_delete, sender=ProductImages)
 def auto_delete_file_on_delete(sender, instance, **kwargs):
     """
@@ -223,11 +264,13 @@ def auto_delete_file_on_delete(sender, instance, **kwargs):
     bucket = storage_client.get_bucket(settings.GS_BUCKET_NAME)
 
     # check file is exist
-    stats = storage.Blob(bucket=bucket, name=instance.image.name).exists(storage_client)
+    stats = storage.Blob(
+        bucket=bucket, name=instance.image.name).exists(storage_client)
 
     if stats and instance.image:
         bucket.delete_blob(instance.image.name)
         return '{} deleted from bucket.'.format(instance.image.name)
+
 
 @receiver(models.signals.post_delete, sender=SocialQRCode)
 def auto_delete_qrcode_on_delete(sender, instance, **kwargs):
@@ -235,8 +278,9 @@ def auto_delete_qrcode_on_delete(sender, instance, **kwargs):
     bucket = storage_client.get_bucket(settings.GS_BUCKET_NAME)
 
     # check file is exist
-    stats = storage.Blob(bucket=bucket, name=instance.qr_code.name).exists(storage_client)
-    
+    stats = storage.Blob(
+        bucket=bucket, name=instance.qr_code.name).exists(storage_client)
+
     if stats and instance.qr_code:
         bucket.delete_blob(instance.qr_code.name)
         return '{} deleted from bucket.'.format(instance.qr_code.name)

@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.models import User
-from Store.models import Product, ProductImages, Review, SocialQRCode, Store, StoreCertificate, BookBank
+from Store.models import Product, ProductImages, Review, SocialQRCode, Store, StoreCertificate, BookBank, StoreLocation
 from Store.forms import CreateStoreForm
 from django.contrib.auth.decorators import user_passes_test
 from django.utils.html import format_html
@@ -123,3 +123,4 @@ admin.site.register(Store, StoreAdmin)
 admin.site.register(ProductImages)
 admin.site.register(BookBank)
 admin.site.register(SocialQRCode, SocialQRCodeAdmin)
+admin.site.register(StoreLocation)
