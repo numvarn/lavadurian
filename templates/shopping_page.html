@@ -18,6 +18,14 @@
     overflow: hidden;
   }
 
+  .thumb-qr {
+    position: relative;
+    width: 80%;
+    height: 240px;
+    overflow: hidden;
+    align-content: center;
+  }
+
   .row.review {
     border-bottom: 1px solid #e3e6ec !important;
   }
@@ -62,7 +70,7 @@
     </div>
   </div>
 </div>
-
+{% comment %} ข้อมูลสำหรับติดต่อสวนโดยตรง {% endcomment %}
 <div class="card-deck">
   <div class="card mb-4">
     {% comment %} <img class="card-img-top" src="{% static 'assets/img/card/02.jpg' %}" alt="ตลาดซื้อขายทุเรียน" /> {% endcomment %}
@@ -77,8 +85,12 @@
   </div>
   {% for qrcode in qr_code %}
   <div class="card mb-4">
+    {% if qrcode.default == True %}
+    <img class="card-img-top thumb-qr mx-auto" src="{% static qrcode.qr_code %}" alt="Card image cap" />
+    {% else %}
     <img class="card-img-top" src="{{qrcode.qr_code.url}}" alt="Card image cap" />
-    <div class="card-footer d-flex align-items-center justify-content-between small">ติดต่อผู้ขาย : {{qrcode.social_name}}</div>
+    {% endif %}
+    <div class="card-footer d-flex align-items-center justify-content-between small">QR Code ติดต่อผู้ขาย : {{qrcode.social_name}}</div>
   </div>
   {% endfor %}
 </div>

@@ -573,12 +573,33 @@ def shoppingPage(request):
             context['store'] = store
 
             # * Get social qr code for contact
-            qrcodes = SocialQRCode.objects.filter(store=store)
+            qrcodes_lt = []
+            qrcodes = SocialQRCode.objects.filter(store=store, social=1)
             if len(qrcodes) > 0:
                 for qrcode in qrcodes:
                     qrcode.social_name = getModelChoice(
                         qrcode.social, SOCIAL_TYPE)
-                context['qr_code'] = qrcodes
+                    qrcodes_lt.append(qrcode)
+            else:
+                pass
+
+            qrcodes = SocialQRCode.objects.filter(store=store, social=2)
+            if len(qrcodes) > 0:
+                for qrcode in qrcodes:
+                    qrcode.social_name = getModelChoice(
+                        qrcode.social, SOCIAL_TYPE)
+                    qrcodes_lt.append(qrcode)
+            else:
+                qrcode = {
+                    'store': store,
+                    'social_name': 'Line',
+                    'qr_code': '/assets/img/product-default/qrcode_default.png',
+                    'default': True,
+                }
+                qrcodes_lt.append(qrcode)
+
+            context['qr_code'] = qrcodes_lt
+
     except NameError:
         pass
 
