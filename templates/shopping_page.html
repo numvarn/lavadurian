@@ -81,7 +81,7 @@
       <p class="card-text small">จังหวัดศรีสะเกษ และชาวสวนทุเรียนภูเขาไฟ ขอเชิญชวนผู้บริโภคร่วมมาท่องเที่ยวเชิงนิเวศ ณ สวนทุเรียนภูเขาไฟ ร่วมชิม และซื้อทุเรียนจากหน้าสวน</p>
       <p class="card-text small">ผู้ที่สนใจสามารถดูเส้นทางสำหรับเดินทางมายังสวนทุเรียนได้จากแผนที่ Google Maps ได้ทันที</p>
     </div>
-    <a class="card-footer d-flex align-items-center justify-content-between" href="{% url 'shopping' %}">ค้นหาเส้นทาง<i data-feather="arrow-right"></i></a>
+    <a class="card-footer d-flex align-items-center justify-content-between" href="{% url 'store-location' request.GET.store %}">ค้นหาเส้นทาง<i data-feather="arrow-right"></i></a>
   </div>
   {% for qrcode in qr_code %}
   <div class="card mb-4">

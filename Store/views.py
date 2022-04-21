@@ -1,4 +1,5 @@
 import datetime
+from multiprocessing import context
 import pytz
 import os
 
@@ -817,6 +818,11 @@ def storeListView(request):
         'district_list': district_list,
     }
     return render(request, 'store_list_view.html', context)
+
+
+def storeLocation(request, id):
+    context = {}
+    return render(request, 'store_location_view.html', context)
 
 
 @login_required
