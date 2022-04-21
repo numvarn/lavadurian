@@ -1,226 +1,230 @@
 {% extends 'base2.html' %}
-
+<!---->
 {% load static %}
+<!---->
 {% load template_func %}
-
-{% block title %}
-{{title}}
-{%endblock%}
-
-{% block subtitle %}
-{{subtitle}}
-{% endblock %}
-
+<!---->
+{% block title %} {{title}} {%endblock%}
+<!---->
+{% block subtitle %} {{subtitle}} {% endblock %}
+<!---->
 {% block content %}
 <style>
-    /* Responsive and Crop Image */
-    .thumb-post {
-        position: relative;
-        width: 100%;
-        height: 180px;
-        overflow: hidden;
-    }
+  /* Responsive and Crop Image */
+  .thumb-post {
+    position: relative;
+    width: 100%;
+    height: 180px;
+    overflow: hidden;
+  }
 
-    .row.review {
-        border-bottom: 1px solid #e3e6ec !important;
-    }
+  .row.review {
+    border-bottom: 1px solid #e3e6ec !important;
+  }
 
-    .review-display .checked {
-        color: orange;
-    }
+  .review-display .checked {
+    color: orange;
+  }
 </style>
 <!-- Show Store detail -->
 {% if request.GET.store != None %}
 <div class="alert alert-primary border-0 mb-4 mt-3 px-md-3">
-    <div class="position-relative">
-        <div class="row align-items-center justify-content-between">
-            <div class="col position-relative">
-                <h2 class="text-primary">{{store.name}}</h2>
-                <div class="text-gray-700 mb-4">โดย {{store.owner}}</div>
-                <div class="text-gray-700 mb-2">{{store.slogan}}</div>
-                <div class="text-gray-700 mb-4">{{store.about|linebreaks}}</div>
-                <div class="mb-4">
-                    <div>
-                        <i class="fa fa-phone-square"></i> {{store.phone1}}
-                    </div>
-                    {% if store.phone2 != None %}
-                    <div>
-                        <i class="fa fa-phone-square"></i> {{store.phone2}}
-                    </div>
-                    {% endif %}
-                </div>
-                <div class="mb-2">
-                    <span>จำนวนสินค้า</span>
-                    <span>{{store.product_count}} รายการ</span>
-                </div>
-                <div>
-                    <span>คะแนนจากลูกค้า</span>
-                    <span class="text-right review-display">
-                        {% for i in store.review_rate %}
-                        {% if i <= store.review_avg %} <span class="fa fa-star checked"></span>
-                    {% else %}
-                    <span class="fa fa-star"></span>
-                    {% endif %}
-                    {% endfor %}
-                    </span>
-                </div>
-            </div>
-            <div class="col d-none d-md-block text-right pt-3">
-                <img class="img-fluid mt-n5" src="{% static 'assets/img/figure/lavadurian01.png' %}"
-                    style="max-width: 25rem;" />
-            </div>
+  <div class="position-relative">
+    <div class="row align-items-center justify-content-between">
+      <div class="col position-relative">
+        <h2 class="text-primary">{{store.name}}</h2>
+        <div class="text-gray-700 mb-4">โดย {{store.owner}}</div>
+        <div class="text-gray-700 mb-2">{{store.slogan}}</div>
+        <div class="text-gray-700 mb-4">{{store.about|linebreaks}}</div>
+        <div class="mb-4">
+          <div><i class="fa fa-phone-square"></i> {{store.phone1}}</div>
+          {% if store.phone2 != None %}
+          <div><i class="fa fa-phone-square"></i> {{store.phone2}}</div>
+          {% endif %}
         </div>
+        <div class="mb-2">
+          <span>จำนวนสินค้า</span>
+          <span>{{store.product_count}} รายการ</span>
+        </div>
+        <div>
+          <span>คะแนนจากลูกค้า</span>
+          <span class="text-right review-display">
+            {% for i in store.review_rate %} {% if i <= store.review_avg %} <span class="fa fa-star checked"></span>
+            {% else %}
+            <span class="fa fa-star"></span>
+            {% endif %} {% endfor %}
+          </span>
+        </div>
+      </div>
+      <div class="col d-none d-md-block text-right pt-3">
+        <img class="img-fluid mt-n5" src="{% static 'assets/img/figure/lavadurian01.png' %}" style="max-width: 25rem" />
+      </div>
     </div>
+  </div>
+</div>
+
+<div class="card-deck">
+  <div class="card mb-4">
+    {% comment %} <img class="card-img-top" src="{% static 'assets/img/card/02.jpg' %}" alt="ตลาดซื้อขายทุเรียน" /> {% endcomment %}
+    <div class="card-body">
+      <a class="d-flex align-items-center justify-content-between" href="{% url 'shopping' %}">
+        <h5 class="card-title text-primary">ท่องเที่ยวสวนทุเรียน</h5>
+      </a>
+      <p class="card-text small">จังหวัดศรีสะเกษ และชาวสวนทุเรียนภูเขาไฟ ขอเชิญชวนผู้บริโภคร่วมมาท่องเที่ยวเชิงนิเวศ ณ สวนทุเรียนภูเขาไฟ ร่วมชิม และซื้อทุเรียนจากหน้าสวน</p>
+      <p class="card-text small">ผู้ที่สนใจสามารถดูเส้นทางสำหรับเดินทางมายังสวนทุเรียนได้จากแผนที่ Google Maps ได้ทันที</p>
+    </div>
+    <a class="card-footer d-flex align-items-center justify-content-between" href="{% url 'shopping' %}">ค้นหาเส้นทาง<i data-feather="arrow-right"></i></a>
+  </div>
+  {% for qrcode in qr_code %}
+  <div class="card mb-4">
+    <img class="card-img-top" src="{{qrcode.qr_code.url}}" alt="Card image cap" />
+    <div class="card-footer d-flex align-items-center justify-content-between small">ติดต่อผู้ขาย : {{qrcode.social_name}}</div>
+  </div>
+  {% endfor %}
 </div>
 {% endif %}
 
 <!-- Conclude Data Card -->
 {% if request.GET.store == None %}
 <div class="row">
-    <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-top-0 border-bottom-0 border-right-0 border-left-lg border-blue h-100">
-            <div class="card-body">
-                <div class="d-flex align-items-center">
-                    <div class="flex-grow-1">
-                        <div class="small font-weight-bold text-blue mb-1"><a
-                                href="{%url 'store-list-view' %}">จำนวนร้านในตลาดออนไลน์</a></div>
-                        <div class="h5">{% countStore %} ร้าน</div>
-                        <div class="text-xs font-weight-bold text-primary d-inline-flex align-items-center">
-                            รวมชาวสวนและผู้ค้าคนกลาง</div>
-                    </div>
-                    <div class="ml-2"><i class="fas fa-dollar-sign fa-2x text-gray-200"></i></div>
-                </div>
-            </div>
+  <div class="col-xl-3 col-md-6 mb-4">
+    <div class="card border-top-0 border-bottom-0 border-right-0 border-left-lg border-blue h-100">
+      <div class="card-body">
+        <div class="d-flex align-items-center">
+          <div class="flex-grow-1">
+            <div class="small font-weight-bold text-blue mb-1"><a href="{%url 'store-list-view' %}">จำนวนร้านในตลาดออนไลน์</a></div>
+            <div class="h5">{% countStore %} ร้าน</div>
+            <div class="text-xs font-weight-bold text-primary d-inline-flex align-items-center">รวมชาวสวนและผู้ค้าคนกลาง</div>
+          </div>
+          <div class="ml-2"><i class="fas fa-dollar-sign fa-2x text-gray-200"></i></div>
         </div>
+      </div>
     </div>
-    <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-top-0 border-bottom-0 border-right-0 border-left-lg border-purple h-100">
-            <div class="card-body">
-                <div class="d-flex align-items-center">
-                    <div class="flex-grow-1">
-                        <div class="small font-weight-bold text-purple mb-1">ราคาเกรดธรรมดา (บาท/กก.)</div>
-                        <div class="h6">ต่ำสุด {% minPriceNormalGrade %} / สูงสุด {% maxPriceNormalGrade %} </div>
-                        <div class="text-xs font-weight-bold text-purple d-inline-flex align-items-center">
-                            พร้อมขาย {% countNormalGrade %} ลูก</div>
-                    </div>
-                    <div class="ml-2"><i class="fas fa-tag fa-2x text-gray-200"></i></div>
-                </div>
-            </div>
+  </div>
+  <div class="col-xl-3 col-md-6 mb-4">
+    <div class="card border-top-0 border-bottom-0 border-right-0 border-left-lg border-purple h-100">
+      <div class="card-body">
+        <div class="d-flex align-items-center">
+          <div class="flex-grow-1">
+            <div class="small font-weight-bold text-purple mb-1">ราคาเกรดธรรมดา (บาท/กก.)</div>
+            <div class="h6">ต่ำสุด {% minPriceNormalGrade %} / สูงสุด {% maxPriceNormalGrade %}</div>
+            <div class="text-xs font-weight-bold text-purple d-inline-flex align-items-center">พร้อมขาย {% countNormalGrade %} ลูก</div>
+          </div>
+          <div class="ml-2"><i class="fas fa-tag fa-2x text-gray-200"></i></div>
         </div>
+      </div>
     </div>
-    <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-top-0 border-bottom-0 border-right-0 border-left-lg border-green h-100">
-            <div class="card-body">
-                <div class="d-flex align-items-center">
-                    <div class="flex-grow-1">
-                        <div class="small font-weight-bold text-green mb-1">ราคาเกรดคัด (บาท/กก.)</div>
-                        <div class="h6">ต่ำสุด {% minPricePremiumGrade %} / สูงสุด {% maxPricePremiumGrade %} </div>
-                        <div class="text-xs font-weight-bold text-success d-inline-flex align-items-center">
-                            พร้อมขาย {% countPremiumGrade %} ลูก</div>
-                    </div>
-                    <div class="ml-2"><i class="fas fa-mouse-pointer fa-2x text-gray-200"></i></div>
-                </div>
-            </div>
+  </div>
+  <div class="col-xl-3 col-md-6 mb-4">
+    <div class="card border-top-0 border-bottom-0 border-right-0 border-left-lg border-green h-100">
+      <div class="card-body">
+        <div class="d-flex align-items-center">
+          <div class="flex-grow-1">
+            <div class="small font-weight-bold text-green mb-1">ราคาเกรดคัด (บาท/กก.)</div>
+            <div class="h6">ต่ำสุด {% minPricePremiumGrade %} / สูงสุด {% maxPricePremiumGrade %}</div>
+            <div class="text-xs font-weight-bold text-success d-inline-flex align-items-center">พร้อมขาย {% countPremiumGrade %} ลูก</div>
+          </div>
+          <div class="ml-2"><i class="fas fa-mouse-pointer fa-2x text-gray-200"></i></div>
         </div>
+      </div>
     </div>
-    <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-top-0 border-bottom-0 border-right-0 border-left-lg border-yellow h-100">
-            <div class="card-body">
-                <div class="d-flex align-items-center">
-                    <div class="flex-grow-1">
-                        <div class="small font-weight-bold text-yellow mb-1">น้ำหนักเฉลี่ยที่วางขาย</div>
-                        <div class="h5">{% avgProductWeight %} กก. / ลูก</div>
-                    </div>
-                    <div class="ml-2"><i class="fas fa-percentage fa-2x text-gray-200"></i></div>
-                </div>
-            </div>
+  </div>
+  <div class="col-xl-3 col-md-6 mb-4">
+    <div class="card border-top-0 border-bottom-0 border-right-0 border-left-lg border-yellow h-100">
+      <div class="card-body">
+        <div class="d-flex align-items-center">
+          <div class="flex-grow-1">
+            <div class="small font-weight-bold text-yellow mb-1">น้ำหนักเฉลี่ยที่วางขาย</div>
+            <div class="h5">{% avgProductWeight %} กก. / ลูก</div>
+          </div>
+          <div class="ml-2"><i class="fas fa-percentage fa-2x text-gray-200"></i></div>
         </div>
+      </div>
     </div>
+  </div>
 </div>
 {% endif %}
 <!-- End Conclude Data Card -->
 
 <!-- <div class="card-deck"> -->
 <div class="row justify-content-center">
-
-    {% for qrcode in qr_code %}
-    <div class="col-xl-3 col-md-6">
-        <div class="card mb-4">
-            <img class="card-img-top" src="{{qrcode.qr_code.url}}" alt="Card image cap">
-            <div class="card-footer d-flex align-items-center justify-content-between small">
-                ติดต่อผู้ขาย : {{qrcode.social_name}}
-            </div>
-        </div>
+  {% comment %} {% for qrcode in qr_code %}
+  <div class="col-xl-3 col-md-6">
+    <div class="card mb-4">
+      <img class="card-img-top" src="{{qrcode.qr_code.url}}" alt="Card image cap" />
+      <div class="card-footer d-flex align-items-center justify-content-between small">ติดต่อผู้ขาย : {{qrcode.social_name}}</div>
     </div>
-    {% endfor %}
-
-    {% for product in products %}
-    {% if product.store.status == 1 %}
-    <div class="col-xl-3 col-md-6">
-        <div class="card mb-4">
-            <div class="thumb-post">
-                {% if request.GET.store != None %}
-                <a href="{% url 'shopping-product-view' product.id %}?store={{request.GET.store}}">
-                    {% if product.img_detault == True %}
-                    <img class="card-img-top" src="{% static product.image %}" alt="{{product.gene_choice}}" />
-                    {% else %}
-                    <img class="card-img-top" src="{{product.image}}" alt="{{product.gene_choice}}" />
-                    {% endif %}
-                </a>
-                {% else %}
-                <a href="{% url 'shopping-product-view' product.id %}">
-                    {% if product.img_detault == True %}
-                    <img class="card-img-top" src="{% static product.image %}" alt="{{product.gene_choice}}" />
-                    {% else %}
-                    <img class="card-img-top" src="{{product.image}}" alt="{{product.gene_choice}}" />
-                    {% endif %}
-                </a>
-                {% endif %}
+  </div>
+  {% endfor %} {% endcomment %}
+  <!---->
+  {% for product in products %}
+  <!---->
+  {% if product.store.status == 1 %}
+  <div class="col-xl-3 col-md-6">
+    <div class="card mb-4">
+      <div class="thumb-post">
+        {% if request.GET.store != None %}
+        <a href="{% url 'shopping-product-view' product.id %}?store={{request.GET.store}}">
+          {% if product.img_detault == True %}
+          <img class="card-img-top" src="{% static product.image %}" alt="{{product.gene_choice}}" />
+          {% else %}
+          <img class="card-img-top" src="{{product.image}}" alt="{{product.gene_choice}}" />
+          {% endif %}
+        </a>
+        {% else %}
+        <a href="{% url 'shopping-product-view' product.id %}">
+          {% if product.img_detault == True %}
+          <img class="card-img-top" src="{% static product.image %}" alt="{{product.gene_choice}}" />
+          {% else %}
+          <img class="card-img-top" src="{{product.image}}" alt="{{product.gene_choice}}" />
+          {% endif %}
+        </a>
+        {% endif %}
+      </div>
+      <div class="card-footer text-center small">
+        <a href="{% url 'shopping'%}?store={{product.store.id}}">{{product.store.name}}</a>
+      </div>
+      <div class="card-body">
+        <div class="card-text small text-dark">
+          <div class="row mb-2 small">
+            <div class="col">
+              {% if request.GET.store != None %}
+              <a href="{% url 'shopping-product-view' product.id %}?store={{request.GET.store}}">{{product.gene_choice}}</a>
+              {% else %}
+              <a href="{% url 'shopping-product-view' product.id %}">{{product.gene_choice}}</a>
+              {% endif %}
             </div>
-            <div class="card-footer text-center small">
-                <a href="{% url 'shopping'%}?store={{product.store.id}}">{{product.store.name}}</a>
-            </div>
-            <div class="card-body">
-                <div class="card-text small text-dark">
-                    <div class="row mb-2 small">
-                        <div class="col">
-                            {% if request.GET.store != None %}
-                            <a
-                                href="{% url 'shopping-product-view' product.id %}?store={{request.GET.store}}">{{product.gene_choice}}</a>
-                            {% else %}
-                            <a href="{% url 'shopping-product-view' product.id %}">{{product.gene_choice}}</a>
-                            {% endif %}
-                        </div>
-                    </div>
-                    <div class="row mb-2 small">
-                        <div class="col">น้ำหนัก (กก.)</div>
-                        <div class="col text-right">{{product.weight}}</div>
-                    </div>
-                    <div class="row mb-2 small">
-                        <div class="col">ราคา (ต่อ/กก.)</div>
-                        <div class="col text-right">{{product.price|floatformat:0}}</div>
-                    </div>
-                    <div class="row mb-2 small">
-                        <div class="col">ราคารวม (บาท)</div>
-                        <div class="col text-right">{{product.price_total}}</div>
-                    </div>
-                    <div class="row mb-2 small">
-                        <div class="col">จำนวน (ลูก)</div>
-                        <div class="col text-right">{{product.values}}</div>
-                    </div>
-                    <div class="row mb-2 small">
-                        <div class="col">เกรดทุเรียน</div>
-                        <div class="col text-right">{{product.grade_choice}}</div>
-                    </div>
-                    <div class="row mb-2 small">
-                        <div class="col">ลักษณะการขาย</div>
-                        <div class="col text-right">{{product.status_choice}}</div>
-                    </div>
-                </div>
-            </div>
+          </div>
+          <div class="row mb-2 small">
+            <div class="col">น้ำหนัก (กก.)</div>
+            <div class="col text-right">{{product.weight}}</div>
+          </div>
+          <div class="row mb-2 small">
+            <div class="col">ราคา (ต่อ/กก.)</div>
+            <div class="col text-right">{{product.price|floatformat:0}}</div>
+          </div>
+          <div class="row mb-2 small">
+            <div class="col">ราคารวม (บาท)</div>
+            <div class="col text-right">{{product.price_total}}</div>
+          </div>
+          <div class="row mb-2 small">
+            <div class="col">จำนวน (ลูก)</div>
+            <div class="col text-right">{{product.values}}</div>
+          </div>
+          <div class="row mb-2 small">
+            <div class="col">เกรดทุเรียน</div>
+            <div class="col text-right">{{product.grade_choice}}</div>
+          </div>
+          <div class="row mb-2 small">
+            <div class="col">ลักษณะการขาย</div>
+            <div class="col text-right">{{product.status_choice}}</div>
+          </div>
         </div>
+      </div>
     </div>
-    {% endif %}
-    {% endfor %}
+  </div>
+  {% endif %}
+  <!---->
+  {% endfor %}
 </div>
 {% endblock %}
