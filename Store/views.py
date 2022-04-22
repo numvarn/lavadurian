@@ -12,7 +12,7 @@ from django.db.models import Avg, Count, Q, Sum
 from django.core.mail import send_mail
 
 from Store.forms import AddProductForm, BankForm, CreateStoreForm, ProductImageForm, StoreCertificateForm
-from Store.models import ACCOUNT_TYPE, BANK, GENE_CHOICES, GRADE_CHOICES, PRODUCT_STATUS_CHOICES, SOCIAL_TYPE, STATUS_CHOICES, PRICE_FILTER, WEIGHT_FILTER, DISTRICT_CHOICES
+from Store.models import ACCOUNT_TYPE, BANK, GENE_CHOICES, GRADE_CHOICES, PRODUCT_STATUS_CHOICES, SOCIAL_TYPE, STATUS_CHOICES, PRICE_FILTER, WEIGHT_FILTER, DISTRICT_CHOICES, StoreLocation
 from Store.models import BookBank, Product, ProductImages, Review, Store, StoreCertificate, SocialQRCode
 from Cart.models import ORDER_STATUS_CHOICES, Order, OrderItem, TransferNotification
 from Cart.form import SetOrderStatus
@@ -582,7 +582,13 @@ def shoppingPage(request):
                         qrcode.social, SOCIAL_TYPE)
                     qrcodes_lt.append(qrcode)
             else:
-                pass
+                qrcode = {
+                    'store': store,
+                    'social_name': 'Facebook',
+                    'qr_code': '/assets/img/product-default/qrcode_default.png',
+                    'default': True,
+                }
+                qrcodes_lt.append(qrcode)
 
             qrcodes = SocialQRCode.objects.filter(store=store, social=2)
             if len(qrcodes) > 0:
@@ -600,6 +606,11 @@ def shoppingPage(request):
                 qrcodes_lt.append(qrcode)
 
             context['qr_code'] = qrcodes_lt
+
+            # * Get store location
+            locations = StoreLocation.objects.filter(store=store)
+            for location in locations:
+                context['location'] = location
 
     except NameError:
         pass
@@ -822,11 +833,31 @@ def storeListView(request):
 
 def storeLocation(request, id):
     context = {}
+    stores = Store.objects.filter(id=id)
+    for store in stores:
+        context['store'] = store
+
+    # get location
+    location_lt = []
+    locations = StoreLocation.objects.filter(store=store)
+    for location in locations:
+        dt = [
+            location.store.name,
+            float(location.latitude),
+            float(location.longitude),
+            int(1),
+            # str(1),
+        ]
+
+        location_lt.append(dt)
+
+    context['locations'] = location_lt
+
     return render(request, 'store_location_view.html', context)
 
 
-@login_required
-@group_required("trader")
+@ login_required
+@ group_required("trader")
 def stroeSalesCheck(request, id):
     status = 0
 
@@ -912,7 +943,7 @@ def getModelChoice(intValue, choices):
 # for test email sending
 
 
-@login_required
+@ login_required
 def sendMail(request):
     subject = 'Thank you for registering to our site'
     message = 'it  means a world to us'

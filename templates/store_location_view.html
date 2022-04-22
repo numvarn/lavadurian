@@ -1,1 +1,102 @@
 {% extends 'base2.html' %}
+<!---->
+{% load static %}
+<!---->
+{% load template_func %}
+<!---->
+{% block title %} {{title}} {%endblock%} {% block content %}
+<div class="alert alert-primary border-0 mb-4 mt-3 px-md-3">
+  <div class="position-relative">
+    <div class="row align-items-center justify-content-between">
+      <div class="col position-relative">
+        <h2 class="text-primary">{{store.name}}</h2>
+        <div class="text-gray-700 mb-4">โดย {{store.owner}}</div>
+        <div class="text-gray-700 mb-2">{{store.slogan}}</div>
+        <div class="text-gray-700 mb-4">{{store.about|linebreaks}}</div>
+        <div class="mb-4">
+          <div><i class="fa fa-phone-square"></i> {{store.phone1}}</div>
+          {% if store.phone2 != None %}
+          <div><i class="fa fa-phone-square"></i> {{store.phone2}}</div>
+          {% endif %}
+        </div>
+        <div class="mb-2">
+          <span>จำนวนสินค้า</span>
+          <span>{{store.product_count}} รายการ</span>
+        </div>
+        <div>
+          <span>คะแนนจากลูกค้า</span>
+          <span class="text-right review-display">
+            {% for i in store.review_rate %} {% if i <= store.review_avg %} <span class="fa fa-star checked"></span>
+            {% else %}
+            <span class="fa fa-star"></span>
+            {% endif %} {% endfor %}
+          </span>
+        </div>
+      </div>
+      <div class="col d-none d-md-block text-right pt-3">
+        <img class="img-fluid mt-n5" src="{% static 'assets/img/figure/lavadurian01.png' %}" style="max-width: 25rem" />
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.10.1.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=API-Key"></script>
+
+<div class="row mb-4">
+  <div id="map" style="width: 100%; height: 460px"></div>
+</div>
+{{ location }}
+<script type="text/javascript">
+  var locations = [
+      {% for location in locations %}
+        {{location|safe}},
+      {% endfor %}
+  ];
+
+  var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 8,
+      center: new google.maps.LatLng(15.102055, 104.315271),
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+  });
+
+  var infowindow = new google.maps.InfoWindow();
+
+  var marker, i;
+  var markers = new Array();
+
+  for (i = 0; i < locations.length; i++) {
+      marker = new google.maps.Marker({
+          position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+          label: locations[i][4],
+          map: map
+  });
+
+  markers.push(marker);
+
+  google.maps.event.addListener(marker, 'click', (function(marker, i) {
+      return function() {
+      infowindow.setContent(locations[i][0]);
+      infowindow.open(map, marker);
+      }
+  })(marker, i));
+  }
+
+  function AutoCenter() {
+      //  Create a new viewpoint bound
+      var bounds = new google.maps.LatLngBounds();
+      //  Go through each...
+      $.each(markers, function (index, marker) {
+      bounds.extend(marker.position);
+      });
+      //  Fit these bounds to the map
+      map.fitBounds(bounds);
+  }
+  AutoCenter();
+
+  function myClick(id){
+      google.maps.event.trigger(markers[id], 'click');
+      map.setCenter(markers[id].getPosition());
+  }
+</script>
+{% endblock %}
