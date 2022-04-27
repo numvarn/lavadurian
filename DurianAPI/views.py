@@ -267,19 +267,28 @@ def UpdateLocationAPI(request):
     msg = "Permission denied"
 
     if request.method == "POST" and request.data['store'] != None:
-        store = Store.objects.get(id=request.data['store'])
-        serializer = serializers.StoreLocationSerializer(data=request.data)
-        if serializer.is_valid():
-            # check current store location is exist
+        store = Store.objects.get(id=int(request.data['store']))
+        # convert to float
+        location_data = {
+            'store': int(request.data['store']),
+            'latitude': float(request.data['latitude']),
+            'longitude': float(request.data['longitude']),
+        }
+        if store != None:
             instance = StoreLocation.objects.filter(store=store)
             if instance.count() > 0:
-                location = serializer.update(instance, serializer.data)
+                instance.update(**location_data)
+                data = serializers.StoreLocationSerializer(instance[0]).data
             else:
-                location = serializer.create(store, serializer.data)
+                location = StoreLocation.objects.create(
+                    store=store,
+                    latitude=location_data['latitude'],
+                    longitude=location_data['longitude'],
+                )
+                data = serializers.StoreLocationSerializer(location).data
 
             status = True
             msg = "Successed"
-            data = serializer.data
 
     return Response({'status': status, 'message': msg, 'data': data}, status=HTTP_200_OK)
 
