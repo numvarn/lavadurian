@@ -30,11 +30,17 @@
                 <div class="card my-5">
                   <div class="card-body text-center">
                     <div class="h3 font-weight-light mb-3">เข้าสู่ระบบเพื่อซื้อสินค้า</div>
-                    <!-- <a class="btn btn-icon btn-facebook mx-1" href="javascript:void(0);"><i class="fab fa-facebook-f fa-fw fa-sm"></i></a> -->
+                    {% comment %}
                     <a href='{% provider_login_url "facebook" method="js_sdk" %}' class="btn btn-block btn-social btn-facebook" style="background-color: #3b5998; text-align: center">
                       <i class="fab fa-facebook-f fa-fw fa-sm"></i>
                       &nbsp; Sign in with Facebook
                     </a>
+                    {% endcomment %}
+                    <a href="/accounts/facebook/login" class="btn btn-block btn-social btn-facebook" style="background-color: #3b5998; text-align: center">
+                      <i class="fab fa-facebook-f fa-fw fa-sm"></i>
+                      &nbsp; Sign in with Facebook
+                    </a>
+
                     <br />
                     <br />
                     สามารถเข้าสู่ระบบ หรือลงทะเบียนผ่าน facebook ได้
