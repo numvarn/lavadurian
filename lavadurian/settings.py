@@ -193,29 +193,29 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
-SOCIALACCOUNT_PROVIDERS = \
-    {'facebook':
-     {'METHOD': 'oauth2',
-      'SCOPE': ['email', 'public_profile', 'user_friends'],
-      'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
-      'FIELDS': [
-          'id',
-          'email',
-          'name',
-          'first_name',
-          'last_name',
-          'verified',
-          'locale',
-          'timezone',
-          'link',
-          'gender',
-          'updated_time'],
-      'EXCHANGE_TOKEN': True,
-      'LOCALE_FUNC': lambda request: 'kr_KR',
-      'VERIFIED_EMAIL': False,
-      'VERSION': 'v2.4'
-      }
-     }
+SOCIALACCOUNT_PROVIDERS = {
+    'facebook': {
+        'METHOD': 'oauth2',
+        'SDK_URL': '//connect.facebook.net/{locale}/sdk.js',
+        'SCOPE': ['email', 'public_profile'],
+        'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
+        'INIT_PARAMS': {'cookie': True},
+        'FIELDS': [
+            'id',
+            'first_name',
+            'last_name',
+            'middle_name',
+            'name',
+            'name_format',
+            'picture',
+            'short_name'
+        ],
+        'EXCHANGE_TOKEN': True,
+        # 'LOCALE_FUNC': 'path.to.callable',
+        'VERIFIED_EMAIL': False,
+        'VERSION': 'v13.0',
+    }
+}
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
