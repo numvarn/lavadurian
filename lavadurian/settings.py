@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+import os
 from google.oauth2 import service_account
 from pathlib import Path
 
@@ -66,7 +67,17 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 SITE_ID = 1
 
-SECURE_SSL_REDIRECT = True
+LOGIN_REDIRECT_URL = "/"
+
+# Enable in production host
+# social login
+os.environ['HTTPS'] = "on"
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
+ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'https'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQURIED = True
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
