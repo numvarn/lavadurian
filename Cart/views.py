@@ -334,7 +334,7 @@ def cartProcessOrder(request):
                 order.save()
 
                 # Send email to store owner
-                sendMailStoreApproved(store)
+                # sendMailStoreApproved(store)
 
             # Clear Cart and Items
             cart.delete()
@@ -490,7 +490,7 @@ def orderDetail(request, id):
                     # Send email to customer
                     order.status_display = getModelChoice(
                         order.status, ORDER_STATUS_CHOICES)
-                    sendMailOrderStatusChanged(order)
+                    # sendMailOrderStatusChanged(order)
 
                     return redirect("/order/detail/"+str(order.id))
             else:
@@ -628,7 +628,7 @@ def trackingSave(request):
             # Send email to customer
             order.status_display = getModelChoice(
                 order.status, ORDER_STATUS_CHOICES)
-            sendMailOrderStatusChanged(order)
+            # sendMailOrderStatusChanged(order)
 
             messages.success(request, "บันทึกหมายเลขพัสดุแล้ว")
             return redirect('/order/detail/'+str(order_id))
