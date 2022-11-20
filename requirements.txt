@@ -14,3 +14,4 @@ dj-rest-auth
 django-storages
 google-cloud-storage
 cloudinary
+pandas

@@ -15,11 +15,15 @@ urlpatterns = [
     path('order/my/', views.orderMy, name="order-my"),
     path('order/delete/<int:id>', views.orderDelete, name='order-delete'),
     path('order/detail/<int:id>', views.orderDetail, name="order-detail"),
-    path('order/items/<int:id>/edit/', views.orderEditWeight, name='order-edit-weight'),
+    path('order/items/<int:id>/edit/',
+         views.orderEditWeight, name='order-edit-weight'),
     path('message/save/', views.orderMessageSave),
     path('notif/save/', views.transferNotifSave),
     path('notif/delete/', views.notifDelete, name="notif-delete"),
     path('review/add/', views.reviewAdd),
     path('tracking/save/', views.trackingSave),
-    path('api/get/shipping-status/', views.getShippingStatus)
+    path('api/get/shipping-status/', views.getShippingStatus),
+
+    # สำหรับ export ข้อมูล
+    path('export/receiveaddress', views.exportReceiveAddress),
 ]

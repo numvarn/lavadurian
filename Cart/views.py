@@ -147,7 +147,7 @@ def itemUpdate(request):
 
 
 ''''
-Checkout Page 
+Checkout Page
 - Check user authentication
 - Add receiver address
 - Comfirm order checkout
@@ -1003,3 +1003,28 @@ def sendMailOrderStatusChanged(order):
 
     send_mail(subject, plain_message, email_from,
               recipient_list, html_message=html_message)
+
+
+'''
+จำข้อมูลรายชื่อที่อยู่ ผู้ซื้อ ออกมาในรูปแบบของ excel
+'''
+
+
+def exportReceiveAddress(request):
+    import pandas as pd
+
+    address = ReceiveAddress.objects.all().order_by('id')
+    df = pd.DataFrame(list(address.values()))
+
+    receiver_list = []
+    index_list = []
+    for index, row in df.iterrows():
+        if row['phone'].strip() not in receiver_list:
+            receiver_list.append(row['phone'].strip())
+        else:
+            index_list.append(index)
+
+    df.drop(index_list, axis=0, inplace=True)
+
+    df.to_csv("/Users/phisan/Desktop/address.csv")
+    return HttpResponse("export Receive Address")
