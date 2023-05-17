@@ -201,6 +201,8 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
 
+# STATIC_ROOT = BASE_DIR / 'staticfiles'
+
 # Social Login
 
 # a personal preference. True by default. I don't want users to be interrupted by logging in
