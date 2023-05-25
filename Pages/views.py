@@ -2,6 +2,8 @@ from django.shortcuts import render, HttpResponse
 from Store.views import homePageExtended
 
 # Create your views here.
+
+
 def Home(request):
     context = {
         'title': 'ตลาดทุเรียนภูเขาไฟออนไลน์',
@@ -16,12 +18,14 @@ def Home(request):
 
     return render(request, 'home.html', context)
 
+
 def DescPage(request):
     context = {
         'title': 'ตลาดทุเรียนภูเขาไฟออนไลน์',
         'subtitle': 'ตลาดออนไลน์เพื่อส่งเสริมการซื้อ-ขายทุเรียนภูเขาไฟ จังหวัดศรีสะเกษ',
     }
     return render(request, 'desc.html', context)
+
 
 def saleDesc(request):
     context = {
@@ -30,11 +34,19 @@ def saleDesc(request):
     }
     return render(request, 'desc_sales.html', context)
 
+
+def registerCutter(request):
+    context = {}
+    return render(request, 'register/cutter.html', context)
+
 # Handle Error
+
+
 def handler404(request, exception, template_name="404.html"):
     response = render(template_name)
     response.status_code = 404
     return response
+
 
 def handler401(request, exception, template_name="401.html"):
     response = render(template_name)

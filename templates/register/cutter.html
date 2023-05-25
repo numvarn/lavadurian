@@ -1,0 +1,164 @@
+{% extends 'base.html' %}
+<!---->
+{% block title %} ขึ้นทะเบียนนักตัด ทุเรียนภูเขาไฟศรีสะเกษ {% endblock title %}
+<!---->
+{% block content %}
+<section class="container py-5 bg-white">
+  <form action="" id="form-cutter">
+    <h1 class="text-center mb-4">แบบขึ้นทะเบียนนักตัด ทุเรียนภูเขาไฟศรีสะเกษ ฤดูกาลผลิต ปี พ.ศ. 2566</h1>
+
+    <hr class="mb-4 mt-4" />
+
+    <h3 class="mt-4">ข้อมูลผู้ลงทะเบียน</h3>
+
+    <div class="row mb-4 mt-4">
+      <div class="col">
+        <label for="fname" class="form-label">ชื่อ</label>
+        <input type="text" class="form-control form-control-lg" id="fname" aria-describedby="fnameFeedback" required v-model="fname" />
+        <div id="fnameFeedback" class="invalid-feedback">กรุณาป้อนข้อมูลให้ถูกต้อง</div>
+      </div>
+
+      <div class="col">
+        <label for="lname" class="form-label">นามสกุล</label>
+        <input type="text" class="form-control form-control-lg" id="lname" aria-describedby="lnameFeedback" required v-model="lname" />
+        <div id="lnameFeedback" class="invalid-feedback">กรุณาป้อนข้อมูลให้ถูกต้อง</div>
+      </div>
+    </div>
+
+    <div class="row mb-4">
+      <div class="col-md-6">
+        <label for="lname" class="form-label">เลขประจำตัวประชาชน</label>
+        <input type="text" class="form-control form-control-lg" id="lname" aria-describedby="lnameFeedback" required v-model="national_id" />
+        <div id="lnameFeedback" class="invalid-feedback">กรุณาป้อนข้อมูลให้ถูกต้อง</div>
+      </div>
+      <div class="col-md-6">
+        <label for="lname" class="form-label">ประสบการณ์การตัด (ปี)</label>
+        <input type="text" class="form-control form-control-lg" placeholder="" aria-label="Recipient's username" aria-describedby="basic-addon2" />
+      </div>
+    </div>
+
+    <br />
+    <hr class="mb-4" />
+    <br />
+
+    <h3 class="mb-4">ที่อยู่สำหรับติดต่อ</h3>
+
+    <div class="row mb-4">
+      <div class="col-md-6">
+        <label for="validationServer04" class="form-label">จังหวัด</label>
+        <select class="form-control form-control-lg" aria-describedby="validationServer04Feedback" required v-model="province">
+          <option selected disabled value="">เลือก</option>
+          <option>...</option>
+        </select>
+      </div>
+      <div class="col-md-6">
+        <label for="validationServer04" class="form-label">อำเภอ/เขต</label>
+        <select class="form-control form-control-lg" aria-describedby="validationServer04Feedback" required v-model="district">
+          <option selected disabled value="">เลือก</option>
+          <option>...</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row mb-4">
+      <div class="col-md-6">
+        <label for="validationServer04" class="form-label">ตำบล/แขวง</label>
+        <select class="form-control form-control-lg" aria-describedby="validationServer04Feedback" required v-model="subDistrict">
+          <option selected disabled value="">เลือก</option>
+          <option>...</option>
+        </select>
+      </div>
+      <div class="col-md-6">
+        <label for="lname" class="form-label">รหัสไปรษณี</label>
+        <input type="text" class="form-control form-control-lg" id="post-code" aria-describedby="lnameFeedback" required v-model="national_id" />
+      </div>
+    </div>
+
+    <br />
+    <hr class="mb-4" />
+    <br />
+
+    <h3 class="mb-4">ประเภท</h3>
+    <div class="row mb-4">
+      <div class="col">
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" />
+          <label class="form-check-label" for="flexRadioDefault1"> เกษตรกร </label>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" />
+          <label class="form-check-label" for="flexRadioDefault2"> มือตัดอิสระ </label>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3" />
+          <label class="form-check-label" for="flexRadioDefault3"> หัวหน้าทีมนักตัด </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-4">
+      <div class="col">
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault4" />
+          <label class="form-check-label" for="flexRadioDefault4"> มือตัดของผู้ประกอบการ/โรงคัดบรรจุ/ล้ง </label>
+        </div>
+      </div>
+    </div>
+
+    <hr class="mb-4" />
+    <br />
+    <h3 class="mt-4">การฝึกอบรมเรื่องการตัดทุเรียน</h3>
+
+    <div class="row mb-4">
+      <div class="col-md-3 p-4">
+        <input class="form-check-input" type="checkbox" name="flexRadioDefault1" id="flexRadioDefault5" />
+        <label class="form-check-label mx-3" for="flexRadioDefault5">เคย</label>
+      </div>
+    </div>
+
+    <hr class="mb-4" />
+    <br />
+    <h3>ใบรับรองผ่านการฝึกอบรมการตัดทุเรียน</h3>
+
+    <div class="row mb-4">
+      <div class="col-md-3 p-4">
+        <input class="form-check-input" @change="setToDay()" type="checkbox" name="" v-model="date" id="flexRadioDefault5" />
+        <label class="form-check-label mx-3" for="flexRadioDefault5"> มี</label>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <a href="#" class="btn btn-primary">ลงทะเบียนผู้ตัด</a>
+      </div>
+    </div>
+  </form>
+</section>
+{% endblock content %}
+<!---->
+{% block javascript %}
+<script>
+  const register = Vue.createApp({
+    delimiters: ["[[", "]]"],
+    data() {
+      return {
+        message: "Hello Vue.js",
+        date: "",
+        fname: "",
+        lname: "",
+        national_id: "",
+        province: "",
+        district: "",
+        subDistrict: "",
+        detail: "",
+      };
+    },
+  });
+
+  register.mount("#form-cutter");
+</script>
+{% endblock javascript %}
