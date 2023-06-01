@@ -12,8 +12,8 @@ from django.db.models import Avg, Count, Q, Sum
 from django.core.mail import send_mail
 
 from Store.forms import AddProductForm, BankForm, CreateStoreForm, ProductImageForm, StoreCertificateForm
-from Store.models import ACCOUNT_TYPE, BANK, GENE_CHOICES, GRADE_CHOICES, PRODUCT_STATUS_CHOICES, SOCIAL_TYPE, STATUS_CHOICES, PRICE_FILTER, WEIGHT_FILTER, DISTRICT_CHOICES, StoreLocation
-from Store.models import BookBank, Product, ProductImages, Review, Store, StoreCertificate, SocialQRCode
+from Store.models import ACCOUNT_TYPE, BANK, GENE_CHOICES, GRADE_CHOICES, PRODUCT_STATUS_CHOICES, SOCIAL_TYPE, STATUS_CHOICES, PRICE_FILTER, WEIGHT_FILTER, DISTRICT_CHOICES
+from Store.models import BookBank, Product, ProductImages, Review, Store, StoreCertificate, SocialQRCode, RecommendedProduct, StoreLocation
 from Cart.models import ORDER_STATUS_CHOICES, Order, OrderItem, TransferNotification
 from Cart.form import SetOrderStatus
 from Members.models import Trader
@@ -928,6 +928,16 @@ def stroeSalesCheck(request, id):
     }
 
     return render(request, 'store_salecheck.html', context)
+
+
+def recommendedProductPage(request):
+    context = {
+        'title': 'ผลิตภัณฑ์แนะนำจังหวัดศรีสะเกษ',
+        'subtitle': 'รวบรวมและนำเสนอโดยสำนักงานพาณิชย์จังหวัดศรีสะเกษ',
+    }
+    products = RecommendedProduct.objects.all()
+    context['products'] = products
+    return render(request, 'store_rec_product.html', context)
 
 # Mapping Chice : int to string
 

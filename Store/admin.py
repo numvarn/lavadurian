@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.models import User
-from Store.models import Product, ProductImages, Review, SocialQRCode, Store, StoreCertificate, BookBank, StoreLocation
+from Store.models import Product, ProductImages, Review, SocialQRCode, Store, StoreCertificate, BookBank, StoreLocation, RecommendedProduct
 from Store.forms import CreateStoreForm
 from django.contrib.auth.decorators import user_passes_test
 from django.utils.html import format_html
@@ -114,6 +114,11 @@ class ReviewAdmin(admin.ModelAdmin):
 
 class SocialQRCodeAdmin(admin.ModelAdmin):
     list_display = ('store', 'social', 'date_created')
+
+
+@admin.register(RecommendedProduct)
+class RecommendedProductAdmin(admin.ModelAdmin):
+    list_display = ('product_name', 'product_desc', 'link')
 
 
 admin.site.register(Product, ProductAdmin)

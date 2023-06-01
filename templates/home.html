@@ -89,10 +89,10 @@
   <div class="card mb-4">
     <img class="card-img-top" src="{% static 'assets/img/card/04.jpg' %}" alt="ผลิตภัณฑ์แนะนำ" />
     <div class="card-body">
-      <h5 class="card-title text-primary">ผลิตภัณฑ์แนะนำ</h5>
+      <h5 class="card-title text-primary"><a href="{% url 'rec-product' %}">ผลิตภัณฑ์แนะนำ</a></h5>
       <p class="card-text small">ผลิตภัณฑ์แนะนำ สินค้าเด่น เลือกสรร คัดคุณภาพจากหน่วยงานที่กำกับ ควบคุม ดูแลอย่างเข้มข้นเพื่อความพึงพอใจของผู้บริโภค</p>
     </div>
-    <a class="card-footer d-flex align-items-center justify-content-between" href="#!">สินค้าเด่น<i data-feather="arrow-right"></i></a>
+    <a class="card-footer d-flex align-items-center justify-content-between" href="{% url 'rec-product' %}">สินค้าเด่น<i data-feather="arrow-right"></i></a>
   </div>
   <div class="card mb-4">
     <img class="card-img-top" src="{% static 'assets/img/card/01.jpg' %}" alt="สวนที่ได้รับรองมาตรฐาน" />
