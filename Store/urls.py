@@ -25,5 +25,7 @@ urlpatterns = [
     path('bookbank/save/', views.storeAddBookBank),
     path('bookbank/<int:id>/delte/',
          views.storeDeleteBookBank, name="bookbank-delete"),
-    path('sendmail/', views.sendMail)
+    path('sendmail/', views.sendMail),
+
+    path('products/reccommend', views.recommendedProductPage, name="rec-product"),
 ]

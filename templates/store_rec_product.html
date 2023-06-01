@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+<!---->
+{% block title %} {{title}} {%endblock%}
+<!---->
+{% block subtitle %} {{subtitle}} {% endblock %}
+<!---->
+{% block content %}
+<div class="container">
+  <div class="card-columns">
+    <div class="card">
+      <div>
+        <a href="https://online.anyflip.com/yhynv/ybnj/mobile/" target="_blank"><img class="card-img-top" src="https://storage.googleapis.com/lavadurian/uploads/rec_product_imgs/cover.png" alt="Card image cap" /></a>
+      </div>
+      <div class="card-body">
+        <a href="https://online.anyflip.com/yhynv/ybnj/mobile/" target="_blank"><h3 class="card-title">ผลิตภัณฑ์แปรรูปจากผ้าพื้นเมือง</h3></a>
+        <h6 class="card-title">ผลิตภัณฑ์แปรรูปจากผ้าพื้นเมือง สิ้นค้าแนะนำโดยสำนักงานพาณิชย์จังหวัดศรีสะเกษ</h6>
+        {% comment %}
+        <p class="card-text"><small class="text-muted">เผยแพร่เมื่อ : {{product.date_created}}</small></p>
+        {% endcomment %}
+      </div>
+    </div>
+    {% for product in products %}
+    <div class="card">
+      <div>
+        <a href="{{product.rec_product_img.url}}" target="_blank"><img class="card-img-top" src="{{product.rec_product_img.url}}" alt="Card image cap" /></a>
+      </div>
+      <div class="card-body">
+        <a href="{{product.rec_product_img.url}}" target="_blank"><h3 class="card-title">{{product.product_name}}</h3></a>
+        <h6 class="card-title">{{product.product_desc}}</h6>
+        <p class="card-text"><small class="text-muted">เผยแพร่เมื่อ : {{product.date_created}}</small></p>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

@@ -29,6 +29,7 @@ class PathAndRename(object):
 
 
 product_img_path = PathAndRename("uploads/product_imgs")
+rec_product_img_path = PathAndRename("uploads/rec_product_imgs")
 qrcode_path = PathAndRename("uploads/qrcode_img")
 
 # * ----------------------------------------------------
@@ -247,6 +248,27 @@ class StoreLocation(models.Model):
     def __str__(self):
         """Unicode representation of StoreLocation."""
         return self.store.name
+
+
+class RecommendedProduct(models.Model):
+    """Model definition for RecommendedProduct."""
+
+    # TODO: Define fields here
+    product_name = models.CharField(max_length=255)
+    product_desc = models.TextField()
+    rec_product_img = models.ImageField(upload_to=rec_product_img_path)
+    link = models.TextField(blank=True)
+    date_created = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        """Meta definition for RecommendedProduct."""
+
+        verbose_name = 'RecommendedProduct'
+        verbose_name_plural = 'RecommendedProducts'
+
+    def __str__(self):
+        """Unicode representation of RecommendedProduct."""
+        return self.product_name
 
 
 '''
