@@ -9,5 +9,5 @@ urlpatterns = [
          name='member-pasword-recover'),
     path('customer/register', views.registerCustomer, name='customer-regis'),
 
-    path('import/registerGI', views.importRegisterGI),
+    # path('import/registerGI', views.importRegisterGI),
 ]
