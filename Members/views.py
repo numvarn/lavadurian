@@ -134,7 +134,12 @@ def checkUserExist(email):
 def listGIPage(request):
     context = {
         'title': 'รายชื่อผู้ที่ขึ้นทะเบียน GI',
-        'subtitle': 'รายชื่อผู้ได้รับอนุญาตใช้ตราสัญลักษณ์สิ่งบ่งชี้ทางภูมิศาสตร์ไทย (GI) "ทุเรียนภูเขาไฟศรีสะเกษ"'
+        'subtitle': 'รายชื่อผู้ได้รับอนุญาตใช้ตราสัญลักษณ์สิ่งบ่งชี้ทางภูมิศาสตร์ไทย (GI) "ทุเรียนภูเขาไฟศรีสะเกษ"',
+        'search_name': '',
+        'search_subdistrict': '',
+        'search_district_1': '',
+        'search_district_2': '',
+        'search_district_3': '',
     }
 
     if request.method == 'GET':
@@ -145,12 +150,24 @@ def listGIPage(request):
         if request.GET.get('name') != None and request.GET.get('name') != "":
             name_q = Q(first_name=request.GET.get('name')) | Q(
                 last_name=request.GET.get('name'))
+            context['search_name'] = request.GET.get('name')
 
         if request.GET.get('district') != None and request.GET.get('district') != 'all':
             district_q = Q(district=request.GET.get('district'))
+            if request.GET.get('district') == 'กันทรลักษ์':
+                context['search_district_1'] = 'selected'
+            elif request.GET.get('district') == 'ขุนหาญ':
+                context['search_district_2'] = 'selected'
+            elif request.GET.get('district') == 'ศรีรัตนะ':
+                context['search_district_3'] = 'selected'
+
+            context['search_district'] = request.GET.get('district')
+        else:
+            context['search_district_all'] = 'selected'
 
         if request.GET.get('subdistrict') != None and request.GET.get('subdistrict') != "":
             subdistrict_q = Q(subdistrict=request.GET.get('subdistrict'))
+            context['search_subdistrict'] = request.GET.get('subdistrict')
 
         gi_list = registerGI.objects.filter(
             name_q & district_q & subdistrict_q)
