@@ -156,6 +156,11 @@ def importRegisterGI(request):
                     if row[10] == "":
                         row[10] = 0
 
+                    if row[9] != "":
+                        phone = '0'+row[9].strip()
+                    else:
+                        phone = ""
+
                     registerGI.objects.create(
                         prefix=row[1].strip(),
                         first_name=row[2].strip(),
@@ -165,7 +170,7 @@ def importRegisterGI(request):
                         subdistrict=row[6].strip(),
                         district=row[7].strip(),
                         province=row[8].strip(),
-                        phone=row[9].strip(),
+                        phone=phone,
                         area_size=row[10],
                         type=row[11].strip(),
                         date_start=date_start,
