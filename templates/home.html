@@ -97,10 +97,10 @@
   <div class="card mb-4">
     <img class="card-img-top" src="{% static 'assets/img/card/01.jpg' %}" alt="สวนที่ได้รับรองมาตรฐาน" />
     <div class="card-body">
-      <h5 class="card-title text-primary">สวนที่ได้มาตรฐาน</h5>
-      <p class="card-text small">รายชื่อสวนทุเรียนในจังหวัดศรีสะเกษที่ผ่านการตรวจรับรองมาตรฐานการผลิตพืช “เกษตรดีที่เหมาะสม (GAP)” ระดับแปลง โดยกรมวิชาการเกษตร</p>
+      <h5 class="card-title text-primary"><a href="{% url 'gi-list' %}">รายชื่อผู้ที่ขึ้นทะเบียน GI</a></h5>
+      <p class="card-text small">รายชื่อผู้ได้รับอนุญาตใช้ตราสัญลักษณ์สิ่งบ่งชี้ทางภูมิศาสตร์ไทย (GI) "ทุเรียนภูเขาไฟศรีสะเกษ"</p>
     </div>
-    <a class="card-footer d-flex align-items-center justify-content-between" href="#!">ดูรายชื่อสวน<i data-feather="arrow-right"></i></a>
+    <a class="card-footer d-flex align-items-center justify-content-between" href="{% url 'gi-list' %}">ดูรายชื่อ<i data-feather="arrow-right"></i></a>
   </div>
 </div>
 

@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from django.db.models import Q
 from django.contrib.auth.models import Group
 from Members.models import Trader, registerGI
+from django.core.paginator import Paginator
 
 # Create your views here.
 
@@ -126,6 +127,62 @@ def checkUserExist(email):
         return False
     else:
         return True
+
+# -----------------------------------------------------------------------------
+
+
+def listGIPage(request):
+    context = {
+        'title': 'รายชื่อผู้ที่ขึ้นทะเบียน GI',
+        'subtitle': 'รายชื่อผู้ได้รับอนุญาตใช้ตราสัญลักษณ์สิ่งบ่งชี้ทางภูมิศาสตร์ไทย (GI) "ทุเรียนภูเขาไฟศรีสะเกษ"',
+        'search_name': '',
+        'search_subdistrict': '',
+        'search_district_1': '',
+        'search_district_2': '',
+        'search_district_3': '',
+    }
+
+    if request.method == 'GET':
+        name_q = Q()
+        district_q = Q()
+        subdistrict_q = Q()
+
+        if request.GET.get('name') != None and request.GET.get('name') != "":
+            name_q = Q(first_name=request.GET.get('name')) | Q(
+                last_name=request.GET.get('name'))
+            context['search_name'] = request.GET.get('name')
+
+        if request.GET.get('district') != None and request.GET.get('district') != 'all':
+            district_q = Q(district=request.GET.get('district'))
+            if request.GET.get('district') == 'กันทรลักษ์':
+                context['search_district_1'] = 'selected'
+            elif request.GET.get('district') == 'ขุนหาญ':
+                context['search_district_2'] = 'selected'
+            elif request.GET.get('district') == 'ศรีรัตนะ':
+                context['search_district_3'] = 'selected'
+
+            context['search_district'] = request.GET.get('district')
+        else:
+            context['search_district_all'] = 'selected'
+
+        if request.GET.get('subdistrict') != None and request.GET.get('subdistrict') != "":
+            subdistrict_q = Q(subdistrict=request.GET.get('subdistrict'))
+            context['search_subdistrict'] = request.GET.get('subdistrict')
+
+        gi_list = registerGI.objects.filter(
+            name_q & district_q & subdistrict_q)
+    else:
+        gi_list = registerGI.objects.all()
+
+    paginator = Paginator(gi_list, 50)  # Show 25 contacts per page.
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    context['page_obj'] = page_obj
+    # return render(request, 'list.html', {'page_obj': page_obj})
+
+    return render(request, 'member_gi_list.html', context)
 
 # -----------------------------------------------------------------------------
 
