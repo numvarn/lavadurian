@@ -15,7 +15,7 @@ admin.site.register(Trader, TraderAdmin)
 
 @admin.register(registerGI)
 class registerGIAdmin(admin.ModelAdmin):
-    list_display = ('first_name', 'last_name', 'subdistrict',
-                    'district', 'province', 'phone')
+    list_display = ('prefix', 'first_name', 'last_name', 'subdistrict',
+                    'district', 'province', 'phone', 'date_start', 'date_end')
 
     search_fields = ('first_name', 'last_name')
