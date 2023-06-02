@@ -5,3 +5,4 @@ settings_local.py
 runserver_local.sh
 credentials.json
 manage.py
+.DS_Store
