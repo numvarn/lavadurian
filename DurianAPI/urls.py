@@ -1,12 +1,13 @@
 from django.urls import path, include
 from rest_framework import routers
 
-from DurianAPI.views import BookBankCreateAPI, BookBankDeleteAPI, BookBankUpdateAPI, GetOrderStatusAPI, OrderShippingUpdateAPI, OrderStatusUpdateAPI, OrderWeightUpdateAPI, ProductImageAddAPI, ProductImageDeleteAPI, QRCodeAddAPI, QRCodeDeleteAPI, SetStoreStatusAPI, TransferCheckAPI, UpdateLocationAPI, UserViewSet, GetMyUserViewSet, LoginAPI, UserRegisAPI, CheckCitizenIDAPI, CheckEmailAPI
+from DurianAPI.views import BookBankCreateAPI, BookBankDeleteAPI, BookBankUpdateAPI, GetOrderStatusAPI, GetStoreAllAPI, OrderShippingUpdateAPI, OrderStatusUpdateAPI, OrderWeightUpdateAPI, ProductImageAddAPI, ProductImageDeleteAPI, QRCodeAddAPI, QRCodeDeleteAPI, SetStoreStatusAPI, TransferCheckAPI, UpdateLocationAPI, UserViewSet, GetMyUserViewSet, LoginAPI, UserRegisAPI, CheckCitizenIDAPI, CheckEmailAPI
 from DurianAPI.views import AddNewStoreAPI, UpdateStoreAPI, DeleteStoreAPI
-from DurianAPI.views import ProductCreateAPI, ProductUpdateAPI, ProductDeleteAPI, GetStoreProfileAPI
+from DurianAPI.views import ProductCreateAPI, ProductUpdateAPI, ProductDeleteAPI, GetStoreProfileAPI, StoreViewSet
 
 router = routers.DefaultRouter()
 router.register('api/user/get', UserViewSet)
+router.register('api/stores/list', StoreViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
@@ -22,6 +23,7 @@ urlpatterns = [
     path('api/product-img/delete', ProductImageDeleteAPI),
 
     path('api/store/get', GetStoreProfileAPI),
+    path('api/store/all', GetStoreAllAPI),
     path('api/order/status', GetOrderStatusAPI),
 
     path('api/order/update', OrderStatusUpdateAPI),

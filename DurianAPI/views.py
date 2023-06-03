@@ -20,6 +20,7 @@ from rest_framework.status import (
     HTTP_200_OK
 )
 from rest_framework.response import Response
+from rest_framework import pagination
 from django.contrib.auth.models import User, Group
 from django.contrib.auth import authenticate
 from django.db.models import Count
@@ -45,6 +46,18 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all().order_by('-date_joined')
     serializer_class = serializers.UserSerializer
     permission_classes = [permissions.IsAuthenticated]
+
+
+'''
+Get all Store list
+'''
+
+
+class StoreViewSet(viewsets.ModelViewSet):
+    queryset = Store.objects.all().order_by('-date_created')
+    serializer_class = serializers.StoreAllSerializer
+    permission_classes = [permissions.AllowAny]
+    pagination.PageNumberPagination.page_size = 500
 
 
 '''
@@ -163,6 +176,32 @@ def GetStoreProfileAPI(request):
 
     # return Response(profile)
     return Response({'status': status, 'message': msg, 'data': profile}, status=status_msg)
+
+
+@csrf_exempt
+@api_view(["GET", ])
+@permission_classes((AllowAny,))
+def GetStoreAllAPI(request):
+    status = True
+    status_msg = HTTP_200_OK
+    msg = "access all stores"
+
+    stores = Store.objects.all()
+    data = []
+
+    for store in stores:
+        store_serial = serializers.StoreAllSerializer(store).data
+
+        store_serial['status'] = getModelChoice(store.status, STATUS_CHOICES)
+        store_serial['district'] = getModelChoice(
+            store.district, DISTRICT_CHOICES)
+
+        store_serial['owner'] = store.owner.first_name.strip() + \
+            " "+store.owner.last_name.strip()
+
+        data.append(store_serial)
+
+    return Response({'status': status, 'message': msg, 'data': data}, status=status_msg)
 
 
 '''
