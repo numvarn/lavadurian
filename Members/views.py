@@ -140,12 +140,16 @@ def listGIPage(request):
         'search_district_1': '',
         'search_district_2': '',
         'search_district_3': '',
+        'search_type_1': '',
+        'search_type_2': '',
+        'search_type_3': '',
     }
 
     if request.method == 'GET':
         name_q = Q()
         district_q = Q()
         subdistrict_q = Q()
+        type_q = Q()
 
         if request.GET.get('name') != None and request.GET.get('name') != "":
             name_q = Q(first_name=request.GET.get('name')) | Q(
@@ -169,8 +173,21 @@ def listGIPage(request):
             subdistrict_q = Q(subdistrict=request.GET.get('subdistrict'))
             context['search_subdistrict'] = request.GET.get('subdistrict')
 
+        if request.GET.get('type') != None and request.GET.get('type') != 'all':
+            type_q = Q(type=request.GET.get('type'))
+            if request.GET.get('type') == 'ผู้ผลิต':
+                context['search_type_1'] = 'selected'
+            elif request.GET.get('type') == 'ผู้ประกอบการ':
+                context['search_type_2'] = 'selected'
+            elif request.GET.get('type') == 'ผู้ผลิตและผู้ประกอบการ':
+                context['search_type_3'] = 'selected'
+
+            context['search_type'] = request.GET.get('type')
+        else:
+            context['search_type_all'] = 'selected'
+
         gi_list = registerGI.objects.filter(
-            name_q & district_q & subdistrict_q)
+            name_q & district_q & subdistrict_q & type_q)
     else:
         gi_list = registerGI.objects.all()
 

@@ -32,6 +32,17 @@
                 </select>
             </div>
           </div>
+          <div class="col-sm-3 my-1">
+            <label class="sr-only" for="inlineFormInputGroupUsername">ฐานะการใช้ตรา</label>
+            <div class="input-group">
+                <select id="type" class="form-control" name="type">
+                    <option {{ search_type_all }} value="all">แสดงทั้งหมด</option>
+                    <option {{ search_type_1 }} value="ผู้ผลิต">ผู้ผลิต</option>
+                    <option {{ search_type_2 }} value="ผู้ประกอบการ">ผู้ประกอบการ</option>
+                    <option {{ search_type_3 }} value="ผู้ผลิตและผู้ประกอบการ">ผู้ผลิตและผู้ประกอบการ</option>
+                </select>
+            </div>
+          </div>
           <div class="col-auto my-1">
             <button type="submit" class="btn btn-primary">ค้นหา</button>
             <a class="btn btn-primary" href="{% url 'gi-list' %}" role="button">ยกเลิก</a>
@@ -47,6 +58,7 @@
             <th scope="col">หมู่</th>
             <th scope="col">ตำบล</th>
             <th scope="col">อำเภอ</th>
+            <th scope="col">ฐานะการใช้ตรา</th>
             <th scope="col">วันที่เริ่ม</th>
             <th scope="col">วันสิ้นสุด</th>
           </tr>
@@ -60,6 +72,7 @@
             <td>{{ list.moo }}</td>
             <td>{{ list.subdistrict }}</td>
             <td>{{ list.district }}</td>
+            <td>{{ list.type }}</td>
             <td>{{ list.date_start }}</td>
             <td>{{ list.date_end }}</td>
           </tr>

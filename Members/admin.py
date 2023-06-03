@@ -18,4 +18,5 @@ class registerGIAdmin(admin.ModelAdmin):
     list_display = ('prefix', 'first_name', 'last_name', 'subdistrict',
                     'district', 'province', 'phone', 'type', 'date_start', 'date_end')
 
-    search_fields = ('first_name', 'last_name')
+    search_fields = ('first_name', 'last_name', 'district')
+    list_filter = ('type', )
