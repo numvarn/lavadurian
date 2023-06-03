@@ -92,6 +92,12 @@ class SocialQRCodeSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class StoreAllSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Store
+        fields = '__all__'
+
+
 class StoreRegisSerializer(serializers.ModelSerializer):
     class Meta:
         model = Store
