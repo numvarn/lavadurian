@@ -193,7 +193,7 @@ def importRegisterGI(request):
     from django.contrib.staticfiles import finders
     from datetime import datetime
 
-    url = finders.find('csv/gi_register.csv')
+    url = finders.find('csv/gi_register_edited.csv')
 
     with open(url) as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')

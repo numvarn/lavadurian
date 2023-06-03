@@ -11,5 +11,5 @@ urlpatterns = [
 
     path('gi/list', views.listGIPage, name='gi-list'),
 
-    # path('import/registerGI', views.importRegisterGI),
+    path('import/registerGI', views.importRegisterGI),
 ]
