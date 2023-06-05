@@ -31,14 +31,15 @@ handler = WebhookHandler('323ed2dfb83146a65daa0e97177f07c3')
 @api_view(["POST", ])
 @permission_classes((AllowAny,))
 def webhook(request):
-    req_dict = json.loads(request.body)
     req = request.data
 
-    intent = req_dict["queryResult"]["intent"]["displayName"]
-    text = req_dict["queryResult"]["queryText"]
+    intent = req.get('queryResult').get('intent').get('displayName')
+    text = req.get('queryResult').get('queryText')
+    reply_token = req.get('originalDetectIntentRequest').get(
+        'payload').get('data').get('replyToken')
 
     if intent == 'SuggestStore':
-        return Response({'fulfillmentText': 'กำลังสืบค้นร้านจาก www.lavadurian.com\nBy Phisan Sookkhee'+str(req.get('originalDetectIntentRequest').get('payload').get('data').get('replyToken'))})
+        return Response({'fulfillmentText': 'กำลังสืบค้นร้านจาก www.lavadurian.com\nBy Phisan Sookkhee'+str(intent)})
 
     elif intent == 'CheckPrice':
         return Response({'fulfillmentText': 'กำลังตรวจสอบราคาจาก www.lavadurian.com'})
