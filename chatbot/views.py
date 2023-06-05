@@ -11,6 +11,13 @@ from linebot.models import (
     TextSendMessage, FlexSendMessage, BubbleContainer, ImageComponent, URIAction, BoxComponent
 )
 
+from rest_framework.status import (
+    HTTP_400_BAD_REQUEST,
+    HTTP_403_FORBIDDEN,
+    HTTP_404_NOT_FOUND,
+    HTTP_200_OK
+)
+
 # Create your views here.
 # --
 # Channel access token
@@ -33,11 +40,11 @@ def webhook(request):
     # id = req_dict['originalDetectIntentRequest']['payload']['data']['source']['userId']
 
     if intent == 'SuggestStore':
-        text_message = TextSendMessage(
-            text='ทดสอบสำเร็จ - กำลังสืบค้นร้านจาก www.lavadurian.com')
+        line_bot_api.reply_message(
+            reply_token, TextSendMessage(text='Hello World!'))
 
-        # line_bot_api.reply_message(reply_token, text_message)
-        return Response({'fulfillmentText': 'กำลังสืบค้นร้านจาก www.lavadurian.com'})
+        return Response(status=HTTP_200_OK)
+        # return Response({'fulfillmentText': 'กำลังสืบค้นร้านจาก www.lavadurian.com'})
 
     elif intent == 'CheckPrice':
         return Response({'fulfillmentText': 'กำลังตรวจสอบราคาจาก www.lavadurian.com'})
