@@ -47,7 +47,7 @@ def webhook(request):
 
     if intent == 'SuggestStore':
         text_message = TextSendMessage(
-            text='สวัสดี {} \nทดสอบสำเร็จ'.format(disname))
+            text='คุณ {} กรุณารอสักครู่\nเรากำลังค้นหาร้านค้าจาก www.lavadurian.com ครับ'.format(disname))
 
         line_bot_api.reply_message(reply_token, text_message)
 
