@@ -15,5 +15,9 @@ def webhook(request):
 
     if intent == 'SuggestStore':
         return Response({'fulfillmentText': 'กำลังสืบค้นร้านจาก www.lavadurian.com'})
+
+    elif intent == 'CheckPrice':
+        return Response({'fulfillmentText': 'กำลังตรวจสอบราคาจาก www.lavadurian.com'})
+
     else:
         return Response({'fulfillmentText': ' chatbot จาก www.lavadurian.com'})
