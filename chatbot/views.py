@@ -52,10 +52,7 @@ def webhook(request):
         line_bot_api.reply_message(reply_token, text_message)
 
     elif intent == 'CheckPrice':
-        text_message = TextSendMessage(
-            text='คุณ {} กรุณารอสักครู่\nเรากำลังตรวจสอบราคาจาก www.lavadurian.com ครับ'.format(disname))
-
-        line_bot_api.reply_message(reply_token, text_message)
+        replyPrice(reply_token, disname)
 
     else:
         text_message = TextSendMessage(
@@ -64,3 +61,10 @@ def webhook(request):
         line_bot_api.reply_message(reply_token, text_message)
 
     return Response(status=HTTP_200_OK)
+
+
+def replyPrice(reply_token, disname):
+    text_message = TextSendMessage(
+        text='สวัสดีคุณ {} น้องทุเรียนภูเขาไฟขอแจ้งราคาทุเรียนตามนี้ครับ'.format(disname))
+
+    line_bot_api.reply_message(reply_token, text_message)
