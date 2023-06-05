@@ -73,12 +73,21 @@ def replyPrice(reply_token, disname):
     store_count = Store.objects.filter(status=1).count()
 
     # ราคาเกรดธรรมดา
+    # ต่ำสุด
     avg = Product.objects.filter(
         ~Q(status=3) & Q(grade=1)).aggregate(Min('price'))
     if avg['price__min'] is not None:
         minPrice_NormalGrade = "{:.0f}".format(avg['price__min'])
     else:
         minPrice_NormalGrade = ""
+
+    # สูงสุด
+    avg = Product.objects.filter(
+        ~Q(status=3) & Q(grade=1)).aggregate(Max('price'))
+    if avg['price__max'] is not None:
+        maxPrice_NormalGrade = "{:.0f}".format(avg['price__max'])
+    else:
+        maxPrice_NormalGrade = ""
 
     text_message_1 = TextSendMessage(
         text='สวัสดีคุณ {} ขอแจ้งราคาทุเรียน\nณ วันที่ {}\nดังนี้ครับ'.format(disname, 'xxx'))
@@ -87,7 +96,7 @@ def replyPrice(reply_token, disname):
         text='จำนวนร้านในตลาดออนไลน์ {} ร้าน'.format(store_count))
 
     text_message_3 = TextSendMessage(
-        text='ราคาเกรดธรรมดา (บาท/กก.) สูงสุด {} / ต่ำสุด {}'.format(minPrice_NormalGrade, 100))
+        text='ราคาเกรดธรรมดา (บาท/กก.) สูงสุด {} / ต่ำสุด {}'.format(minPrice_NormalGrade, maxPrice_NormalGrade))
 
     text_message_4 = TextSendMessage(
         text='ราคาเกรดคัด (บาท/กก.) สูงสุด {} / ต่ำสุด {}'.format(150, 300))
