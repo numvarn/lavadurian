@@ -13,4 +13,4 @@ def webhook(request):
     # req_dict = json.loads(request.data)
     # intent = req_dict["queryResult"]["intent"]["displayName"]
 
-    return Response({'fulfillmentText': 'กำลังสืบค้นร้านจาก www.lavadurian.com'+request.data})
+    return Response({'fulfillmentText': 'กำลังสืบค้นร้านจาก www.lavadurian.com'+request.body})
