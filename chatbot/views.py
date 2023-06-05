@@ -34,7 +34,6 @@ def webhook(request):
     req_dict = json.loads(request.body)
     intent = req_dict["queryResult"]["intent"]["displayName"]
 
-    # intent = req["queryResult"]["intent"]["displayName"]
     text = req_dict["queryResult"]["queryText"]
     reply_token = req_dict['responseId']
     # id = req_dict['originalDetectIntentRequest']['payload']['data']['source']['userId']
@@ -43,7 +42,7 @@ def webhook(request):
         line_bot_api.reply_message(
             reply_token, TextSendMessage(text='Hello World!'))
 
-        return Response(status=HTTP_200_OK)
+        return ''
         # return Response({'fulfillmentText': 'กำลังสืบค้นร้านจาก www.lavadurian.com'})
 
     elif intent == 'CheckPrice':
