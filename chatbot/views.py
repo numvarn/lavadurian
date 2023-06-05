@@ -106,6 +106,13 @@ def replyPrice(reply_token, disname):
     else:
         maxPrice_PremiumGrade = ""
 
+    # น้ำหนักเฉลี่ยที่วางขาย
+    avg = Product.objects.filter(~Q(status=3)).aggregate(Avg('weight'))
+    if avg['weight__avg'] is not None:
+        avgProduct_Weight = "{:.2f}".format(avg['weight__avg'])
+    else:
+        avgProduct_Weight = ""
+
     text_message_1 = TextSendMessage(
         text='สวัสดีคุณ {} ขอแจ้งราคาทุเรียน\nณ วันที่ {}\nดังนี้ครับ'.format(disname, 'xxx'))
 
@@ -119,7 +126,7 @@ def replyPrice(reply_token, disname):
         text='ราคาเกรดคัด (บาท/กก.) สูงสุด {} / ต่ำสุด {}'.format(minPrice_PremiumGrade, maxPrice_PremiumGrade))
 
     text_message_5 = TextSendMessage(
-        text='น้ำหนักเฉลี่ยที่วางขาย {} กก./ลูก'.format(3.5))
+        text='น้ำหนักเฉลี่ยที่วางขาย {} กก./ลูก'.format(avgProduct_Weight))
 
     line_bot_api.reply_message(
         reply_token, [text_message_1, text_message_2, text_message_3, text_message_4, text_message_5])
