@@ -28,8 +28,8 @@ def webhook(request):
     intent = req_dict["queryResult"]["intent"]["displayName"]
 
     # intent = req["queryResult"]["intent"]["displayName"]
-    # text = req_dict['originalDetectIntentRequest']['payload']['data']['message']['text']
-    # reply_token = req_dict['originalDetectIntentRequest']['payload']['data']['replyToken']
+    text = req_dict["queryResult"]["queryText"]
+    reply_token = req_dict['responseId']
     # id = req_dict['originalDetectIntentRequest']['payload']['data']['source']['userId']
 
     if intent == 'SuggestStore':
