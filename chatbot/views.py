@@ -32,12 +32,13 @@ handler = WebhookHandler('323ed2dfb83146a65daa0e97177f07c3')
 @permission_classes((AllowAny,))
 def webhook(request):
     req_dict = json.loads(request.body)
+    req = request.data
 
     intent = req_dict["queryResult"]["intent"]["displayName"]
     text = req_dict["queryResult"]["queryText"]
 
     if intent == 'SuggestStore':
-        return Response({'fulfillmentText': 'กำลังสืบค้นร้านจาก www.lavadurian.com\nBy Phisan Sookkhee'})
+        return Response({'fulfillmentText': 'กำลังสืบค้นร้านจาก www.lavadurian.com\nBy Phisan Sookkhee'+str(req)})
 
     elif intent == 'CheckPrice':
         return Response({'fulfillmentText': 'กำลังตรวจสอบราคาจาก www.lavadurian.com'})
