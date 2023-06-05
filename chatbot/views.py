@@ -18,6 +18,8 @@ from rest_framework.status import (
     HTTP_200_OK
 )
 
+from Store.models import Store
+
 # Create your views here.
 # --
 # Channel access token
@@ -64,12 +66,13 @@ def webhook(request):
 
 
 def replyPrice(reply_token, disname):
-    text_message_1 = TextSendMessage(
-        text='สวัสดีคุณ {} น้องทุเรียนภูเขาไฟขอแจ้งราคาทุเรียน\nณ วันที่ {}\nดังนี้ครับ'.format(disname, 'xxx'))
+    store_count = Store.objects.filter(status=1).count()
 
-    # \n \n\n
+    text_message_1 = TextSendMessage(
+        text='สวัสดีคุณ {} ขอแจ้งราคาทุเรียน\nณ วันที่ {}\nดังนี้ครับ'.format(disname, 'xxx'))
+
     text_message_2 = TextSendMessage(
-        text='จำนวนร้านในตลาดออนไลน์ {}'.format(555))
+        text='จำนวนร้านในตลาดออนไลน์ {}'.format(store_count))
 
     text_message_3 = TextSendMessage(
         text='ราคาเกรดธรรมดา (บาท/กก.) สูงสุด {} / ต่ำสุด {}'.format(50, 100))
