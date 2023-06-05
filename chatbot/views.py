@@ -32,11 +32,21 @@ handler = WebhookHandler('323ed2dfb83146a65daa0e97177f07c3')
 @permission_classes((AllowAny,))
 def webhook(request):
     req_dict = json.loads(request.body)
+
     intent = req_dict["queryResult"]["intent"]["displayName"]
     text = req_dict["queryResult"]["queryText"]
+    replyToken = req_dict["replyToken"]
 
     if intent == 'SuggestStore':
-        return Response({'fulfillmentText': 'กำลังสืบค้นร้านจาก www.lavadurian.com '+str(req_dict)})
+        msg = {
+            "line": {
+                "stickerId": "52002735",
+                "type": "sticker",
+                "packageId": "11537"
+            }
+        }
+        # return Response({'fulfillmentText': 'กำลังสืบค้นร้านจาก www.lavadurian.com '})
+        return Response({'fulfillmentText': msg})
 
     elif intent == 'CheckPrice':
         return Response({'fulfillmentText': 'กำลังตรวจสอบราคาจาก www.lavadurian.com'})
