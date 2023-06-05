@@ -38,6 +38,10 @@ def webhook(request):
     reply_token = req.get('originalDetectIntentRequest').get(
         'payload').get('data').get('replyToken')
 
+    # id = req['originalDetectIntentRequest']['payload']['data']['source']['userId']
+    id = req.get('originalDetectIntentRequest').get(
+        'payload').get('data').get('source').get('userId')
+
     disname = line_bot_api.get_profile(id).display_name
 
     if intent == 'SuggestStore':
