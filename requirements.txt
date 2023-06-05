@@ -15,3 +15,4 @@ django-storages
 google-cloud-storage
 cloudinary
 pandas
+line-bot-sdk
