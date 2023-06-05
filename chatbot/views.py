@@ -109,7 +109,7 @@ def webhook(request):
 
 
 def reply(intent, text, reply_token, id, disname):
-    if intent == 'Intent5':
+    if intent == 'SuggestStore':
         # ตั้งค่าข้อความตอบกลับ Flex Message
         flex_message = FlexSendMessage(
             alt_text='hello',
@@ -143,3 +143,6 @@ def reply(intent, text, reply_token, id, disname):
 
         # line_bot_api.reply_message(reply_token, text_message)
         line_bot_api.reply_message(reply_token, [flex_message, text_message])
+
+    else:
+        return Response({'fulfillmentText': ' chatbot จาก www.lavadurian.com'})
