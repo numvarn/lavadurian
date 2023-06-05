@@ -67,12 +67,18 @@ def replyPrice(reply_token, disname):
     text_message_1 = TextSendMessage(
         text='สวัสดีคุณ {} น้องทุเรียนภูเขาไฟขอแจ้งราคาทุเรียนดังนี้ครับ'.format(disname))
 
-    # \n \nราคาเกรดคัด (บาท/กก.) สูงสุด {} / ต่ำสุด {}\nน้ำหนักเฉลี่ยที่วางขาย {} กก./ลูก
+    # \n \n\n
     text_message_2 = TextSendMessage(
         text='จำนวนร้านในตลาดออนไลน์ {}'.format(555))
 
     text_message_3 = TextSendMessage(
         text='ราคาเกรดธรรมดา (บาท/กก.) สูงสุด {} / ต่ำสุด {}'.format(50, 100))
 
+    text_message_4 = TextSendMessage(
+        text='ราคาเกรดคัด (บาท/กก.) สูงสุด {} / ต่ำสุด {}'.format(150, 300))
+
+    text_message_5 = TextSendMessage(
+        text='น้ำหนักเฉลี่ยที่วางขาย {} กก./ลูก'.format(3.5))
+
     line_bot_api.reply_message(
-        reply_token, [text_message_1, text_message_2, text_message_3])
+        reply_token, [text_message_1, text_message_2, text_message_3, text_message_4, text_message_5])
