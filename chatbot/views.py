@@ -3,6 +3,7 @@ from django.shortcuts import render
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
+from django.db.models import Avg, Max, Min, Q, Sum
 
 from linebot import (
     LineBotApi, WebhookHandler
@@ -18,7 +19,10 @@ from rest_framework.status import (
     HTTP_200_OK
 )
 
-from Store.models import Store
+from Store.models import (
+    Store,
+    Product,
+)
 
 # Create your views here.
 # --
@@ -68,14 +72,22 @@ def webhook(request):
 def replyPrice(reply_token, disname):
     store_count = Store.objects.filter(status=1).count()
 
+    # ราคาเกรดธรรมดา
+    avg = Product.objects.filter(
+        ~Q(status=3) & Q(grade=1)).aggregate(Min('price'))
+    if avg['price__min'] is not None:
+        minPrice_NormalGrade = "{:.0f}".format(avg['price__min'])
+    else:
+        minPrice_NormalGrade = ""
+
     text_message_1 = TextSendMessage(
         text='สวัสดีคุณ {} ขอแจ้งราคาทุเรียน\nณ วันที่ {}\nดังนี้ครับ'.format(disname, 'xxx'))
 
     text_message_2 = TextSendMessage(
-        text='จำนวนร้านในตลาดออนไลน์ {}'.format(store_count))
+        text='จำนวนร้านในตลาดออนไลน์ {} ร้าน'.format(store_count))
 
     text_message_3 = TextSendMessage(
-        text='ราคาเกรดธรรมดา (บาท/กก.) สูงสุด {} / ต่ำสุด {}'.format(50, 100))
+        text='ราคาเกรดธรรมดา (บาท/กก.) สูงสุด {} / ต่ำสุด {}'.format(minPrice_NormalGrade, 100))
 
     text_message_4 = TextSendMessage(
         text='ราคาเกรดคัด (บาท/กก.) สูงสุด {} / ต่ำสุด {}'.format(150, 300))
