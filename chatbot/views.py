@@ -37,7 +37,15 @@ def webhook(request):
     text = req_dict["queryResult"]["queryText"]
 
     if intent == 'SuggestStore':
-        return Response({'fulfillmentText': 'กำลังสืบค้นร้านจาก www.lavadurian.com\nPhisan Sookkhee'})
+        msg = {
+            "line": {
+                "stickerId": "52002735",
+                "type": "sticker",
+                "packageId": "11537"
+            }
+        }
+        return Response({'fulfillmentText': msg})
+        # return Response({'fulfillmentText': 'กำลังสืบค้นร้านจาก www.lavadurian.com\nPhisan Sookkhee'})
 
     elif intent == 'CheckPrice':
         return Response({'fulfillmentText': 'กำลังตรวจสอบราคาจาก www.lavadurian.com'})
