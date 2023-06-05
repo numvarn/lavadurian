@@ -65,7 +65,7 @@ def webhook(request):
 
 def replyPrice(reply_token, disname):
     text_message_1 = TextSendMessage(
-        text='สวัสดีคุณ {} น้องทุเรียนภูเขาไฟขอแจ้งราคาทุเรียนดังนี้ครับ'.format(disname))
+        text='สวัสดีคุณ {} น้องทุเรียนภูเขาไฟขอแจ้งราคาทุเรียน\nณ วันที่ {}\nดังนี้ครับ'.format(disname, 'xxx'))
 
     # \n \n\n
     text_message_2 = TextSendMessage(
