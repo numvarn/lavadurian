@@ -38,8 +38,10 @@ def webhook(request):
     reply_token = req.get('originalDetectIntentRequest').get(
         'payload').get('data').get('replyToken')
 
+    disname = line_bot_api.get_profile(id).display_name
+
     if intent == 'SuggestStore':
-        return Response({'fulfillmentText': 'กำลังสืบค้นร้านจาก www.lavadurian.com\nBy Phisan Sookkhee'+str(intent)})
+        return Response({'fulfillmentText': 'กำลังสืบค้นร้านจาก www.lavadurian.com '+str(disname)})
 
     elif intent == 'CheckPrice':
         return Response({'fulfillmentText': 'กำลังตรวจสอบราคาจาก www.lavadurian.com'})
