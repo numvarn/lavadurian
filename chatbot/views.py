@@ -9,4 +9,4 @@ from rest_framework.response import Response
 @api_view(["POST", ])
 @permission_classes((AllowAny,))
 def webhook(request):
-    return Response({'fulfillmentText': 'Hello from the bot world'})
+    return Response({'fulfillmentText': 'กำลังสืบค้นร้านจาก www.lavadurian.com'})
