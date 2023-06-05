@@ -33,11 +33,11 @@ def webhook(request):
     # id = req_dict['originalDetectIntentRequest']['payload']['data']['source']['userId']
 
     if intent == 'SuggestStore':
-        # return Response({'fulfillmentText': 'กำลังสืบค้นร้านจาก www.lavadurian.com'})
         text_message = TextSendMessage(
             text='ทดสอบสำเร็จ - กำลังสืบค้นร้านจาก www.lavadurian.com')
 
-        line_bot_api.reply_message(reply_token, text_message)
+        # line_bot_api.reply_message(reply_token, text_message)
+        return Response({'fulfillmentText': 'กำลังสืบค้นร้านจาก www.lavadurian.com'})
 
     elif intent == 'CheckPrice':
         return Response({'fulfillmentText': 'กำลังตรวจสอบราคาจาก www.lavadurian.com'})
