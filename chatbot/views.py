@@ -35,6 +35,7 @@ def webhook(request):
 
     intent = req.get('queryResult').get('intent').get('displayName')
     text = req.get('queryResult').get('queryText')
+
     reply_token = req.get('originalDetectIntentRequest').get(
         'payload').get('data').get('replyToken')
 
@@ -47,12 +48,19 @@ def webhook(request):
     if intent == 'SuggestStore':
         text_message = TextSendMessage(
             text='สวัสดี {} \nทดสอบสำเร็จ'.format(disname))
+
         line_bot_api.reply_message(reply_token, text_message)
-        # return Response({'fulfillmentText': 'กำลังสืบค้นร้านจาก www.lavadurian.com '+str(disname)})
-        return Response(status=HTTP_200_OK)
 
     elif intent == 'CheckPrice':
-        return Response({'fulfillmentText': 'กำลังตรวจสอบราคาจาก www.lavadurian.com'})
+        text_message = TextSendMessage(
+            text='คุณ {} กรุณารอสักครู่\nเรากำลังตรวจสอบราคาจาก www.lavadurian.com ครับ'.format(disname))
+
+        line_bot_api.reply_message(reply_token, text_message)
 
     else:
-        return Response({'fulfillmentText': ' chatbot จาก www.lavadurian.com'})
+        text_message = TextSendMessage(
+            text='สวัสดีคุณ {} กรุณารอสักครู่\nเราคือ chatbot จาก www.lavadurian.com'.format(disname))
+
+        line_bot_api.reply_message(reply_token, text_message)
+
+    return Response(status=HTTP_200_OK)
