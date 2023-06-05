@@ -38,13 +38,8 @@ def webhook(request):
     replyToken = req_dict["replyToken"]
 
     if intent == 'SuggestStore':
-        msg = {
-            "line": {
-                "stickerId": "52002735",
-                "type": "sticker",
-                "packageId": "11537"
-            }
-        }
+        msg = {"line": {"text": "กำลังสืบค้นร้านจาก www.lavadurian.com", "type": "text"}}
+
         # return Response({'fulfillmentText': 'กำลังสืบค้นร้านจาก www.lavadurian.com '})
         return Response({'fulfillmentText': msg})
 
