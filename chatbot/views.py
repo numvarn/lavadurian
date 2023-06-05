@@ -65,6 +65,11 @@ def webhook(request):
 
 def replyPrice(reply_token, disname):
     text_message = TextSendMessage(
-        text='สวัสดีคุณ {} น้องทุเรียนภูเขาไฟขอแจ้งราคาทุเรียนตามนี้ครับ'.format(disname))
+        text='สวัสดีคุณ {} น้องทุเรียนภูเขาไฟขอแจ้งราคาทุเรียนดังครับ'.format(disname))
+
+    line_bot_api.reply_message(reply_token, text_message)
+
+    text_message = TextSendMessage(
+        text='จำนวนร้านในตลาดออนไลน์ {}\n ราคาเกรดธรรมดา (บาท/กก.) สูงสุด {} / ต่ำสุด {}\nราคาเกรดคัด (บาท/กก.) สูงสุด {} / ต่ำสุด {}\nน้ำหนักเฉลี่ยที่วางขาย {} กก./ลูก'.format())
 
     line_bot_api.reply_message(reply_token, text_message)
