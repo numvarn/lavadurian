@@ -52,6 +52,7 @@ urlpatterns = [
     path('', include('Store.urls')),
     path('', include('Cart.urls')),
     path('', include('DurianAPI.urls')),
+    path('', include('chatbot.urls')),
 ]
 
 # Serv Static file on debug and production

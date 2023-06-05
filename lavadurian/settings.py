@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     'Store',
     'Cart',
     'DurianAPI',
+    'chatbot',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
