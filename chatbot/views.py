@@ -1,4 +1,5 @@
 import json
+from datetime import date
 from django.shortcuts import render
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
@@ -114,7 +115,7 @@ def replyPrice(reply_token, disname):
         avgProduct_Weight = ""
 
     text_message_1 = TextSendMessage(
-        text='สวัสดีคุณ {} ขอแจ้งราคาทุเรียน\nณ วันที่ {}\nดังนี้ครับ'.format(disname, 'xxx'))
+        text='สวัสดีคุณ {} ขอแจ้งราคาทุเรียน\nณ วันที่ {}\nดังนี้ครับ'.format(disname, date.today()))
 
     text_message_2 = TextSendMessage(
         text='จำนวนร้านในตลาดออนไลน์ {} ร้าน'.format(store_count))
