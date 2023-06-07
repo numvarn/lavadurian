@@ -76,33 +76,38 @@ def webhook(request):
 def replySuggestStore(reply_token, disname):
     lt = []
 
-    obj = CarouselColumn(
-        # thumbnail_image_url='https://www.lavadurian.com/static/assets/img/product-default/default.jpg',
+    obj_1 = CarouselColumn(
         title='this is menu1',
         text='description1',
         actions=[
-            PostbackAction(
-                label='postback1',
-                display_text='postback text1',
-                data='action=buy&itemid=1'
-            ),
             MessageAction(
-                label='message1',
-                text='message text1'
+                label='ขอข้อมูลสวน',
+                text='ขอข้อมูลสวน : id'
             ),
             URIAction(
-                label='uri1',
+                label='เลือกซื้อจากสวน',
                 uri='https://www.lavadurian.com/shopping/?store=200'
             )
         ],
-        default_action=[
-            URIAction(
-                label="uri1",
-                uri='https://www.lavadurian.com/shopping/?store=200')
-        ]
     )
 
-    lt.append(obj)
+    obj_2 = CarouselColumn(
+        title='this is menu1',
+        text='description1',
+        actions=[
+            MessageAction(
+                label='ขอข้อมูลสวน',
+                text='ขอข้อมูลสวน : id'
+            ),
+            URIAction(
+                label='เลือกซื้อจากสวน',
+                uri='https://www.lavadurian.com/shopping/?store=200'
+            )
+        ],
+    )
+
+    lt.append(obj_1)
+    lt.append(obj_2)
 
     carousel_template_message = TemplateSendMessage(
         alt_text='Carousel template',
