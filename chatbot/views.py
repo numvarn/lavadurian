@@ -242,7 +242,7 @@ def replyPrice(reply_token, disname):
                 "type": "text",
                 "text": "จำนวนสวน",
                 "color": "#aaaaaa",
-                "size": "sm",
+                "size": "xs",
                 "flex": 4
               },
               {
@@ -250,10 +250,11 @@ def replyPrice(reply_token, disname):
                 "text": "66 สวน",
                 "wrap": true,
                 "color": "#666666",
-                "size": "sm",
+                "size": "xs",
                 "flex": 5
               }
-            ]
+            ],
+            "margin": "lg"
           },
           {
             "type": "box",
@@ -264,7 +265,7 @@ def replyPrice(reply_token, disname):
                 "type": "text",
                 "text": "เกรดธรรมดา",
                 "color": "#aaaaaa",
-                "size": "sm",
+                "size": "xs",
                 "flex": 4
               },
               {
@@ -272,10 +273,11 @@ def replyPrice(reply_token, disname):
                 "text": "ต่ำสุด 160 / สูงสุด 200",
                 "wrap": true,
                 "color": "#666666",
-                "size": "sm",
+                "size": "xs",
                 "flex": 5
               }
-            ]
+            ],
+            "margin": "md"
           },
           {
             "type": "box",
@@ -286,7 +288,7 @@ def replyPrice(reply_token, disname):
                 "type": "text",
                 "text": "เกรดคัด",
                 "color": "#aaaaaa",
-                "size": "sm",
+                "size": "xs",
                 "flex": 4
               },
               {
@@ -294,10 +296,11 @@ def replyPrice(reply_token, disname):
                 "text": "ต่ำสุด 160 / สูงสุด 200",
                 "wrap": true,
                 "color": "#666666",
-                "size": "sm",
+                "size": "xs",
                 "flex": 5
               }
-            ]
+            ],
+            "margin": "md"
           },
           {
             "type": "box",
@@ -308,7 +311,7 @@ def replyPrice(reply_token, disname):
                 "type": "text",
                 "text": "น้ำหนักเฉลี่ย",
                 "color": "#aaaaaa",
-                "size": "sm",
+                "size": "xs",
                 "flex": 4
               },
               {
@@ -316,10 +319,11 @@ def replyPrice(reply_token, disname):
                 "text": "2.68 กก./ลูก",
                 "wrap": true,
                 "color": "#666666",
-                "size": "sm",
+                "size": "xs",
                 "flex": 5
               }
-            ]
+            ],
+            "margin": "md"
           }
         ]
       }
