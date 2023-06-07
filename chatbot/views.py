@@ -10,7 +10,8 @@ from linebot import (
     LineBotApi, WebhookHandler
 )
 from linebot.models import (
-    TextSendMessage, FlexSendMessage, BubbleContainer, ImageComponent, URIAction, BoxComponent
+    TextSendMessage, FlexSendMessage, BubbleContainer, ImageComponent, URIAction, BoxComponent, TemplateSendMessage, CarouselTemplate, CarouselColumn,
+    PostbackAction, MessageAction,
 )
 
 from rest_framework.status import (
@@ -52,15 +53,18 @@ def webhook(request):
     # ชื่อ แสดงของผู้สนทนา
     disname = line_bot_api.get_profile(id).display_name
 
+    # ร้านแนะนำ
     if intent == 'SuggestStore':
         text_message = TextSendMessage(
             text='คุณ {} กรุณารอสักครู่\nเรากำลังค้นหาร้านค้าจาก www.lavadurian.com ครับ'.format(disname))
 
         line_bot_api.reply_message(reply_token, text_message)
 
+    # ตรวจสอบราคา
     elif intent == 'CheckPrice':
         replyPrice(reply_token, disname)
 
+    # อื่น ๆ
     else:
         text_message = TextSendMessage(
             text='สวัสดีคุณ {} กรุณารอสักครู่\nเราคือ chatbot จาก www.lavadurian.com'.format(disname))
@@ -68,6 +72,48 @@ def webhook(request):
         line_bot_api.reply_message(reply_token, text_message)
 
     return Response(status=HTTP_200_OK)
+
+# ---------------------------------------------------------------------
+
+
+def replySuggestStore(reply_token, disname):
+    carousel_template_message = TemplateSendMessage(
+        alt_text='Carousel template',
+        template=CarouselTemplate(
+            columns=[
+                CarouselColumn(
+                    thumbnail_image_url='https://www.lavadurian.com/static/assets/img/product-default/default.jpg',
+                    title='this is menu1',
+                    text='description1',
+                    actions=[
+                        PostbackAction(
+                            label='postback1',
+                            display_text='postback text1',
+                            data='action=buy&itemid=1'
+                        ),
+                        MessageAction(
+                            label='message1',
+                            text='message text1'
+                        ),
+                        URIAction(
+                            label='uri1',
+                            uri='https://www.lavadurian.com/shopping/?store=200'
+                        )
+                    ],
+                    default_action=[
+                        URIAction(
+                            label="uri1",
+                            uri='https://www.lavadurian.com/shopping/?store=200')
+                    ]
+                ),
+            ]
+        )
+    )
+
+    line_bot_api.reply_message(
+        reply_token, [carousel_template_message])
+
+# ---------------------------------------------------------------------
 
 
 def replyPrice(reply_token, disname):
