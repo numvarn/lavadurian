@@ -85,8 +85,9 @@ def replyProfile(reply_token, disname, text):
     store = Store.objects.get(id=int(store_id))
 
     # count product in store
-    product_count = Product.objects.filter(
-        Q(store=store) & ~Q(status=3)).count()
+    product_count = 0
+    # product_count = Product.objects.filter(
+    #     Q(store=store) & ~Q(status=3)).count()
 
     flex_str = """
 {
