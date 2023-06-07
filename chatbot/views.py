@@ -25,6 +25,7 @@ from rest_framework.status import (
 from Store.models import (
     Store,
     Product,
+    DISTRICT_CHOICES,
 )
 
 # Create your views here.
@@ -87,6 +88,9 @@ def replyProfile(reply_token, disname, text):
     # count product in store
     product_count = Product.objects.filter(
         Q(store=store) & ~Q(status=3)).count()
+
+    # district
+    district = getModelChoice(store.district, DISTRICT_CHOICES)
 
     flex_str = """
 {
@@ -557,3 +561,12 @@ def replyPrice(reply_token, disname):
     replyObj = FlexSendMessage(alt_text='Flex Message alt text', contents=flex)
 
     line_bot_api.reply_message(reply_token, replyObj)
+
+
+def getModelChoice(intValue, choices):
+    choice_result = ''
+    for choice in choices:
+        if choice[0] == intValue:
+            choice_result = choice[1]
+            break
+    return choice_result
