@@ -84,8 +84,12 @@ def replyProfile(reply_token, disname, text):
 
     store = Store.objects.get(id=int(store_id))
 
-    if store.phone2 is None:
-        store.phone2 = ""
+    try:
+        if store.phone2 is None:
+            store.phone2 = "-"
+    # do your thing when user.user_info exists
+    except AttributeError:  # Be explicit with catching exceptions.
+        store.phone2 = "-"
 
     # count product in store
 
