@@ -84,9 +84,6 @@ def replyProfile(reply_token, disname, text):
 
     store = Store.objects.get(id=int(store_id))
 
-    if store.phone2 == None:
-        store.phone2 = "-"
-
     # count product in store
 
     flex_str = """
@@ -173,7 +170,7 @@ def replyProfile(reply_token, disname, text):
               },
               {
                 "type": "text",
-                "text": "%s",
+                "text": "--",
                 "size": "sm",
                 "color": "#111111",
                 "align": "end"
@@ -278,7 +275,7 @@ def replyProfile(reply_token, disname, text):
     }
   }
 }
-    """ % (store.name, store.owner, store.slogan, store.phone1, store.phone2)
+    """ % (store.name, store.owner, store.slogan, store.phone1)
 
     flex = json.loads(flex_str)
     replyObj = FlexSendMessage(alt_text='Flex Message alt text', contents=flex)
