@@ -82,6 +82,8 @@ def replyProfile(reply_token, disname, text):
     text_lt = text.split(":")
     store_id = text_lt[1].strip()
 
+    store = Store.objects.filter(id=store_id)
+
     flex_str = """
 {
   "type": "bubble",
@@ -98,7 +100,7 @@ def replyProfile(reply_token, disname, text):
       },
       {
         "type": "text",
-        "text": "กุญชรเพชรทุเรียนภูเขาไฟ %s",
+        "text": "%s",
         "weight": "bold",
         "size": "xxl",
         "margin": "md",
@@ -118,7 +120,7 @@ def replyProfile(reply_token, disname, text):
       },
       {
         "type": "text",
-        "text": "อร่อยถูกปาก หวานมันถูกใจ ต้องทุเรียนภูเขาไฟกุญชรเพชร จำหน่ายทุเรียนตามฤดูกาลจากดินภูเขาไฟ",
+        "text": "%s",
         "margin": "xxl",
         "size": "sm",
         "wrap": true
@@ -146,7 +148,7 @@ def replyProfile(reply_token, disname, text):
               },
               {
                 "type": "text",
-                "text": "096-816-3255",
+                "text": "%s",
                 "size": "sm",
                 "color": "#111111",
                 "align": "end"
@@ -166,7 +168,7 @@ def replyProfile(reply_token, disname, text):
               },
               {
                 "type": "text",
-                "text": "082-575-2767",
+                "text": "%s",
                 "size": "sm",
                 "color": "#111111",
                 "align": "end"
@@ -271,7 +273,7 @@ def replyProfile(reply_token, disname, text):
     }
   }
 }
-    """ % (store_id)
+    """ % (store.name, store.slogan, store.phone1, store.phone2)
 
     flex = json.loads(flex_str)
     replyObj = FlexSendMessage(alt_text='Flex Message alt text', contents=flex)
