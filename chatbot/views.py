@@ -95,7 +95,7 @@ def replySuggestStore(reply_token, disname):
             actions=[
                 MessageAction(
                     label='ข้อมูลสวน',
-                    text='ขอข้อมูลสวน : {}'.format(store.id)
+                    text='ผู้ขาย : {}'.format(store.id)
                 ),
                 URIAction(
                     label='เลือกซื้อจากสวน',
@@ -112,33 +112,6 @@ def replySuggestStore(reply_token, disname):
         template=CarouselTemplate(
             columns=lt
         )
-    )
-
-    # ตั้งค่าข้อความตอบกลับ Flex Message
-    flex_message = FlexSendMessage(
-        alt_text='hello',
-        contents=BubbleContainer(
-            direction='ltr',
-            hero=ImageComponent(
-                url='https://s.isanook.com/sp/0/rp/r/w728/ya0xa0m1w0/aHR0cHM6Ly9zLmlzYW5vb2suY29tL3NwLzAvdWQvMjY4LzEzNDAwNTgvcmUoMSkuanBn.jpg',
-                size='full',
-                aspect_ratio='20:13',
-                aspect_mode='cover',
-                action=URIAction(
-                    uri='http://www.sanook.com', label='label')
-            ),
-            body=BoxComponent(
-                layout='vertical',
-                contents=[
-                    {
-                        "type": "text",
-                        "text": "Brown Cafe",
-                        "weight": "bold",
-                        "size": "xl"
-                    },
-                ],
-            ),
-        ),
     )
 
     line_bot_api.reply_message(
