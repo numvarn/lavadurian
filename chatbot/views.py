@@ -55,10 +55,7 @@ def webhook(request):
 
     # ร้านแนะนำ
     if intent == 'SuggestStore':
-        text_message = TextSendMessage(
-            text='คุณ {} กรุณารอสักครู่\nเรากำลังค้นหาร้านค้าจาก www.lavadurian.com ครับ'.format(disname))
-
-        line_bot_api.reply_message(reply_token, text_message)
+        replySuggestStore(reply_token, disname)
 
     # ตรวจสอบราคา
     elif intent == 'CheckPrice':
