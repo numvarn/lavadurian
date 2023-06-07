@@ -25,7 +25,6 @@ from rest_framework.status import (
 from Store.models import (
     Store,
     Product,
-    DISTRICT_CHOICES,
 )
 
 # Create your views here.
@@ -86,12 +85,11 @@ def replyProfile(reply_token, disname, text):
     store = Store.objects.get(id=int(store_id))
 
     # count product in store
-    product_count = 0
-    # product_count = Product.objects.filter(
-    #     Q(store=store) & ~Q(status=3)).count()
+    product_count = Product.objects.filter(
+        Q(store=store) & ~Q(status=3)).count()
 
     # get district
-    district = getModelChoice(store.district, DISTRICT_CHOICES)
+    # district = getModelChoice(store.district, DISTRICT_CHOICES)
 
     flex_str = """
 {
@@ -220,7 +218,7 @@ def replyProfile(reply_token, disname, text):
               },
               {
                 "type": "text",
-                "text": "%s",
+                "text": "กันทรลักษ์",
                 "size": "sm",
                 "color": "#111111",
                 "align": "end"
