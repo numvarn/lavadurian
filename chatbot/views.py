@@ -242,7 +242,7 @@ def replyProfile(reply_token, disname, text):
           },
           {
             "type": "text",
-            "text": "#200",
+            "text": "#%s",
             "color": "#aaaaaa",
             "size": "xs",
             "align": "end"
@@ -281,7 +281,7 @@ def replyProfile(reply_token, disname, text):
     }
   }
 }
-    """ % (store.name, store.owner, store.slogan, store.phone1, product_count, district)
+    """ % (store.name, store.owner, store.slogan, store.phone1, product_count, district, store.id)
 
     flex = json.loads(flex_str)
     replyObj = FlexSendMessage(alt_text='Flex Message alt text', contents=flex)
