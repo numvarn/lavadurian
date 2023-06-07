@@ -87,8 +87,8 @@ def replyProfile(reply_token, disname, text):
 
     # count product in store
     product_count = 0
-    product_count = Product.objects.filter(
-        Q(store=store) & ~Q(status=3)).count()
+    # product_count = Product.objects.filter(
+    #     Q(store=store) & ~Q(status=3)).count()
 
     # get district
     district = getModelChoice(store.district, DISTRICT_CHOICES)
