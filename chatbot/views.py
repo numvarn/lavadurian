@@ -230,7 +230,19 @@ def replyPrice(reply_token, disname):
       {
         "type": "box",
         "layout": "vertical",
-        "margin": "lg",
+        "contents": [
+          {
+            "type": "text",
+            "text": "ราคาทุเรียนวันที่ 7 มิถุนายน 2566",
+            "size": "xs",
+            "margin": "md"
+          }
+        ]
+      },
+      {
+        "type": "box",
+        "layout": "vertical",
+        "margin": "md",
         "spacing": "sm",
         "contents": [
           {
