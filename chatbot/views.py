@@ -89,7 +89,7 @@ def replyProfile(reply_token, disname, text):
     product_count = Product.objects.filter(
         Q(store=store) & ~Q(status=3)).count()
 
-    if store.phone2 is None:
+    if not store.phone2:
         store.phone2 = '--'
 
     # district
