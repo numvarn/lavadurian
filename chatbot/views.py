@@ -128,6 +128,32 @@ def replySuggestStore(reply_token, disname):
                             uri='https://www.lavadurian.com/shopping/?store=200')
                     ]
                 ),
+                CarouselColumn(
+                    thumbnail_image_url='https://www.lavadurian.com/static/assets/img/product-default/default.jpg',
+                    title='this is menu1',
+                    text='description1',
+                    actions=[
+                        PostbackAction(
+                            label='postback1',
+                            display_text='postback text1',
+                            data='action=buy&itemid=1'
+                        ),
+                        MessageAction(
+                            label='message1',
+                            text='message text1'
+                        ),
+                        URIAction(
+                            label='uri1',
+                            uri='https://www.lavadurian.com/shopping/?store=200'
+                        )
+                    ],
+                    default_action=[
+                        URIAction(
+                            label="uri1",
+                            uri='https://www.lavadurian.com/shopping/?store=200')
+                    ]
+                ),
+
             ]
         )
     )
