@@ -173,7 +173,7 @@ def replyProfile(reply_token, disname, text):
               },
               {
                 "type": "text",
-                "text": "%",
+                "text": "%s",
                 "size": "sm",
                 "color": "#111111",
                 "align": "end"
