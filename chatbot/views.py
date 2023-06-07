@@ -84,7 +84,7 @@ def replySuggestStore(reply_token, disname):
             store_list.append(product.store)
 
     # random store in list
-    store_list_rand = random.sample(store_list, 3)
+    store_list_rand = random.sample(store_list, 5)
 
     lt = []
     for store in store_list_rand:
