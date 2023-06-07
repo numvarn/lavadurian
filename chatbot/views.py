@@ -62,6 +62,10 @@ def webhook(request):
     elif intent == 'CheckPrice':
         replyPrice(reply_token, disname)
 
+    # ขอข้อมูลสวน
+    elif intent == 'GetStoreProfile':
+        replyProfile(reply_token, disname)
+
     # อื่น ๆ
     else:
         text_message = TextSendMessage(
@@ -70,6 +74,15 @@ def webhook(request):
         line_bot_api.reply_message(reply_token, text_message)
 
     return Response(status=HTTP_200_OK)
+
+# ---------------------------------------------------------------------
+
+
+def replyProfile(reply_token, disname):
+    text_message = TextSendMessage(
+        text='สวัสดีคุณ {} กรุณารอสักครู่\nเราคือ chatbot จาก www.lavadurian.com'.format(disname))
+
+    line_bot_api.reply_message(reply_token, text_message)
 
 # ---------------------------------------------------------------------
 
