@@ -188,195 +188,181 @@ def replyPrice(reply_token, disname):
     else:
         avgProduct_Weight = ""
 
-    # text_message_1 = TextSendMessage(
-    #     text='สวัสดีคุณ {} ขอแจ้งราคาทุเรียน\nณ วันที่ {}\nดังนี้ครับ'.format(disname, date.today()))
-
-    # text_message_2 = TextSendMessage(
-    #     text='จำนวนร้านในตลาดออนไลน์ {} ร้าน'.format(store_count))
-
-    # text_message_3 = TextSendMessage(
-    #     text='ราคาเกรดธรรมดา (บาท/กก.) สูงสุด {} / ต่ำสุด {}'.format(minPrice_NormalGrade, maxPrice_NormalGrade))
-
-    # text_message_4 = TextSendMessage(
-    #     text='ราคาเกรดคัด (บาท/กก.) สูงสุด {} / ต่ำสุด {}'.format(minPrice_PremiumGrade, maxPrice_PremiumGrade))
-
-    # text_message_5 = TextSendMessage(
-    #     text='น้ำหนักเฉลี่ยที่วางขาย {} กก./ลูก'.format(avgProduct_Weight))
-
+    # Flex Message Template
     flex_str = """
-{
-  "type": "bubble",
-  "hero": {
-    "type": "image",
-    "url": "https://www.lavadurian.com/static/assets/img/product-default/default.jpg",
-    "size": "full",
-    "aspectRatio": "20:13",
-    "aspectMode": "cover",
-    "action": {
-      "type": "uri",
-      "uri": "http://linecorp.com/"
-    }
-  },
-  "body": {
-    "type": "box",
-    "layout": "vertical",
-    "contents": [
-      {
-        "type": "text",
-        "text": "ราคาทุเรียนภูเขาไฟ",
-        "weight": "bold",
-        "size": "xl"
-      },
-      {
-        "type": "box",
-        "layout": "vertical",
-        "contents": [
-          {
-            "type": "text",
-            "text": "ราคาทุเรียนวันที่ 7 มิถุนายน 2566",
-            "size": "xs",
-            "margin": "md"
-          }
-        ]
-      },
-      {
-        "type": "box",
-        "layout": "vertical",
-        "margin": "md",
-        "spacing": "sm",
-        "contents": [
-          {
+        {
+        "type": "bubble",
+        "hero": {
+            "type": "image",
+            "url": "https://www.lavadurian.com/static/assets/img/product-default/default.jpg",
+            "size": "full",
+            "aspectRatio": "20:13",
+            "aspectMode": "cover",
+            "action": {
+            "type": "uri",
+            "uri": "http://linecorp.com/"
+            }
+        },
+        "body": {
             "type": "box",
-            "layout": "baseline",
+            "layout": "vertical",
+            "contents": [
+            {
+                "type": "text",
+                "text": "ราคาทุเรียนภูเขาไฟ",
+                "weight": "bold",
+                "size": "xl"
+            },
+            {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                {
+                    "type": "text",
+                    "text": "ราคาทุเรียนวันที่ 7 มิถุนายน 2566",
+                    "size": "xs",
+                    "margin": "md"
+                }
+                ]
+            },
+            {
+                "type": "box",
+                "layout": "vertical",
+                "margin": "md",
+                "spacing": "sm",
+                "contents": [
+                {
+                    "type": "box",
+                    "layout": "baseline",
+                    "spacing": "sm",
+                    "contents": [
+                    {
+                        "type": "text",
+                        "text": "จำนวนสวน",
+                        "color": "#aaaaaa",
+                        "size": "xs",
+                        "flex": 4
+                    },
+                    {
+                        "type": "text",
+                        "text": "%s สวน",
+                        "wrap": true,
+                        "color": "#666666",
+                        "size": "xs",
+                        "flex": 5
+                    }
+                    ],
+                    "margin": "lg"
+                },
+                {
+                    "type": "box",
+                    "layout": "baseline",
+                    "spacing": "sm",
+                    "contents": [
+                    {
+                        "type": "text",
+                        "text": "เกรดธรรมดา",
+                        "color": "#aaaaaa",
+                        "size": "xs",
+                        "flex": 4
+                    },
+                    {
+                        "type": "text",
+                        "text": "ต่ำสุด %s / สูงสุด %s",
+                        "wrap": true,
+                        "color": "#666666",
+                        "size": "xs",
+                        "flex": 5
+                    }
+                    ],
+                    "margin": "md"
+                },
+                {
+                    "type": "box",
+                    "layout": "baseline",
+                    "spacing": "sm",
+                    "contents": [
+                    {
+                        "type": "text",
+                        "text": "เกรดคัด",
+                        "color": "#aaaaaa",
+                        "size": "xs",
+                        "flex": 4
+                    },
+                    {
+                        "type": "text",
+                        "text": "ต่ำสุด %s / สูงสุด %s",
+                        "wrap": true,
+                        "color": "#666666",
+                        "size": "xs",
+                        "flex": 5
+                    }
+                    ],
+                    "margin": "md"
+                },
+                {
+                    "type": "box",
+                    "layout": "baseline",
+                    "spacing": "sm",
+                    "contents": [
+                    {
+                        "type": "text",
+                        "text": "น้ำหนักเฉลี่ย",
+                        "color": "#aaaaaa",
+                        "size": "xs",
+                        "flex": 4
+                    },
+                    {
+                        "type": "text",
+                        "text": "%s กก./ลูก",
+                        "wrap": true,
+                        "color": "#666666",
+                        "size": "xs",
+                        "flex": 5
+                    }
+                    ],
+                    "margin": "md"
+                }
+                ]
+            }
+            ]
+        },
+        "footer": {
+            "type": "box",
+            "layout": "vertical",
             "spacing": "sm",
             "contents": [
-              {
-                "type": "text",
-                "text": "จำนวนสวน",
-                "color": "#aaaaaa",
-                "size": "xs",
-                "flex": 4
-              },
-              {
-                "type": "text",
-                "text": "%s สวน",
-                "wrap": true,
-                "color": "#666666",
-                "size": "xs",
-                "flex": 5
-              }
+            {
+                "type": "button",
+                "style": "link",
+                "height": "sm",
+                "action": {
+                "type": "message",
+                "label": "สวนแนะนำ",
+                "text": "สวนแนะนำ"
+                }
+            },
+            {
+                "type": "button",
+                "style": "link",
+                "height": "sm",
+                "action": {
+                "type": "message",
+                "label": "อื่น ๆ",
+                "text": "อื่น ๆ"
+                }
+            },
+            {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [],
+                "margin": "sm"
+            }
             ],
-            "margin": "lg"
-          },
-          {
-            "type": "box",
-            "layout": "baseline",
-            "spacing": "sm",
-            "contents": [
-              {
-                "type": "text",
-                "text": "เกรดธรรมดา",
-                "color": "#aaaaaa",
-                "size": "xs",
-                "flex": 4
-              },
-              {
-                "type": "text",
-                "text": "ต่ำสุด %s / สูงสุด %s",
-                "wrap": true,
-                "color": "#666666",
-                "size": "xs",
-                "flex": 5
-              }
-            ],
-            "margin": "md"
-          },
-          {
-            "type": "box",
-            "layout": "baseline",
-            "spacing": "sm",
-            "contents": [
-              {
-                "type": "text",
-                "text": "เกรดคัด",
-                "color": "#aaaaaa",
-                "size": "xs",
-                "flex": 4
-              },
-              {
-                "type": "text",
-                "text": "ต่ำสุด %s / สูงสุด %s",
-                "wrap": true,
-                "color": "#666666",
-                "size": "xs",
-                "flex": 5
-              }
-            ],
-            "margin": "md"
-          },
-          {
-            "type": "box",
-            "layout": "baseline",
-            "spacing": "sm",
-            "contents": [
-              {
-                "type": "text",
-                "text": "น้ำหนักเฉลี่ย",
-                "color": "#aaaaaa",
-                "size": "xs",
-                "flex": 4
-              },
-              {
-                "type": "text",
-                "text": "2.68 กก./ลูก",
-                "wrap": true,
-                "color": "#666666",
-                "size": "xs",
-                "flex": 5
-              }
-            ],
-            "margin": "md"
-          }
-        ]
-      }
-    ]
-  },
-  "footer": {
-    "type": "box",
-    "layout": "vertical",
-    "spacing": "sm",
-    "contents": [
-      {
-        "type": "button",
-        "style": "link",
-        "height": "sm",
-        "action": {
-          "type": "message",
-          "label": "สวนแนะนำ",
-          "text": "สวนแนะนำ"
+            "flex": 0
         }
-      },
-      {
-        "type": "button",
-        "style": "link",
-        "height": "sm",
-        "action": {
-          "type": "message",
-          "label": "อื่น ๆ",
-          "text": "อื่น ๆ"
         }
-      },
-      {
-        "type": "box",
-        "layout": "vertical",
-        "contents": [],
-        "margin": "sm"
-      }
-    ],
-    "flex": 0
-  }
-}
-    """ % (store_count, minPrice_NormalGrade, maxPrice_NormalGrade, minPrice_PremiumGrade, maxPrice_PremiumGrade)
+    """ % (store_count, minPrice_NormalGrade, maxPrice_NormalGrade, minPrice_PremiumGrade, maxPrice_PremiumGrade, avgProduct_Weight)
 
     flex = json.loads(flex_str)
     replyObj = FlexSendMessage(alt_text='Flex Message alt text', contents=flex)
