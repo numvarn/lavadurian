@@ -84,11 +84,7 @@ def replyProfile(reply_token, disname, text):
 
     store = Store.objects.get(id=int(store_id))
 
-    try:
-        if store.phone2 is None:
-            store.phone2 = "-"
-    # do your thing when user.user_info exists
-    except AttributeError:  # Be explicit with catching exceptions.
+    if store.phone2 == None:
         store.phone2 = "-"
 
     # count product in store
@@ -177,7 +173,7 @@ def replyProfile(reply_token, disname, text):
               },
               {
                 "type": "text",
-                "text": "--",
+                "text": "%",
                 "size": "sm",
                 "color": "#111111",
                 "align": "end"
@@ -282,7 +278,7 @@ def replyProfile(reply_token, disname, text):
     }
   }
 }
-    """ % (store.name, store.owner, store.slogan, store.phone1)
+    """ % (store.name, store.owner, store.slogan, store.phone1, store.phone2)
 
     flex = json.loads(flex_str)
     replyObj = FlexSendMessage(alt_text='Flex Message alt text', contents=flex)
