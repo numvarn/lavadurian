@@ -259,7 +259,7 @@ def replyPrice(reply_token, disname):
               },
               {
                 "type": "text",
-                "text": "66 สวน",
+                "text": "{store} สวน",
                 "wrap": true,
                 "color": "#666666",
                 "size": "xs",
@@ -376,7 +376,7 @@ def replyPrice(reply_token, disname):
     "flex": 0
   }
 }
-    """
+    """.format(store=store_count)
 
     flex = json.loads(flex_str)
     replyObj = FlexSendMessage(alt_text='Flex Message alt text', contents=flex)
