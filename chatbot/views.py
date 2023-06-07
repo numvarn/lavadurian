@@ -74,6 +74,14 @@ def webhook(request):
 
 
 def replySuggestStore(reply_token, disname):
+    # เลือกร้านค้า
+    # จากสินค้าที่สถานะพร้อมขาย
+    store_list = []
+    products = Product.objects.filter(~Q(status=3))
+    for product in products:
+        if product.store not in store_list:
+            store_list.append(product.store)
+
     lt = []
 
     obj_1 = CarouselColumn(
@@ -81,7 +89,7 @@ def replySuggestStore(reply_token, disname):
         text='description1',
         actions=[
             MessageAction(
-                label='ขอข้อมูลสวน',
+                label='ข้อมูลสวน',
                 text='ขอข้อมูลสวน : id'
             ),
             URIAction(
