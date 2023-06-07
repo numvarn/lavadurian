@@ -260,7 +260,7 @@ def replyProfile(reply_token, disname, text):
         "action": {
           "type": "uri",
           "label": "ไปที่ร้าน",
-          "uri": "http://linecorp.com/"
+          "uri": "https://www.lavadurian.com/shopping/?store=%s"
         },
         "color": "#1DB446"
       },
@@ -281,7 +281,7 @@ def replyProfile(reply_token, disname, text):
     }
   }
 }
-    """ % (store.name, store.owner, store.slogan, store.phone1, product_count, district, store.id)
+    """ % (store.name, store.owner, store.slogan, store.phone1, product_count, district, store.id, store.id)
 
     flex = json.loads(flex_str)
     replyObj = FlexSendMessage(alt_text='Flex Message alt text', contents=flex)
