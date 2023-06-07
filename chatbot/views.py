@@ -74,38 +74,38 @@ def webhook(request):
 
 
 def replySuggestStore(reply_token, disname):
-    # carousel_template_message = TemplateSendMessage(
-    #     alt_text='Carousel template',
-    #     template=CarouselTemplate(
-    #         columns=[
-    #             CarouselColumn(
-    #                 thumbnail_image_url='https://www.lavadurian.com/static/assets/img/product-default/default.jpg',
-    #                 title='this is menu1',
-    #                 text='description1',
-    #                 actions=[
-    #                     PostbackAction(
-    #                         label='postback1',
-    #                         display_text='postback text1',
-    #                         data='action=buy&itemid=1'
-    #                     ),
-    #                     MessageAction(
-    #                         label='message1',
-    #                         text='message text1'
-    #                     ),
-    #                     URIAction(
-    #                         label='uri1',
-    #                         uri='https://www.lavadurian.com/shopping/?store=200'
-    #                     )
-    #                 ],
-    #                 default_action=[
-    #                     URIAction(
-    #                         label="uri1",
-    #                         uri='https://www.lavadurian.com/shopping/?store=200')
-    #                 ]
-    #             ),
-    #         ]
-    #     )
-    # )
+    carousel_template_message = TemplateSendMessage(
+        alt_text='Carousel template',
+        template=CarouselTemplate(
+            columns=[
+                CarouselColumn(
+                    thumbnail_image_url='https://www.lavadurian.com/static/assets/img/product-default/default.jpg',
+                    title='this is menu1',
+                    text='description1',
+                    actions=[
+                        PostbackAction(
+                            label='postback1',
+                            display_text='postback text1',
+                            data='action=buy&itemid=1'
+                        ),
+                        MessageAction(
+                            label='message1',
+                            text='message text1'
+                        ),
+                        URIAction(
+                            label='uri1',
+                            uri='https://www.lavadurian.com/shopping/?store=200'
+                        )
+                    ],
+                    default_action=[
+                        URIAction(
+                            label="uri1",
+                            uri='https://www.lavadurian.com/shopping/?store=200')
+                    ]
+                ),
+            ]
+        )
+    )
 
     # ตั้งค่าข้อความตอบกลับ Flex Message
     flex_message = FlexSendMessage(
@@ -135,7 +135,7 @@ def replySuggestStore(reply_token, disname):
     )
 
     line_bot_api.reply_message(
-        reply_token, flex_message)
+        reply_token, carousel_template_message)
 
 # ---------------------------------------------------------------------
 
