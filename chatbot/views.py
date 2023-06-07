@@ -99,6 +99,13 @@ def replySuggestStore(reply_token, disname):
                         store.id)
                 )
             ],
+            default_action=[
+                URIAction(
+                    label="uri1",
+                    uri='https://www.lavadurian.com/shopping/?store={}'.format(
+                        store.id),
+                ),
+            ]
         )
 
         lt.append(obj)
