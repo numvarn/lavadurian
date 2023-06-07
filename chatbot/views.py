@@ -88,9 +88,6 @@ def replyProfile(reply_token, disname, text):
     product_count = Product.objects.filter(
         Q(store=store) & ~Q(status=3)).count()
 
-    # get district
-    # district = getModelChoice(store.district, DISTRICT_CHOICES)
-
     flex_str = """
 {
   "type": "bubble",
@@ -280,7 +277,7 @@ def replyProfile(reply_token, disname, text):
     }
   }
 }
-    """ % (store.name, store.owner, store.slogan, store.phone1, store.phone2, product_count)
+    """ % (store.name, store.owner, store.slogan, store.phone1, store.phone2)
 
     flex = json.loads(flex_str)
     replyObj = FlexSendMessage(alt_text='Flex Message alt text', contents=flex)
@@ -560,12 +557,3 @@ def replyPrice(reply_token, disname):
     replyObj = FlexSendMessage(alt_text='Flex Message alt text', contents=flex)
 
     line_bot_api.reply_message(reply_token, replyObj)
-
-
-def getModelChoice(intValue, choices):
-    choice_result = ''
-    for choice in choices:
-        if choice[0] == intValue:
-            choice_result = choice[1]
-            break
-    return choice_result
