@@ -95,7 +95,7 @@ def replySuggestStore(reply_token, disname):
             actions=[
                 MessageAction(
                     label='ข้อมูลสวน',
-                    text='ผู้ขาย : {}'.format(store.id)
+                    text='ขอข้อมูลสวน : {}'.format(store.id)
                 ),
                 URIAction(
                     label='เลือกซื้อจากสวน',
