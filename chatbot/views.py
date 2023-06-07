@@ -79,10 +79,199 @@ def webhook(request):
 
 
 def replyProfile(reply_token, disname):
-    text_message = TextSendMessage(
-        text='สวัสดีคุณ {} กรุณารอสักครู่\nเราคือ chatbot จาก www.lavadurian.com'.format(disname))
+    flex_str = """
+{
+  "type": "bubble",
+  "body": {
+    "type": "box",
+    "layout": "vertical",
+    "contents": [
+      {
+        "type": "text",
+        "text": "STORE",
+        "weight": "bold",
+        "color": "#1DB446",
+        "size": "sm"
+      },
+      {
+        "type": "text",
+        "text": "กุญชรเพชรทุเรียนภูเขาไฟ",
+        "weight": "bold",
+        "size": "xxl",
+        "margin": "md",
+        "wrap": true
+      },
+      {
+        "type": "text",
+        "text": "โดย Koonchonpetch Suwannakud",
+        "size": "xs",
+        "color": "#aaaaaa",
+        "wrap": true,
+        "margin": "md"
+      },
+      {
+        "type": "separator",
+        "margin": "xxl"
+      },
+      {
+        "type": "text",
+        "text": "อร่อยถูกปาก หวานมันถูกใจ ต้องทุเรียนภูเขาไฟกุญชรเพชร จำหน่ายทุเรียนตามฤดูกาลจากดินภูเขาไฟ",
+        "margin": "xxl",
+        "size": "sm",
+        "wrap": true
+      },
+      {
+        "type": "separator",
+        "margin": "xl"
+      },
+      {
+        "type": "box",
+        "layout": "vertical",
+        "margin": "xxl",
+        "spacing": "sm",
+        "contents": [
+          {
+            "type": "box",
+            "layout": "horizontal",
+            "contents": [
+              {
+                "type": "text",
+                "text": "โทร.",
+                "size": "sm",
+                "color": "#555555",
+                "flex": 0
+              },
+              {
+                "type": "text",
+                "text": "096-816-3255",
+                "size": "sm",
+                "color": "#111111",
+                "align": "end"
+              }
+            ]
+          },
+          {
+            "type": "box",
+            "layout": "horizontal",
+            "contents": [
+              {
+                "type": "text",
+                "text": "โทร.",
+                "size": "sm",
+                "color": "#555555",
+                "flex": 0
+              },
+              {
+                "type": "text",
+                "text": "082-575-2767",
+                "size": "sm",
+                "color": "#111111",
+                "align": "end"
+              }
+            ]
+          },
+          {
+            "type": "separator",
+            "margin": "xxl"
+          },
+          {
+            "type": "box",
+            "layout": "horizontal",
+            "margin": "xxl",
+            "contents": [
+              {
+                "type": "text",
+                "text": "จำนวนสินค้า",
+                "size": "sm",
+                "color": "#555555"
+              },
+              {
+                "type": "text",
+                "text": "3",
+                "size": "sm",
+                "color": "#111111",
+                "align": "end"
+              }
+            ]
+          },
+          {
+            "type": "box",
+            "layout": "horizontal",
+            "contents": [
+              {
+                "type": "text",
+                "text": "อำเภอ",
+                "size": "sm",
+                "color": "#555555"
+              },
+              {
+                "type": "text",
+                "text": "กันทรลักษ์",
+                "size": "sm",
+                "color": "#111111",
+                "align": "end"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "box",
+        "layout": "horizontal",
+        "margin": "xxl",
+        "contents": [
+          {
+            "type": "text",
+            "text": "STORE ID",
+            "size": "xs",
+            "color": "#aaaaaa",
+            "flex": 0
+          },
+          {
+            "type": "text",
+            "text": "#200",
+            "color": "#aaaaaa",
+            "size": "xs",
+            "align": "end"
+          }
+        ]
+      }
+    ]
+  },
+  "footer": {
+    "type": "box",
+    "layout": "horizontal",
+    "contents": [
+      {
+        "type": "button",
+        "action": {
+          "type": "uri",
+          "label": "ไปที่ร้าน",
+          "uri": "http://linecorp.com/"
+        }
+      },
+      {
+        "type": "button",
+        "action": {
+          "type": "message",
+          "label": "ร้านอื่น ๆ",
+          "text": "แนะนำสวน"
+        }
+      }
+    ]
+  },
+  "styles": {
+    "footer": {
+      "separator": true
+    }
+  }
+}
+    """
 
-    line_bot_api.reply_message(reply_token, text_message)
+    flex = json.loads(flex_str)
+    replyObj = FlexSendMessage(alt_text='Flex Message alt text', contents=flex)
+
+    line_bot_api.reply_message(reply_token, replyObj)
 
 # ---------------------------------------------------------------------
 
