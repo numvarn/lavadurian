@@ -1,4 +1,5 @@
 import json
+import random
 from datetime import date
 from django.shortcuts import render
 from rest_framework.decorators import api_view, permission_classes
@@ -82,8 +83,11 @@ def replySuggestStore(reply_token, disname):
         if product.store not in store_list:
             store_list.append(product.store)
 
+    # random store in list
+    store_list_rand = random.sample(store_list, 3)
+
     lt = []
-    for store in store_list:
+    for store in store_list_rand:
         obj = CarouselColumn(
             thumbnail_image_url='https://www.lavadurian.com/static/assets/img/card/01.jpg',
             title=store.name,
@@ -99,13 +103,6 @@ def replySuggestStore(reply_token, disname):
                         store.id)
                 )
             ],
-            default_action=[
-                URIAction(
-                    label="uri1",
-                    uri='https://www.lavadurian.com/shopping/?store={}'.format(
-                        store.id),
-                ),
-            ]
         )
 
         lt.append(obj)
