@@ -82,7 +82,7 @@ def replyProfile(reply_token, disname, text):
     text_lt = text.split(":")
     store_id = text_lt[1].strip()
 
-    # store = Store.objects.filter(id=int(store_id))
+    store = Store.objects.filter(id=int(store_id))
 
     flex_str = """
 {
