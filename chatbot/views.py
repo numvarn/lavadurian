@@ -120,7 +120,7 @@ def replyProfile(reply_token, disname, text):
       },
       {
         "type": "text",
-        "text": "%s",
+        "text": "อร่อยถูกปาก หวานมันถูกใจ ต้องทุเรียนภูเขาไฟกุญชรเพชร จำหน่ายทุเรียนตามฤดูกาลจากดินภูเขาไฟ",
         "margin": "xxl",
         "size": "sm",
         "wrap": true
@@ -148,7 +148,7 @@ def replyProfile(reply_token, disname, text):
               },
               {
                 "type": "text",
-                "text": "%s",
+                "text": "096-816-3255",
                 "size": "sm",
                 "color": "#111111",
                 "align": "end"
@@ -168,7 +168,7 @@ def replyProfile(reply_token, disname, text):
               },
               {
                 "type": "text",
-                "text": "%s",
+                "text": "082-575-2767",
                 "size": "sm",
                 "color": "#111111",
                 "align": "end"
@@ -273,7 +273,7 @@ def replyProfile(reply_token, disname, text):
     }
   }
 }
-    """ % (store.name, store.slogan, store.phone1, store.phone2)
+    """ % (store.name)
 
     flex = json.loads(flex_str)
     replyObj = FlexSendMessage(alt_text='Flex Message alt text', contents=flex)
