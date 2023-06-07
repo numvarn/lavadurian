@@ -64,7 +64,7 @@ def webhook(request):
 
     # ขอข้อมูลสวน
     elif intent == 'GetStoreProfile':
-        replyProfile(reply_token, disname)
+        replyProfile(reply_token, disname, text)
 
     # อื่น ๆ
     else:
@@ -78,7 +78,10 @@ def webhook(request):
 # ---------------------------------------------------------------------
 
 
-def replyProfile(reply_token, disname):
+def replyProfile(reply_token, disname, text):
+    text_lt = text.split(":")
+    store_id = text_lt[1].strip()
+
     flex_str = """
 {
   "type": "bubble",
@@ -95,7 +98,7 @@ def replyProfile(reply_token, disname):
       },
       {
         "type": "text",
-        "text": "กุญชรเพชรทุเรียนภูเขาไฟ",
+        "text": "กุญชรเพชรทุเรียนภูเขาไฟ %s",
         "weight": "bold",
         "size": "xxl",
         "margin": "md",
@@ -248,7 +251,8 @@ def replyProfile(reply_token, disname):
           "type": "uri",
           "label": "ไปที่ร้าน",
           "uri": "http://linecorp.com/"
-        }
+        },
+        "color": "#1DB446"
       },
       {
         "type": "button",
@@ -256,7 +260,8 @@ def replyProfile(reply_token, disname):
           "type": "message",
           "label": "ร้านอื่น ๆ",
           "text": "แนะนำสวน"
-        }
+        },
+        "color": "#1DB446"
       }
     ]
   },
@@ -266,7 +271,7 @@ def replyProfile(reply_token, disname):
     }
   }
 }
-    """
+    """ % (store_id)
 
     flex = json.loads(flex_str)
     replyObj = FlexSendMessage(alt_text='Flex Message alt text', contents=flex)
