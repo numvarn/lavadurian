@@ -305,7 +305,7 @@ def replyPrice(reply_token, disname):
               },
               {
                 "type": "text",
-                "text": "ต่ำสุด 160 / สูงสุด 200",
+                "text": "ต่ำสุด %s / สูงสุด %s",
                 "wrap": true,
                 "color": "#666666",
                 "size": "xs",
@@ -376,7 +376,7 @@ def replyPrice(reply_token, disname):
     "flex": 0
   }
 }
-    """ % (store_count, minPrice_NormalGrade, maxPrice_NormalGrade)
+    """ % (store_count, minPrice_NormalGrade, maxPrice_NormalGrade, minPrice_PremiumGrade, maxPrice_PremiumGrade)
 
     flex = json.loads(flex_str)
     replyObj = FlexSendMessage(alt_text='Flex Message alt text', contents=flex)
