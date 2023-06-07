@@ -280,8 +280,8 @@ def replyProfile(reply_token, disname, text):
                 "type": "button",
                 "action": {
                 "type": "message",
-                "label": "อื่น ๆ",
-                "text": "อื่น ๆ"
+                "label": "เพิ่มเติม",
+                "text": "เพิ่มเติม"
                 },
                 "color": "#1DB446"
             }
