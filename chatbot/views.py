@@ -219,7 +219,7 @@ def replyProfile(reply_token, disname, text):
               },
               {
                 "type": "text",
-                "text": "กันทรลักษ์",
+                "text": "%s",
                 "size": "sm",
                 "color": "#111111",
                 "align": "end"
@@ -281,7 +281,7 @@ def replyProfile(reply_token, disname, text):
     }
   }
 }
-    """ % (store.name, store.owner, store.slogan, store.phone1, product_count)
+    """ % (store.name, store.owner, store.slogan, store.phone1, product_count, district)
 
     flex = json.loads(flex_str)
     replyObj = FlexSendMessage(alt_text='Flex Message alt text', contents=flex)
