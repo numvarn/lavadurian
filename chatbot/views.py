@@ -85,8 +85,9 @@ def replyProfile(reply_token, disname, text):
 
     store = Store.objects.get(id=int(store_id))
 
-    if store.phone2 is None:
-        store.phone2 = ""
+    store.phone2 = ""
+    # if store.phone2 == "":
+    #     store.phone2 = ""
 
     # count product in store
     product_count = Product.objects.filter(
