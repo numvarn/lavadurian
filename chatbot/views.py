@@ -271,8 +271,17 @@ def replyProfile(reply_token, disname, text):
                 "type": "button",
                 "action": {
                 "type": "message",
-                "label": "ร้านอื่น ๆ",
+                "label": "ร้านอื่น",
                 "text": "แนะนำสวน"
+                },
+                "color": "#1DB446"
+            },
+            {
+                "type": "button",
+                "action": {
+                "type": "message",
+                "label": "อื่น ๆ",
+                "text": "อื่น ๆ"
                 },
                 "color": "#1DB446"
             }
