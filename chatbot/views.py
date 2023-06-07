@@ -148,7 +148,7 @@ def replyProfile(reply_token, disname, text):
               },
               {
                 "type": "text",
-                "text": "096-816-3255",
+                "text": "%s",
                 "size": "sm",
                 "color": "#111111",
                 "align": "end"
@@ -168,7 +168,7 @@ def replyProfile(reply_token, disname, text):
               },
               {
                 "type": "text",
-                "text": "082-575-2767",
+                "text": "%s",
                 "size": "sm",
                 "color": "#111111",
                 "align": "end"
@@ -273,7 +273,7 @@ def replyProfile(reply_token, disname, text):
     }
   }
 }
-    """ % (store.name, store.owner, store.slogan)
+    """ % (store.name, store.owner, store.slogan, store.phone1, store.phone2)
 
     flex = json.loads(flex_str)
     replyObj = FlexSendMessage(alt_text='Flex Message alt text', contents=flex)
