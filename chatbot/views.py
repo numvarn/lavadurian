@@ -89,199 +89,201 @@ def replyProfile(reply_token, disname, text):
     product_count = Product.objects.filter(
         Q(store=store) & ~Q(status=3)).count()
 
+    store.phone2 = '--'
+
     # district
     district = getModelChoice(store.district, DISTRICT_CHOICES)
 
     flex_str = """
-{
-  "type": "bubble",
-  "body": {
-    "type": "box",
-    "layout": "vertical",
-    "contents": [
-      {
-        "type": "text",
-        "text": "STORE",
-        "weight": "bold",
-        "color": "#1DB446",
-        "size": "sm"
-      },
-      {
-        "type": "text",
-        "text": "%s",
-        "weight": "bold",
-        "size": "xxl",
-        "margin": "md",
-        "wrap": true
-      },
-      {
-        "type": "text",
-        "text": "โดย %s",
-        "size": "xs",
-        "color": "#aaaaaa",
-        "wrap": true,
-        "margin": "md"
-      },
-      {
-        "type": "separator",
-        "margin": "xxl"
-      },
-      {
-        "type": "text",
-        "text": "%s",
-        "margin": "xxl",
-        "size": "sm",
-        "wrap": true
-      },
-      {
-        "type": "separator",
-        "margin": "xl"
-      },
-      {
-        "type": "box",
-        "layout": "vertical",
-        "margin": "xxl",
-        "spacing": "sm",
-        "contents": [
-          {
+        {
+        "type": "bubble",
+        "body": {
             "type": "box",
-            "layout": "horizontal",
+            "layout": "vertical",
             "contents": [
-              {
+            {
                 "type": "text",
-                "text": "โทร.",
-                "size": "sm",
-                "color": "#555555",
-                "flex": 0
-              },
-              {
+                "text": "STORE",
+                "weight": "bold",
+                "color": "#1DB446",
+                "size": "sm"
+            },
+            {
                 "type": "text",
                 "text": "%s",
-                "size": "sm",
-                "color": "#111111",
-                "align": "end"
-              }
-            ]
-          },
-          {
-            "type": "box",
-            "layout": "horizontal",
-            "contents": [
-              {
+                "weight": "bold",
+                "size": "xxl",
+                "margin": "md",
+                "wrap": true
+            },
+            {
                 "type": "text",
-                "text": "โทร.",
-                "size": "sm",
-                "color": "#555555",
-                "flex": 0
-              },
-              {
-                "type": "text",
-                "text": "--",
-                "size": "sm",
-                "color": "#111111",
-                "align": "end"
-              }
-            ]
-          },
-          {
-            "type": "separator",
-            "margin": "xxl"
-          },
-          {
-            "type": "box",
-            "layout": "horizontal",
-            "margin": "xxl",
-            "contents": [
-              {
-                "type": "text",
-                "text": "จำนวนสินค้า",
-                "size": "sm",
-                "color": "#555555"
-              },
-              {
+                "text": "โดย %s",
+                "size": "xs",
+                "color": "#aaaaaa",
+                "wrap": true,
+                "margin": "md"
+            },
+            {
+                "type": "separator",
+                "margin": "xxl"
+            },
+            {
                 "type": "text",
                 "text": "%s",
+                "margin": "xxl",
                 "size": "sm",
-                "color": "#111111",
-                "align": "end"
-              }
+                "wrap": true
+            },
+            {
+                "type": "separator",
+                "margin": "xl"
+            },
+            {
+                "type": "box",
+                "layout": "vertical",
+                "margin": "xxl",
+                "spacing": "sm",
+                "contents": [
+                {
+                    "type": "box",
+                    "layout": "horizontal",
+                    "contents": [
+                    {
+                        "type": "text",
+                        "text": "โทร.",
+                        "size": "sm",
+                        "color": "#555555",
+                        "flex": 0
+                    },
+                    {
+                        "type": "text",
+                        "text": "%s",
+                        "size": "sm",
+                        "color": "#111111",
+                        "align": "end"
+                    }
+                    ]
+                },
+                {
+                    "type": "box",
+                    "layout": "horizontal",
+                    "contents": [
+                    {
+                        "type": "text",
+                        "text": "โทร.",
+                        "size": "sm",
+                        "color": "#555555",
+                        "flex": 0
+                    },
+                    {
+                        "type": "text",
+                        "text": "%s",
+                        "size": "sm",
+                        "color": "#111111",
+                        "align": "end"
+                    }
+                    ]
+                },
+                {
+                    "type": "separator",
+                    "margin": "xxl"
+                },
+                {
+                    "type": "box",
+                    "layout": "horizontal",
+                    "margin": "xxl",
+                    "contents": [
+                    {
+                        "type": "text",
+                        "text": "จำนวนสินค้า",
+                        "size": "sm",
+                        "color": "#555555"
+                    },
+                    {
+                        "type": "text",
+                        "text": "%s",
+                        "size": "sm",
+                        "color": "#111111",
+                        "align": "end"
+                    }
+                    ]
+                },
+                {
+                    "type": "box",
+                    "layout": "horizontal",
+                    "contents": [
+                    {
+                        "type": "text",
+                        "text": "อำเภอ",
+                        "size": "sm",
+                        "color": "#555555"
+                    },
+                    {
+                        "type": "text",
+                        "text": "%s",
+                        "size": "sm",
+                        "color": "#111111",
+                        "align": "end"
+                    }
+                    ]
+                }
+                ]
+            },
+            {
+                "type": "box",
+                "layout": "horizontal",
+                "margin": "xxl",
+                "contents": [
+                {
+                    "type": "text",
+                    "text": "STORE ID",
+                    "size": "xs",
+                    "color": "#aaaaaa",
+                    "flex": 0
+                },
+                {
+                    "type": "text",
+                    "text": "#%s",
+                    "color": "#aaaaaa",
+                    "size": "xs",
+                    "align": "end"
+                }
+                ]
+            }
             ]
-          },
-          {
-            "type": "box",
-            "layout": "horizontal",
-            "contents": [
-              {
-                "type": "text",
-                "text": "อำเภอ",
-                "size": "sm",
-                "color": "#555555"
-              },
-              {
-                "type": "text",
-                "text": "%s",
-                "size": "sm",
-                "color": "#111111",
-                "align": "end"
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "type": "box",
-        "layout": "horizontal",
-        "margin": "xxl",
-        "contents": [
-          {
-            "type": "text",
-            "text": "STORE ID",
-            "size": "xs",
-            "color": "#aaaaaa",
-            "flex": 0
-          },
-          {
-            "type": "text",
-            "text": "#%s",
-            "color": "#aaaaaa",
-            "size": "xs",
-            "align": "end"
-          }
-        ]
-      }
-    ]
-  },
-  "footer": {
-    "type": "box",
-    "layout": "horizontal",
-    "contents": [
-      {
-        "type": "button",
-        "action": {
-          "type": "uri",
-          "label": "ไปที่ร้าน",
-          "uri": "https://www.lavadurian.com/shopping/?store=%s"
         },
-        "color": "#1DB446"
-      },
-      {
-        "type": "button",
-        "action": {
-          "type": "message",
-          "label": "ร้านอื่น ๆ",
-          "text": "แนะนำสวน"
+        "footer": {
+            "type": "box",
+            "layout": "horizontal",
+            "contents": [
+            {
+                "type": "button",
+                "action": {
+                "type": "uri",
+                "label": "ไปที่ร้าน",
+                "uri": "https://www.lavadurian.com/shopping/?store=%s"
+                },
+                "color": "#1DB446"
+            },
+            {
+                "type": "button",
+                "action": {
+                "type": "message",
+                "label": "ร้านอื่น ๆ",
+                "text": "แนะนำสวน"
+                },
+                "color": "#1DB446"
+            }
+            ]
         },
-        "color": "#1DB446"
-      }
-    ]
-  },
-  "styles": {
-    "footer": {
-      "separator": true
-    }
-  }
-}
-    """ % (store.name, store.owner, store.slogan, store.phone1, product_count, district, store.id, store.id)
+        "styles": {
+            "footer": {
+            "separator": true
+            }
+        }
+        }
+    """ % (store.name, store.owner, store.slogan, store.phone1, store.phone2, product_count, district, store.id, store.id)
 
     flex = json.loads(flex_str)
     replyObj = FlexSendMessage(alt_text='Flex Message alt text', contents=flex)
