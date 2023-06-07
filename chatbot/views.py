@@ -108,7 +108,7 @@ def replyProfile(reply_token, disname, text):
       },
       {
         "type": "text",
-        "text": "โดย Koonchonpetch Suwannakud",
+        "text": "โดย %s",
         "size": "xs",
         "color": "#aaaaaa",
         "wrap": true,
@@ -120,7 +120,7 @@ def replyProfile(reply_token, disname, text):
       },
       {
         "type": "text",
-        "text": "อร่อยถูกปาก หวานมันถูกใจ ต้องทุเรียนภูเขาไฟกุญชรเพชร จำหน่ายทุเรียนตามฤดูกาลจากดินภูเขาไฟ",
+        "text": "%s",
         "margin": "xxl",
         "size": "sm",
         "wrap": true
@@ -273,7 +273,7 @@ def replyProfile(reply_token, disname, text):
     }
   }
 }
-    """ % (store.name)
+    """ % (store.name, store.owner, store.slogan)
 
     flex = json.loads(flex_str)
     replyObj = FlexSendMessage(alt_text='Flex Message alt text', contents=flex)
