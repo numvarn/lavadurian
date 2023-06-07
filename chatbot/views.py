@@ -85,11 +85,8 @@ def replyProfile(reply_token, disname, text):
 
     store = Store.objects.get(id=int(store_id))
 
-    store.phone2 = ""
-    # if store.phone2 == "":
-    #     store.phone2 = ""
-
     # count product in store
+    product_count = 0
     product_count = Product.objects.filter(
         Q(store=store) & ~Q(status=3)).count()
 
@@ -285,7 +282,7 @@ def replyProfile(reply_token, disname, text):
     }
   }
 }
-    """ % (store.name, store.owner, store.slogan, store.phone1, store.phone2, product_count, district)
+    """ % (store.name, store.owner, store.slogan, store.phone1, store.phone2, product_count)
 
     flex = json.loads(flex_str)
     replyObj = FlexSendMessage(alt_text='Flex Message alt text', contents=flex)
