@@ -82,7 +82,7 @@ def replyProfile(reply_token, disname, text):
     text_lt = text.split(":")
     store_id = text_lt[1].strip()
 
-    store = Store.objects.filter(id=int(store_id))
+    store = Store.objects.get(id=int(store_id))
 
     flex_str = """
 {
@@ -100,7 +100,7 @@ def replyProfile(reply_token, disname, text):
       },
       {
         "type": "text",
-        "text": "กุญชรเพชรทุเรียนภูเขาไฟ %s",
+        "text": "%s",
         "weight": "bold",
         "size": "xxl",
         "margin": "md",
@@ -273,7 +273,7 @@ def replyProfile(reply_token, disname, text):
     }
   }
 }
-    """ % (store_id)
+    """ % (store.name)
 
     flex = json.loads(flex_str)
     replyObj = FlexSendMessage(alt_text='Flex Message alt text', contents=flex)
