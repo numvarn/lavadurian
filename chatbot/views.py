@@ -83,39 +83,24 @@ def replySuggestStore(reply_token, disname):
             store_list.append(product.store)
 
     lt = []
+    for store in store_list:
+        obj = CarouselColumn(
+            title=store.name,
+            text=store.slogan,
+            actions=[
+                MessageAction(
+                    label='ข้อมูลสวน',
+                    text='ขอข้อมูลสวน : {}'.format(store.id)
+                ),
+                URIAction(
+                    label='เลือกซื้อจากสวน',
+                    uri='https://www.lavadurian.com/shopping/?store={}'.format(
+                        store.id)
+                )
+            ],
+        )
 
-    obj_1 = CarouselColumn(
-        title='this is menu1',
-        text='description1',
-        actions=[
-            MessageAction(
-                label='ข้อมูลสวน',
-                text='ขอข้อมูลสวน : id'
-            ),
-            URIAction(
-                label='เลือกซื้อจากสวน',
-                uri='https://www.lavadurian.com/shopping/?store=200'
-            )
-        ],
-    )
-
-    obj_2 = CarouselColumn(
-        title='this is menu1',
-        text='description1',
-        actions=[
-            MessageAction(
-                label='ขอข้อมูลสวน',
-                text='ขอข้อมูลสวน : id'
-            ),
-            URIAction(
-                label='เลือกซื้อจากสวน',
-                uri='https://www.lavadurian.com/shopping/?store=200'
-            )
-        ],
-    )
-
-    lt.append(obj_1)
-    lt.append(obj_2)
+        lt.append(obj)
 
     carousel_template_message = TemplateSendMessage(
         alt_text='Carousel template',
