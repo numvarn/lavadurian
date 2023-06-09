@@ -395,7 +395,7 @@ def replyPrice(reply_token, disname):
 
     # Flex Message Template
     flex_str = """
-        {
+    {
         "type": "bubble",
         "hero": {
             "type": "image",
@@ -534,7 +534,7 @@ def replyPrice(reply_token, disname):
         },
         "footer": {
             "type": "box",
-            "layout": "vertical",
+            "layout": "horizontal",
             "spacing": "sm",
             "contents": [
             {
@@ -545,7 +545,8 @@ def replyPrice(reply_token, disname):
                 "type": "message",
                 "label": "สวนแนะนำ",
                 "text": "สวนแนะนำ"
-                }
+                },
+                "color": "#1DB446"
             },
             {
                 "type": "button",
@@ -553,20 +554,15 @@ def replyPrice(reply_token, disname):
                 "height": "sm",
                 "action": {
                 "type": "message",
-                "label": "อื่น ๆ",
+                "label": "ข้อมูลอื่น",
                 "text": "อื่น ๆ"
-                }
-            },
-            {
-                "type": "box",
-                "layout": "vertical",
-                "contents": [],
-                "margin": "sm"
+                },
+                "color": "#1DB446"
             }
             ],
             "flex": 0
         }
-        }
+    }
     """ % (date.today(), store_count, minPrice_NormalGrade, maxPrice_NormalGrade, minPrice_PremiumGrade, maxPrice_PremiumGrade, avgProduct_Weight)
 
     flex = json.loads(flex_str)
