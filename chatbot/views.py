@@ -457,7 +457,7 @@ def replyPrice(reply_token, disname):
                         "flex": 5
                     }
                     ],
-                    "margin": "lg"
+                    "margin": "xl"
                 },
                 {
                     "type": "box",
@@ -480,7 +480,7 @@ def replyPrice(reply_token, disname):
                         "flex": 5
                     }
                     ],
-                    "margin": "md"
+                    "margin": "xl"
                 },
                 {
                     "type": "box",
@@ -503,7 +503,7 @@ def replyPrice(reply_token, disname):
                         "flex": 5
                     }
                     ],
-                    "margin": "md"
+                    "margin": "xl"
                 },
                 {
                     "type": "box",
@@ -526,7 +526,7 @@ def replyPrice(reply_token, disname):
                         "flex": 5
                     }
                     ],
-                    "margin": "md"
+                    "margin": "xl"
                 }
                 ]
             }
