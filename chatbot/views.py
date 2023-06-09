@@ -337,7 +337,7 @@ def replySuggestStore(reply_token, disname):
         lt.append(obj)
 
     carousel_template_message = TemplateSendMessage(
-        alt_text='Carousel template',
+        alt_text='ร้านค้าแนะนำ',
         template=CarouselTemplate(
             columns=lt
         )
