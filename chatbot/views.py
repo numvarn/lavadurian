@@ -117,7 +117,7 @@ def replyProductByWeight(reply_token, disname, text):
         obj = CarouselColumn(
             thumbnail_image_url='https://www.lavadurian.com/static/assets/img/card/01.jpg',
             title=product.store.name,
-            text=product.product.gene,
+            text=product.gene,
             actions=[
                 MessageAction(
                     label='ข้อมูลสวน',
