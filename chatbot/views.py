@@ -330,23 +330,22 @@ def replyProductByWeight(reply_token, disname, text):
         flex_close_str = '''
         {
             "type": "bubble",
-            "body": {
+            "header": {
                 "type": "box",
                 "layout": "vertical",
                 "contents": [
                 {
                     "type": "text",
                     "text": "แสดงข้อมูลอื่น ๆ",
-                    "weight": "bold",
-                    "size": "xl"
+                    "align": "center",
+                    "size": "xl",
+                    "weight": "bold"
                 }
-                ],
-                "alignItems": "center"
+                ]
             },
-            "footer": {
+            "body": {
                 "type": "box",
                 "layout": "vertical",
-                "spacing": "sm",
                 "contents": [
                 {
                     "type": "button",
@@ -381,10 +380,9 @@ def replyProductByWeight(reply_token, disname, text):
                     },
                     "color": "#1DB446"
                 }
-                ],
-                "flex": 0
+                ]
             }
-            }
+        }
         '''
         flex_lt.append(flex_close_str)
 
