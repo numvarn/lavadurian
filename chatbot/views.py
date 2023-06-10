@@ -85,7 +85,9 @@ def webhook(request):
 
 def replyProductByWeight(reply_token, disname, text):
     text_lt = text.split(":")
-    weight_lt = text_lt[1].split("_")
+    str = text_lt[1].strip()
+
+    weight_lt = str.split("_")
 
     start_weight = int(weight_lt[0])
     end_weight = int(weight_lt[1])
