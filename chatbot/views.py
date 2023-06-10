@@ -100,7 +100,7 @@ def replyProductByWeight(reply_token, disname, text):
     products = Product.objects.filter(q_objects & q_status)
 
     text_message = TextSendMessage(
-        text='น้ำหนักที่เลือก {} - {}'.format(start_weight, end_weight))
+        text='น้ำหนักที่เลือก {}'.format(len(products)))
 
     line_bot_api.reply_message(reply_token, text_message)
 
