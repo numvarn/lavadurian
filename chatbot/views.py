@@ -67,6 +67,10 @@ def webhook(request):
     elif intent == 'GetStoreProfile':
         replyProfile(reply_token, disname, text)
 
+    # ค้นหา สิ้นค้า จากช่วงน้ำหนัก
+    elif intent == "GetProductByWeight":
+        replyProductByWeight(reply_token, disname, text)
+
     # อื่น ๆ
     else:
         text_message = TextSendMessage(
@@ -75,6 +79,15 @@ def webhook(request):
         line_bot_api.reply_message(reply_token, text_message)
 
     return Response(status=HTTP_200_OK)
+
+# ---------------------------------------------------------------------
+
+
+def replyProductByWeight(reply_token, disname, text):
+    text_message = TextSendMessage(
+        text='นำ้หนักที่เลือก {}'.format(text))
+
+    line_bot_api.reply_message(reply_token, text_message)
 
 # ---------------------------------------------------------------------
 
