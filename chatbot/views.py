@@ -113,7 +113,7 @@ def replyProductByWeight(reply_token, disname, text):
             product_list_rand = random.sample(product_list, 10)
         else:
             product_list_rand = product_list
-
+        '''
         lt = []
         for product in product_list_rand:
             obj = CarouselColumn(
@@ -141,6 +141,46 @@ def replyProductByWeight(reply_token, disname, text):
             )
         )
         line_bot_api.reply_message(reply_token, carousel_template_message)
+        '''
+
+        flex_str = '''
+{
+  "type": "carousel",
+  "contents": [
+    {
+      "type": "bubble",
+      "body": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "text",
+            "text": "hello, world"
+          }
+        ]
+      }
+    },
+    {
+      "type": "bubble",
+      "body": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "text",
+            "text": "hello, world"
+          }
+        ]
+      }
+    }
+  ]
+}
+        '''
+        flex = json.loads(flex_str)
+        replyObj = FlexSendMessage(
+            alt_text='Flex Message alt text', contents=flex)
+
+        line_bot_api.reply_message(reply_token, replyObj)
     else:
         text_message = TextSendMessage(
             text='น้องทุเรียนไม่พบสินค้าตามช่วงน้ำหนักที่เลือกเลยครับ')
