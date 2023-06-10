@@ -131,15 +131,10 @@ def replyProductByWeight(reply_token, disname, text):
             # ],
         )
 
-    carousel_template_message = TemplateSendMessage(
-        alt_text='สิ้นค้าที่เลือกตามน้ำหนัก',
-        template=CarouselTemplate(
-            columns=lt
-        )
-    )
+    text_message = TextSendMessage(
+        text='น้ำหนักที่เลือก {}'.format(len(products)))
 
-    line_bot_api.reply_message(
-        reply_token, carousel_template_message)
+    line_bot_api.reply_message(reply_token, text_message)
 
 
 # ---------------------------------------------------------------------
