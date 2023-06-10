@@ -94,8 +94,13 @@ def replyProductByWeight(reply_token, disname, text):
     start_weight = Decimal(weight_lt[0])
     end_weight = Decimal(weight_lt[1])
 
+    q_objects = Q(weight__gte=start_weight) & Q(weight__lte=end_weight)
+    q_status = ~Q(status=3)
+
+    products = Product.objects.filter(q_objects & q_status)
+
     text_message = TextSendMessage(
-        text='นำ้หนักที่เลือก {} - {}'.format(start_weight, end_weight))
+        text='น้ำหนักที่เลือก {}'.format(len(products)))
 
     line_bot_api.reply_message(reply_token, text_message)
 
