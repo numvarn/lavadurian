@@ -309,7 +309,7 @@ def replyProductByWeight(reply_token, disname, text):
                         "action": {
                         "type": "uri",
                         "label": "เลือกซื้อ",
-                        "uri": "https://www.lavadurian.com/shopping/product/299?store=%s"
+                        "uri": "https://www.lavadurian.com/shopping/product/%s"
                         },
                         "color": "#1DB446"
                     }
