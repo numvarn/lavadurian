@@ -347,16 +347,19 @@ def replyProductByWeight(reply_token, disname, text):
         #     '''
         #     flex_list.append(flex_str)
 
-        check = '''
-        {
-            "type": "bubble",
-            "body": {
-                "type": "box",
-                "layout": "vertical",
-                "contents": []
+        check_lt = []
+        for i in range(0, 3):
+            check = '''
+            {
+                "type": "bubble",
+                "body": {
+                    "type": "box",
+                    "layout": "vertical",
+                    "contents": []
+                }
             }
-        }
-        '''
+            '''
+            check_lt.append(check)
 
         carousel_str = '''
         {
@@ -365,7 +368,7 @@ def replyProductByWeight(reply_token, disname, text):
                 %s
             ]
         }
-        ''' % (check)
+        ''' % (",".join(check_lt))
 
         carousel = json.loads(carousel_str)
         replyObj = FlexSendMessage(
