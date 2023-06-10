@@ -28,6 +28,7 @@ from Store.models import (
     DISTRICT_CHOICES,
     GENE_CHOICES,
     GRADE_CHOICES,
+    PRODUCT_STATUS_CHOICES,
 )
 
 # Create your views here.
@@ -286,7 +287,7 @@ def replyProductByWeight(reply_token, disname, text):
                             },
                             {
                                 "type": "text",
-                                "text": "สั่งจองล่วงหน้า",
+                                "text": "%s",
                                 "flex": 2,
                                 "size": "sm",
                                 "color": "#666666",
@@ -320,7 +321,8 @@ def replyProductByWeight(reply_token, disname, text):
                    product.weight,
                    product.price * product.weight,
                    product.values,
-                   getModelChoice(product.grade, GRADE_CHOICES))
+                   getModelChoice(product.grade, GRADE_CHOICES),
+                   getModelChoice(product.status, PRODUCT_STATUS_CHOICES))
 
             flex_lt.append(check)
 
