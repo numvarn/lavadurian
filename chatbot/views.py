@@ -174,7 +174,7 @@ def replyProductByWeight(reply_token, disname, text):
                             },
                             {
                                 "type": "text",
-                                "text": "350",
+                                "text": "%s",
                                 "wrap": true,
                                 "color": "#666666",
                                 "size": "sm",
@@ -197,7 +197,7 @@ def replyProductByWeight(reply_token, disname, text):
                             },
                             {
                                 "type": "text",
-                                "text": "4.00",
+                                "text": "%s",
                                 "wrap": true,
                                 "color": "#666666",
                                 "size": "sm",
@@ -219,7 +219,7 @@ def replyProductByWeight(reply_token, disname, text):
                             },
                             {
                                 "type": "text",
-                                "text": "450",
+                                "text": "%s",
                                 "flex": 2,
                                 "size": "sm",
                                 "color": "#666666",
@@ -314,7 +314,7 @@ def replyProductByWeight(reply_token, disname, text):
                     ]
                 }
             }
-            ''' % (product.store.name, gene_str)
+            ''' % (product.store.name, gene_str, product.price, product.weight, product.price * product.weight)
 
             flex_lt.append(check)
 
