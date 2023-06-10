@@ -309,7 +309,7 @@ def replyProductByWeight(reply_token, disname, text):
                         "action": {
                         "type": "uri",
                         "label": "เลือกซื้อ",
-                        "uri": "https://www.lavadurian.com/shopping/product/299?store=118"
+                        "uri": "https://www.lavadurian.com/shopping/product/299?store=%s"
                         },
                         "color": "#1DB446"
                     }
@@ -322,7 +322,8 @@ def replyProductByWeight(reply_token, disname, text):
                    product.price * product.weight,
                    product.values,
                    getModelChoice(product.grade, GRADE_CHOICES),
-                   getModelChoice(product.status, PRODUCT_STATUS_CHOICES))
+                   getModelChoice(product.status, PRODUCT_STATUS_CHOICES),
+                   product.id)
 
             flex_lt.append(check)
 
