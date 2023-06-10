@@ -85,15 +85,15 @@ def webhook(request):
 
 def replyProductByWeight(reply_token, disname, text):
     text_lt = text.split(":")
-    # str = text_lt[1].strip()
+    str = text_lt[1].strip()
 
-    # weight_lt = str.split("_")
+    weight_lt = str.split("_")
 
     # start_weight = int(weight_lt[0])
     # end_weight = int(weight_lt[1])
 
     text_message = TextSendMessage(
-        text='นำ้หนักที่เลือก {}'.format(text_lt[1].strip()))
+        text='นำ้หนักที่เลือก {}'.format(weight_lt[0]))
 
     line_bot_api.reply_message(reply_token, text_message)
 
