@@ -119,7 +119,7 @@ def replyProductByWeight(reply_token, disname, text):
         flex_lt = []
         for product in product_list_rand:
             gene_str = getModelChoice(product.gene, GENE_CHOICES)
-            check = '''
+            flex_str = '''
             {
                 "type": "bubble",
                 "hero": {
@@ -172,7 +172,7 @@ def replyProductByWeight(reply_token, disname, text):
                                 "text": "ราคา (ต่อ/กก.)",
                                 "color": "#aaaaaa",
                                 "size": "sm",
-                                "flex": 4
+                                "flex_str": 4
                             },
                             {
                                 "type": "text",
@@ -325,7 +325,68 @@ def replyProductByWeight(reply_token, disname, text):
                    getModelChoice(product.status, PRODUCT_STATUS_CHOICES),
                    product.id)
 
-            flex_lt.append(check)
+            flex_lt.append(flex_str)
+
+        flex_close_str = '''
+        {
+            "type": "bubble",
+            "body": {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                {
+                    "type": "text",
+                    "text": "แสดงข้อมูลอื่น ๆ",
+                    "weight": "bold",
+                    "size": "xl"
+                }
+                ],
+                "alignItems": "center"
+            },
+            "footer": {
+                "type": "box",
+                "layout": "vertical",
+                "spacing": "sm",
+                "contents": [
+                {
+                    "type": "button",
+                    "style": "link",
+                    "height": "sm",
+                    "action": {
+                    "type": "uri",
+                    "label": "ไปที่เว็บไซต์",
+                    "uri": "https://www.lavadurian.com"
+                    },
+                    "color": "#1DB446"
+                },
+                {
+                    "type": "button",
+                    "style": "link",
+                    "height": "sm",
+                    "action": {
+                    "type": "message",
+                    "label": "สวนแนะนำ",
+                    "text": "สวนแนะนำ"
+                    },
+                    "color": "#1DB446"
+                },
+                {
+                    "type": "button",
+                    "style": "link",
+                    "height": "sm",
+                    "action": {
+                    "type": "message",
+                    "label": "อื่น ๆ",
+                    "text": "อื่น ๆ"
+                    },
+                    "color": "#1DB446"
+                }
+                ],
+                "flex": 0
+            }
+            }
+        '''
+        flex_lt.append(flex_close_str)
 
         carousel_str = '''
         {
