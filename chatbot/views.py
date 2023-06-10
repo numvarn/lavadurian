@@ -132,10 +132,17 @@ def replyProductByWeight(reply_token, disname, text):
 
         lt.append(obj)
 
-    text_message = TextSendMessage(
-        text='น้ำหนักที่เลือก {}'.format(len(product_list_rand)))
+    carousel_template_message = TemplateSendMessage(
+        alt_text='สินค้าที่คัดกรองจากน้ำหนัก',
+        template=CarouselTemplate(
+            columns=lt
+        )
+    )
 
-    line_bot_api.reply_message(reply_token, text_message)
+    # text_message = TextSendMessage(
+    #     text='น้ำหนักที่เลือก {}'.format(len(product_list_rand)))
+
+    line_bot_api.reply_message(reply_token, carousel_template_message)
 
 
 # ---------------------------------------------------------------------
