@@ -348,7 +348,7 @@ def replyProductByWeight(reply_token, disname, text):
         #     flex_list.append(flex_str)
 
         check_lt = []
-        for i in range(0, 3):
+        for product in product_list_rand:
             check = '''
             {
                 "type": "bubble",
