@@ -116,6 +116,7 @@ def replyProductByWeight(reply_token, disname, text):
 
         flex_lt = []
         for product in product_list_rand:
+            gene_str = getModelChoice(product.gene, GENE_CHOICES)
             check = '''
             {
                 "type": "bubble",
@@ -148,7 +149,7 @@ def replyProductByWeight(reply_token, disname, text):
                         "contents": [
                         {
                             "type": "text",
-                            "text": "ทุเรียนภูเขาไฟ (หมอนทอง)"
+                            "text": "%s"
                         }
                         ],
                         "margin": "md"
@@ -313,7 +314,7 @@ def replyProductByWeight(reply_token, disname, text):
                     ]
                 }
             }
-            ''' % (product.store.name)
+            ''' % (product.store.name, gene_str)
 
             flex_lt.append(check)
 
