@@ -143,209 +143,220 @@ def replyProductByWeight(reply_token, disname, text):
         line_bot_api.reply_message(reply_token, carousel_template_message)
         '''
 
-        flex_list = []
-        flex_str = ''''''
+        # flex_list = []
+        # flex_str = ''''''
 
-        for product in product_list_rand:
-            flex_str = '''
-            {
-                "type": "bubble",
-                "hero": {
-                    "type": "image",
-                    "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/01_1_cafe.png",
-                    "size": "full",
-                    "aspectRatio": "20:13",
-                    "aspectMode": "cover",
-                    "action": {
-                    "type": "uri",
-                    "uri": "http://linecorp.com/"
-                    }
-                },
-                "body": {
-                    "type": "box",
-                    "layout": "vertical",
-                    "contents": [
-                    {
-                        "type": "text",
-                        "text": "สวนนงนุช",
-                        "weight": "bold",
-                        "size": "xl",
-                        "wrap": false,
-                        "align": "start"
-                    },
-                    {
-                        "type": "box",
-                        "layout": "vertical",
-                        "contents": [
-                        {
-                            "type": "text",
-                            "text": "ทุเรียนภูเขาไฟ (หมอนทอง)"
-                        }
-                        ],
-                        "margin": "md"
-                    },
-                    {
-                        "type": "box",
-                        "layout": "vertical",
-                        "margin": "lg",
-                        "spacing": "sm",
-                        "contents": [
-                        {
-                            "type": "box",
-                            "layout": "baseline",
-                            "spacing": "sm",
-                            "contents": [
-                            {
-                                "type": "text",
-                                "text": "ราคา (ต่อ/กก.)",
-                                "color": "#aaaaaa",
-                                "size": "sm",
-                                "flex": 4
-                            },
-                            {
-                                "type": "text",
-                                "text": "350",
-                                "wrap": true,
-                                "color": "#666666",
-                                "size": "sm",
-                                "flex": 2,
-                                "align": "end"
-                            }
-                            ]
-                        },
-                        {
-                            "type": "box",
-                            "layout": "baseline",
-                            "spacing": "sm",
-                            "contents": [
-                            {
-                                "type": "text",
-                                "text": "น้ำหนัก (กก.)",
-                                "color": "#aaaaaa",
-                                "size": "sm",
-                                "flex": 4
-                            },
-                            {
-                                "type": "text",
-                                "text": "4.00",
-                                "wrap": true,
-                                "color": "#666666",
-                                "size": "sm",
-                                "flex": 2,
-                                "align": "end"
-                            }
-                            ]
-                        },
-                        {
-                            "type": "box",
-                            "layout": "baseline",
-                            "contents": [
-                            {
-                                "type": "text",
-                                "text": "ราคารวม (บาท)",
-                                "flex": 4,
-                                "size": "sm",
-                                "color": "#aaaaaa"
-                            },
-                            {
-                                "type": "text",
-                                "text": "450",
-                                "flex": 2,
-                                "size": "sm",
-                                "color": "#666666",
-                                "wrap": true,
-                                "align": "end"
-                            }
-                            ]
-                        },
-                        {
-                            "type": "box",
-                            "layout": "baseline",
-                            "contents": [
-                            {
-                                "type": "text",
-                                "text": "จำนวน (ลูก)",
-                                "flex": 4,
-                                "size": "sm",
-                                "color": "#aaaaaa"
-                            },
-                            {
-                                "type": "text",
-                                "text": "30",
-                                "flex": 2,
-                                "size": "sm",
-                                "color": "#666666",
-                                "align": "end",
-                                "wrap": true
-                            }
-                            ]
-                        },
-                        {
-                            "type": "box",
-                            "layout": "baseline",
-                            "contents": [
-                            {
-                                "type": "text",
-                                "text": "เกรดทุเรียน",
-                                "flex": 4,
-                                "size": "sm",
-                                "color": "#aaaaaa"
-                            },
-                            {
-                                "type": "text",
-                                "text": "เกรดพรีเมี่ยม",
-                                "flex": 2,
-                                "size": "sm",
-                                "color": "#666666",
-                                "align": "end",
-                                "wrap": true
-                            }
-                            ]
-                        },
-                        {
-                            "type": "box",
-                            "layout": "baseline",
-                            "contents": [
-                            {
-                                "type": "text",
-                                "text": "ลักษณะการขาย",
-                                "flex": 4,
-                                "size": "sm",
-                                "color": "#aaaaaa"
-                            },
-                            {
-                                "type": "text",
-                                "text": "สั่งจองล่วงหน้า",
-                                "flex": 2,
-                                "size": "sm",
-                                "color": "#666666",
-                                "align": "end",
-                                "wrap": true
-                            }
-                            ]
-                        }
-                        ]
-                    }
-                    ]
-                },
-                "footer": {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                    {
-                        "type": "button",
-                        "action": {
-                        "type": "uri",
-                        "label": "เลือกซื้อ",
-                        "uri": "https://www.lavadurian.com/shopping/product/299?store=118"
-                        },
-                        "color": "#1DB446"
-                    }
-                    ]
-                }
+        # for product in product_list_rand:
+        #     flex_str = '''
+        #     {
+        #         "type": "bubble",
+        #         "hero": {
+        #             "type": "image",
+        #             "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/01_1_cafe.png",
+        #             "size": "full",
+        #             "aspectRatio": "20:13",
+        #             "aspectMode": "cover",
+        #             "action": {
+        #             "type": "uri",
+        #             "uri": "http://linecorp.com/"
+        #             }
+        #         },
+        #         "body": {
+        #             "type": "box",
+        #             "layout": "vertical",
+        #             "contents": [
+        #             {
+        #                 "type": "text",
+        #                 "text": "สวนนงนุช",
+        #                 "weight": "bold",
+        #                 "size": "xl",
+        #                 "wrap": false,
+        #                 "align": "start"
+        #             },
+        #             {
+        #                 "type": "box",
+        #                 "layout": "vertical",
+        #                 "contents": [
+        #                 {
+        #                     "type": "text",
+        #                     "text": "ทุเรียนภูเขาไฟ (หมอนทอง)"
+        #                 }
+        #                 ],
+        #                 "margin": "md"
+        #             },
+        #             {
+        #                 "type": "box",
+        #                 "layout": "vertical",
+        #                 "margin": "lg",
+        #                 "spacing": "sm",
+        #                 "contents": [
+        #                 {
+        #                     "type": "box",
+        #                     "layout": "baseline",
+        #                     "spacing": "sm",
+        #                     "contents": [
+        #                     {
+        #                         "type": "text",
+        #                         "text": "ราคา (ต่อ/กก.)",
+        #                         "color": "#aaaaaa",
+        #                         "size": "sm",
+        #                         "flex": 4
+        #                     },
+        #                     {
+        #                         "type": "text",
+        #                         "text": "350",
+        #                         "wrap": true,
+        #                         "color": "#666666",
+        #                         "size": "sm",
+        #                         "flex": 2,
+        #                         "align": "end"
+        #                     }
+        #                     ]
+        #                 },
+        #                 {
+        #                     "type": "box",
+        #                     "layout": "baseline",
+        #                     "spacing": "sm",
+        #                     "contents": [
+        #                     {
+        #                         "type": "text",
+        #                         "text": "น้ำหนัก (กก.)",
+        #                         "color": "#aaaaaa",
+        #                         "size": "sm",
+        #                         "flex": 4
+        #                     },
+        #                     {
+        #                         "type": "text",
+        #                         "text": "4.00",
+        #                         "wrap": true,
+        #                         "color": "#666666",
+        #                         "size": "sm",
+        #                         "flex": 2,
+        #                         "align": "end"
+        #                     }
+        #                     ]
+        #                 },
+        #                 {
+        #                     "type": "box",
+        #                     "layout": "baseline",
+        #                     "contents": [
+        #                     {
+        #                         "type": "text",
+        #                         "text": "ราคารวม (บาท)",
+        #                         "flex": 4,
+        #                         "size": "sm",
+        #                         "color": "#aaaaaa"
+        #                     },
+        #                     {
+        #                         "type": "text",
+        #                         "text": "450",
+        #                         "flex": 2,
+        #                         "size": "sm",
+        #                         "color": "#666666",
+        #                         "wrap": true,
+        #                         "align": "end"
+        #                     }
+        #                     ]
+        #                 },
+        #                 {
+        #                     "type": "box",
+        #                     "layout": "baseline",
+        #                     "contents": [
+        #                     {
+        #                         "type": "text",
+        #                         "text": "จำนวน (ลูก)",
+        #                         "flex": 4,
+        #                         "size": "sm",
+        #                         "color": "#aaaaaa"
+        #                     },
+        #                     {
+        #                         "type": "text",
+        #                         "text": "30",
+        #                         "flex": 2,
+        #                         "size": "sm",
+        #                         "color": "#666666",
+        #                         "align": "end",
+        #                         "wrap": true
+        #                     }
+        #                     ]
+        #                 },
+        #                 {
+        #                     "type": "box",
+        #                     "layout": "baseline",
+        #                     "contents": [
+        #                     {
+        #                         "type": "text",
+        #                         "text": "เกรดทุเรียน",
+        #                         "flex": 4,
+        #                         "size": "sm",
+        #                         "color": "#aaaaaa"
+        #                     },
+        #                     {
+        #                         "type": "text",
+        #                         "text": "เกรดพรีเมี่ยม",
+        #                         "flex": 2,
+        #                         "size": "sm",
+        #                         "color": "#666666",
+        #                         "align": "end",
+        #                         "wrap": true
+        #                     }
+        #                     ]
+        #                 },
+        #                 {
+        #                     "type": "box",
+        #                     "layout": "baseline",
+        #                     "contents": [
+        #                     {
+        #                         "type": "text",
+        #                         "text": "ลักษณะการขาย",
+        #                         "flex": 4,
+        #                         "size": "sm",
+        #                         "color": "#aaaaaa"
+        #                     },
+        #                     {
+        #                         "type": "text",
+        #                         "text": "สั่งจองล่วงหน้า",
+        #                         "flex": 2,
+        #                         "size": "sm",
+        #                         "color": "#666666",
+        #                         "align": "end",
+        #                         "wrap": true
+        #                     }
+        #                     ]
+        #                 }
+        #                 ]
+        #             }
+        #             ]
+        #         },
+        #         "footer": {
+        #             "type": "box",
+        #             "layout": "horizontal",
+        #             "contents": [
+        #             {
+        #                 "type": "button",
+        #                 "action": {
+        #                 "type": "uri",
+        #                 "label": "เลือกซื้อ",
+        #                 "uri": "https://www.lavadurian.com/shopping/product/299?store=118"
+        #                 },
+        #                 "color": "#1DB446"
+        #             }
+        #             ]
+        #         }
+        #     }
+        #     '''
+        #     flex_list.append(flex_str)
+
+        check = '''
+        {
+            "type": "bubble",
+            "body": {
+                "type": "box",
+                "layout": "vertical",
+                "contents": []
             }
-            '''
-            flex_list.append(flex_str)
+        }
+        '''
 
         carousel_str = '''
         {
@@ -354,7 +365,7 @@ def replyProductByWeight(reply_token, disname, text):
                 %s
             ]
         }
-        ''' % (",".join(flex_str))
+        ''' % (check)
 
         carousel = json.loads(carousel_str)
         replyObj = FlexSendMessage(
