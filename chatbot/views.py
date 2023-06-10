@@ -27,6 +27,7 @@ from Store.models import (
     Product,
     DISTRICT_CHOICES,
     GENE_CHOICES,
+    GRADE_CHOICES,
 )
 
 # Create your views here.
@@ -241,7 +242,7 @@ def replyProductByWeight(reply_token, disname, text):
                             },
                             {
                                 "type": "text",
-                                "text": "30",
+                                "text": "%s",
                                 "flex": 2,
                                 "size": "sm",
                                 "color": "#666666",
@@ -263,7 +264,7 @@ def replyProductByWeight(reply_token, disname, text):
                             },
                             {
                                 "type": "text",
-                                "text": "เกรดพรีเมี่ยม",
+                                "text": "%s",
                                 "flex": 2,
                                 "size": "sm",
                                 "color": "#666666",
@@ -314,7 +315,12 @@ def replyProductByWeight(reply_token, disname, text):
                     ]
                 }
             }
-            ''' % (product.store.name, gene_str, product.price, product.weight, product.price * product.weight)
+            ''' % (product.store.name,
+                   gene_str, product.price,
+                   product.weight,
+                   product.price * product.weight,
+                   product.values,
+                   getModelChoice(product.grade, GRADE_CHOICES))
 
             flex_lt.append(check)
 
