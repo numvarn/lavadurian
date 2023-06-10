@@ -101,48 +101,50 @@ def replyProductByWeight(reply_token, disname, text):
 
     products = Product.objects.filter(q_objects & q_status)
 
-    # สำหรับไว้สุ่มในภายหลัง
-    product_list = []
-    for product in products:
-        if product not in product_list:
-            product_list.append(product)
+    if len(products) > 0:
+        # สำหรับไว้สุ่มในภายหลัง
+        product_list = []
+        for product in products:
+            if product not in product_list:
+                product_list.append(product)
 
-    if len(product_list) > 10:
-        product_list_rand = random.sample(product_list, 10)
+        if len(product_list) > 10:
+            product_list_rand = random.sample(product_list, 10)
+        else:
+            product_list_rand = product_list
+
+        lt = []
+        for product in product_list_rand:
+            obj = CarouselColumn(
+                thumbnail_image_url='https://www.lavadurian.com/static/assets/img/card/01.jpg',
+                title=product.store.name,
+                text=product.gene,
+                actions=[
+                    MessageAction(
+                        label='ข้อมูลสวน',
+                        text='ผู้ขาย'
+                    ),
+                    URIAction(
+                        label='เลือกซื้อจากสวน',
+                        uri='https://www.lavadurian.com/shopping'
+                    )
+                ],
+            )
+
+            lt.append(obj)
+
+        carousel_template_message = TemplateSendMessage(
+            alt_text='สินค้าที่คัดกรองจากน้ำหนัก',
+            template=CarouselTemplate(
+                columns=lt
+            )
+        )
+        line_bot_api.reply_message(reply_token, carousel_template_message)
     else:
-        product_list_rand = product_list
+        text_message = TextSendMessage(
+            text='น้องทุเรียนไม่พบสินค้าตามช่วงน้ำหนักที่เลือกเลยครับ')
 
-    lt = []
-    for product in product_list_rand:
-        obj = CarouselColumn(
-            thumbnail_image_url='https://www.lavadurian.com/static/assets/img/card/01.jpg',
-            title=product.store.name,
-            text=product.gene,
-            actions=[
-                MessageAction(
-                    label='ข้อมูลสวน',
-                    text='ผู้ขาย'
-                ),
-                URIAction(
-                    label='เลือกซื้อจากสวน',
-                    uri='https://www.lavadurian.com/shopping'
-                )
-            ],
-        )
-
-        lt.append(obj)
-
-    carousel_template_message = TemplateSendMessage(
-        alt_text='สินค้าที่คัดกรองจากน้ำหนัก',
-        template=CarouselTemplate(
-            columns=lt
-        )
-    )
-
-    # text_message = TextSendMessage(
-    #     text='น้ำหนักที่เลือก {}'.format(len(product_list_rand)))
-
-    line_bot_api.reply_message(reply_token, carousel_template_message)
+        line_bot_api.reply_message(reply_token, text_message)
 
 
 # ---------------------------------------------------------------------
