@@ -112,27 +112,16 @@ def replyProductByWeight(reply_token, disname, text):
     else:
         product_list_rand = product_list
 
-    lt = []
-    for product in product_list_rand:
-        obj = CarouselColumn(
-            thumbnail_image_url='https://www.lavadurian.com/static/assets/img/card/01.jpg',
-            title=product.store.name,
-            text=product.gene,
-            # actions=[
-            #     MessageAction(
-            #         label='ข้อมูลสวน',
-            #         text='ผู้ขาย : {}'.format(store.id)
-            #     ),
-            #     URIAction(
-            #         label='เลือกซื้อจากสวน',
-            #         uri='https://www.lavadurian.com/shopping/?store={}'.format(
-            #             store.id)
-            #     )
-            # ],
-        )
+    # lt = []
+    # for product in product_list_rand:
+    #     obj = CarouselColumn(
+    #         thumbnail_image_url='https://www.lavadurian.com/static/assets/img/card/01.jpg',
+    #         title=product.store.name,
+    #         text=product.gene,
+    #     )
 
     text_message = TextSendMessage(
-        text='น้ำหนักที่เลือก {}'.format(len(products)))
+        text='น้ำหนักที่เลือก {}'.format(len(product_list_rand)))
 
     line_bot_api.reply_message(reply_token, text_message)
 
