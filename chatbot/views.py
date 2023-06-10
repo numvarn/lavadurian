@@ -86,6 +86,7 @@ def webhook(request):
 def replyProductByWeight(reply_token, disname, text):
     from decimal import Decimal
 
+    # Prepair Data
     text_lt = text.split(":")
     str = text_lt[1].strip()
 
@@ -94,15 +95,52 @@ def replyProductByWeight(reply_token, disname, text):
     start_weight = Decimal(weight_lt[0])
     end_weight = Decimal(weight_lt[1])
 
+    # Crate Query Object
     q_objects = Q(weight__gte=start_weight) & Q(weight__lte=end_weight)
     q_status = ~Q(status=3)
 
     products = Product.objects.filter(q_objects & q_status)
 
-    text_message = TextSendMessage(
-        text='น้ำหนักที่เลือก {}'.format(len(products)))
+    # สำหรับไว้สุ่มในภายหลัง
+    product_list = []
+    for product in products:
+        if product not in product_list:
+            product_list.append(product)
 
-    line_bot_api.reply_message(reply_token, text_message)
+    if len(product_list) > 10:
+        product_list_rand = random.sample(product_list, 10)
+    else:
+        product_list_rand = product_list
+
+    lt = []
+    for product in product_list_rand:
+        obj = CarouselColumn(
+            thumbnail_image_url='https://www.lavadurian.com/static/assets/img/card/01.jpg',
+            title=product.store.name,
+            text=product.gene,
+            # actions=[
+            #     MessageAction(
+            #         label='ข้อมูลสวน',
+            #         text='ผู้ขาย : {}'.format(store.id)
+            #     ),
+            #     URIAction(
+            #         label='เลือกซื้อจากสวน',
+            #         uri='https://www.lavadurian.com/shopping/?store={}'.format(
+            #             store.id)
+            #     )
+            # ],
+        )
+
+    carousel_template_message = TemplateSendMessage(
+        alt_text='สิ้นค้าที่เลือกตามน้ำหนัก',
+        template=CarouselTemplate(
+            columns=lt
+        )
+    )
+
+    line_bot_api.reply_message(
+        reply_token, carousel_template_message)
+
 
 # ---------------------------------------------------------------------
 
