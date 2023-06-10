@@ -26,6 +26,7 @@ from Store.models import (
     Store,
     Product,
     DISTRICT_CHOICES,
+    GENE_CHOICES,
 )
 
 # Create your views here.
@@ -118,7 +119,7 @@ def replyProductByWeight(reply_token, disname, text):
             obj = CarouselColumn(
                 thumbnail_image_url='https://www.lavadurian.com/static/assets/img/card/01.jpg',
                 title=product.store.name,
-                text=product.gene,
+                text=getModelChoice(product.gene, GENE_CHOICES),
                 actions=[
                     MessageAction(
                         label='ข้อมูลสวน',
