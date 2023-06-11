@@ -1,7 +1,7 @@
 from django.urls import path, include
 from rest_framework import routers
 
-from DurianAPI.views import BookBankCreateAPI, BookBankDeleteAPI, BookBankUpdateAPI, GetOrderStatusAPI, GetStoreAllAPI, OrderShippingUpdateAPI, OrderStatusUpdateAPI, OrderWeightUpdateAPI, ProductImageAddAPI, ProductImageDeleteAPI, QRCodeAddAPI, QRCodeDeleteAPI, SetStoreStatusAPI, TransferCheckAPI, UpdateLocationAPI, UserViewSet, GetMyUserViewSet, LoginAPI, UserRegisAPI, CheckCitizenIDAPI, CheckEmailAPI
+from DurianAPI.views import BookBankCreateAPI, BookBankDeleteAPI, BookBankUpdateAPI, GetOrderStatusAPI, GetStoreAllAPI, OrderShippingUpdateAPI, OrderStatusUpdateAPI, OrderWeightUpdateAPI, ProductImageAddAPI, ProductImageDeleteAPI, QRCodeAddAPI, QRCodeDeleteAPI, SetStoreStatusAPI, TransferCheckAPI, UpdateLocationAPI, UserViewSet, GetMyUserViewSet, LoginAPI, UserRegisAPI, CheckCitizenIDAPI, CheckEmailAPI, getDistrict, getProvince, getTambon
 from DurianAPI.views import AddNewStoreAPI, UpdateStoreAPI, DeleteStoreAPI
 from DurianAPI.views import ProductCreateAPI, ProductUpdateAPI, ProductDeleteAPI, GetStoreProfileAPI, StoreViewSet
 
@@ -47,4 +47,8 @@ urlpatterns = [
     path('api/check/email', CheckEmailAPI),
     path('api/check/transfer', TransferCheckAPI),
     path('api/user/me', GetMyUserViewSet.as_view()),
+
+    path('ajax/get-province', getProvince, name='ajax-get-province'),
+    path('ajax/get-district', getDistrict, name='ajax-get-district'),
+    path('ajax/get-tambon', getTambon, name='ajax-get-tambon'),
 ]

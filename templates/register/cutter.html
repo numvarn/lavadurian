@@ -12,6 +12,19 @@
     <h3 class="mt-4">ข้อมูลผู้ลงทะเบียน</h3>
 
     <div class="row mb-4 mt-4">
+      <div class="col-md-6">
+        <div class="mb-3">
+          <label for="formFile" class="form-label">คำนำหน้า</label>
+          <select class="form-control form-control-lg" aria-label=".form-select-lg" id="prefix" v-model="prefix">
+            <option value="นาย">นาย</option>
+            <option value="นางสาว">นางสาว</option>
+            <option value="นาง">นาง</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-4 mt-4">
       <div class="col">
         <label for="fname" class="form-label">ชื่อ</label>
         <input type="text" class="form-control form-control-lg" id="fname" aria-describedby="fnameFeedback" required v-model="fname" />
@@ -33,7 +46,7 @@
       </div>
       <div class="col-md-6">
         <label for="lname" class="form-label">ประสบการณ์การตัด (ปี)</label>
-        <input type="text" class="form-control form-control-lg" placeholder="" aria-label="Recipient's username" aria-describedby="basic-addon2" />
+        <input type="number" class="form-control form-control-lg" placeholder="" aria-label="Recipient's username" aria-describedby="basic-addon2" />
       </div>
     </div>
 
@@ -45,32 +58,41 @@
 
     <div class="row mb-4">
       <div class="col-md-6">
-        <label for="validationServer04" class="form-label">จังหวัด</label>
-        <select class="form-control form-control-lg" aria-describedby="validationServer04Feedback" required v-model="province">
-          <option selected disabled value="">เลือก</option>
-          <option>...</option>
+        <div class="form-group">
+          <label for="address">บ้านเลขที่</label>
+          <textarea class="form-control form-control-lg" name="address" id="address" rows="3" v-model="address"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-4">
+      <div class="col-md-6">
+        <label for="province" class="form-label">จังหวัด</label>
+        <select class="form-control form-control-lg" id="province" v-model="province" @change="onProvinceChange($event)">
+          <option value="" selected>เลือกจังหวัด</option>
+          <option v-for="item in province_list" :value="item">[[item]]</option>
         </select>
       </div>
       <div class="col-md-6">
-        <label for="validationServer04" class="form-label">อำเภอ/เขต</label>
-        <select class="form-control form-control-lg" aria-describedby="validationServer04Feedback" required v-model="district">
-          <option selected disabled value="">เลือก</option>
-          <option>...</option>
+        <label for="district" class="form-label">อำเภอ/เขต</label>
+        <select class="form-control form-control-lg" id="district" v-model="district" @change="onDistrictChange($event)">
+          <option value="">เลือกอำเภอ</option>
+          <option v-for="item in district_list" :value="item">[[item]]</option>
         </select>
       </div>
     </div>
 
     <div class="row mb-4">
       <div class="col-md-6">
-        <label for="validationServer04" class="form-label">ตำบล/แขวง</label>
-        <select class="form-control form-control-lg" aria-describedby="validationServer04Feedback" required v-model="subDistrict">
-          <option selected disabled value="">เลือก</option>
-          <option>...</option>
+        <label for="tambon" class="form-label">ตำบล/แขวง</label>
+        <select class="form-control form-control-lg" v-model="tambon">
+          <option value="">เลือกตำบล</option>
+          <option v-for="item in tambon_list" :value="item">[[item]]</option>
         </select>
       </div>
       <div class="col-md-6">
-        <label for="lname" class="form-label">รหัสไปรษณี</label>
-        <input type="text" class="form-control form-control-lg" id="post-code" aria-describedby="lnameFeedback" required v-model="national_id" />
+        <label for="postcode" class="form-label">รหัสไปรษณี</label>
+        <input type="text" class="form-control form-control-lg" id="postcode" v-model="postcode" />
       </div>
     </div>
 
@@ -78,45 +100,40 @@
     <hr class="mb-4" />
     <br />
 
-    <h3 class="mb-4">ประเภท</h3>
+    <h3 class="mb-4">ประเภทของผู้ตัด</h3>
     <div class="row mb-4">
-      <div class="col">
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" />
-          <label class="form-check-label" for="flexRadioDefault1"> เกษตรกร </label>
-        </div>
-      </div>
-      <div class="col">
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" />
-          <label class="form-check-label" for="flexRadioDefault2"> มือตัดอิสระ </label>
-        </div>
-      </div>
-      <div class="col">
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3" />
-          <label class="form-check-label" for="flexRadioDefault3"> หัวหน้าทีมนักตัด </label>
-        </div>
-      </div>
-    </div>
-
-    <div class="row mb-4">
-      <div class="col">
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault4" />
-          <label class="form-check-label" for="flexRadioDefault4"> มือตัดของผู้ประกอบการ/โรงคัดบรรจุ/ล้ง </label>
+      <div class="col-md-6">
+        <div class="mb-3">
+          <label for="cutter_type" class="form-label">ประเภท</label>
+          <select class="form-control form-control-lg" aria-label=".form-select-lg" id="cutter_type" v-model="cutter_type">
+            <option value="เกษตรกร">เกษตรกร</option>
+            <option value="มือตัดอิสระ">มือตัดอิสระ</option>
+            <option value="หัวหน้าทีมนักตัด">หัวหน้าทีมนักตัด</option>
+            <option value="มือตัดของผู้ประกอบการ/โรงคัดบรรจุ/ล้ง">มือตัดของผู้ประกอบการ/โรงคัดบรรจุ/ล้ง</option>
+          </select>
         </div>
       </div>
     </div>
 
     <hr class="mb-4" />
-    <br />
-    <h3 class="mt-4">การฝึกอบรมเรื่องการตัดทุเรียน</h3>
+    <h3 class="mt-4 mb-4">การฝึกอบรมเรื่องการตัดทุเรียน</h3>
 
     <div class="row mb-4">
-      <div class="col-md-3 p-4">
-        <input class="form-check-input" type="checkbox" name="flexRadioDefault1" id="flexRadioDefault5" />
-        <label class="form-check-label mx-3" for="flexRadioDefault5">เคย</label>
+      <div class="col-md-6">
+        <div class="mb-3">
+          <label for="training" class="form-label">การฝึกอบรม</label>
+          <select class="form-control form-control-lg" aria-label=".form-select-lg" id="training" v-model="training" @change="onTrainingChange($event)">
+            <option value="ไม่เคย">ไม่เคย</option>
+            <option value="เคย">เคย</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-4" v-if="train_from_bool">
+      <div class="col-md-6">
+        <label for="train_from" class="form-label">ได้รับการฝึกอบรมจากหน่วยงาน</label>
+        <input type="text" class="form-control form-control-lg" id="train_from" v-model="train_from" />
       </div>
     </div>
 
@@ -125,9 +142,21 @@
     <h3>ใบรับรองผ่านการฝึกอบรมการตัดทุเรียน</h3>
 
     <div class="row mb-4">
-      <div class="col-md-3 p-4">
-        <input class="form-check-input" @change="setToDay()" type="checkbox" name="" v-model="date" id="flexRadioDefault5" />
-        <label class="form-check-label mx-3" for="flexRadioDefault5"> มี</label>
+      <div class="col-md-6">
+        <div class="mb-3">
+          <label for="certificate" class="form-label">ใบรับรอง</label>
+          <select class="form-control form-control-lg" aria-label=".form-select-lg" id="certificate" v-model="certificate" @change="onCertChange($event)">
+            <option value="ไม่มี">ไม่มี</option>
+            <option value="มี">มี</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-4" v-if="cert_from_bool">
+      <div class="col-md-6">
+        <label for="cert_from" class="form-label">ได้รับใบรับรองจากหน่วยงาน</label>
+        <input type="text" class="form-control form-control-lg" id="cert_from" v-model="cert_from" />
       </div>
     </div>
 
@@ -146,16 +175,76 @@
     delimiters: ["[[", "]]"],
     data() {
       return {
-        message: "Hello Vue.js",
+        province_list: [],
+        district_list: [],
+        tambon_list: [],
+
+        prefix: "นาย",
         date: "",
         fname: "",
         lname: "",
         national_id: "",
+        address: "",
         province: "",
         district: "",
-        subDistrict: "",
-        detail: "",
+        tambon: "",
+        postcode: "",
+        cutter_type: "เกษตรกร",
+        training: "ไม่เคย",
+        certificate: "ไม่มี",
+
+        train_from: "",
+        train_from_bool: false,
+
+        cert_from: "",
+        cert_from_bool: false,
       };
+    },
+    mounted() {
+      axios.get("{% url 'ajax-get-province' %}").then((response) => {
+        this.province_list = response.data["data"]["province"];
+      });
+    },
+    methods: {
+      onProvinceChange(e) {
+        this.province = e.target.value;
+
+        form_data = new FormData();
+        form_data.append("province", this.province);
+        form_data.append("csrfmiddlewaretoken", "{{csrf_token}}");
+
+        axios.post("{% url 'ajax-get-district' %}", form_data).then((response) => {
+          this.district_list = response.data["data"]["district"];
+        });
+      },
+      onDistrictChange(e) {
+        this.district = e.target.value;
+
+        form_data = new FormData();
+        form_data.append("province", this.province);
+        form_data.append("district", this.district);
+        form_data.append("csrfmiddlewaretoken", "{{csrf_token}}");
+
+        axios.post("{% url 'ajax-get-tambon' %}", form_data).then((response) => {
+          this.tambon_list = response.data["data"]["tambon"];
+        });
+      },
+      onTrainingChange(e) {
+        this.training = e.target.value;
+        if (this.training == "เคย") {
+          this.train_from_bool = true;
+        } else {
+          this.train_from_bool = false;
+        }
+      },
+      onCertChange(e) {
+        this.certificate = e.target.value;
+        if (this.certificate == "มี") {
+          this.cert_from_bool = true;
+        } else {
+          this.cert_from_bool = false;
+        }
+      },
     },
   });
 
