@@ -2,6 +2,7 @@ from Cart.views import BOX_SIZE_1_PRICE, BOX_SIZE_2_PRICE, orderBoxCalculate, sh
 import requests
 from decimal import Decimal
 from uuid import uuid4
+
 from rest_framework import viewsets
 from rest_framework import permissions
 from rest_framework import generics
@@ -24,6 +25,7 @@ from rest_framework import pagination
 from django.contrib.auth.models import User, Group
 from django.contrib.auth import authenticate
 from django.db.models import Count
+from django.contrib.staticfiles import finders
 
 import json
 from DurianAPI import serializers
@@ -1016,3 +1018,61 @@ def LoginAPI(request):
 
     token, _ = Token.objects.get_or_create(user=user)
     return Response({'token': token.key}, status=HTTP_200_OK)
+
+
+@csrf_exempt
+@api_view(["GET", ])
+@permission_classes((AllowAny,))
+def getProvince(request):
+    data = {}
+    msg = 'already get thai province'
+    http_status = HTTP_200_OK
+
+    # get thai province file
+    result = finders.find('data/thai_province.json')
+    with open(result) as f:
+        province = json.load(f)
+
+    data['province'] = province.keys()
+
+    return Response({'status': True, 'message': msg, 'data': data}, status=http_status)
+
+
+@csrf_exempt
+@api_view(["POST"])
+@permission_classes((AllowAny,))
+def getDistrict(request):
+    data = {}
+    msg = 'already get thai district'
+    http_status = HTTP_200_OK
+
+    # get thai province file
+    result = finders.find('data/thai_province.json')
+    with open(result) as f:
+        province = json.load(f)
+
+    province_selected = request.data['province']
+    data['district'] = province[province_selected].keys()
+
+    return Response({'status': True, 'message': msg, 'data': data}, status=http_status)
+
+
+@csrf_exempt
+@api_view(["POST"])
+@permission_classes((AllowAny,))
+def getTambon(request):
+    data = {}
+    msg = 'already get thai tambon'
+    http_status = HTTP_200_OK
+
+    # get thai province file
+    result = finders.find('data/thai_province.json')
+    with open(result) as f:
+        province = json.load(f)
+
+    province_selected = request.data['province']
+    district_selected = request.data['district']
+
+    data['tambon'] = province[province_selected][district_selected]
+
+    return Response({'status': True, 'message': msg, 'data': data}, status=http_status)

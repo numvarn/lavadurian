@@ -897,7 +897,7 @@ def replyPrice(reply_token, disname):
     """ % (date.today(), store_count, minPrice_NormalGrade, maxPrice_NormalGrade, minPrice_PremiumGrade, maxPrice_PremiumGrade, avgProduct_Weight)
 
     flex = json.loads(flex_str)
-    replyObj = FlexSendMessage(alt_text='Flex Message alt text', contents=flex)
+    replyObj = FlexSendMessage(alt_text='สอบถามราคา', contents=flex)
 
     line_bot_api.reply_message(reply_token, replyObj)
 
