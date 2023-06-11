@@ -56,45 +56,52 @@
     <br />
 
     <h3 class="mb-4">ที่อยู่สำหรับติดต่อ</h3>
-
     <div class="row mb-4">
       <div class="col-md-6">
         <div class="form-group">
-          <label for="address">บ้านเลขที่</label>
-          <textarea v-bind:class="{'is-invalid': !address_isValid, 'form-control form-control-lg': true}" name="address" id="address" rows="3" v-model="address"></textarea>
-          <div id="addressFeedback" class="invalid-feedback">กรุณากรอกบ้านเลขที่</div>
+          <label for="province" class="form-label">จังหวัด</label>
+          <select v-bind:class="{'is-invalid': !province_isValid, 'form-control form-control-lg': true}" id="province" v-model="province" @change="onProvinceChange($event)">
+            <option value="" selected>เลือกจังหวัด</option>
+            <option v-for="item in province_list" :value="item">[[item]]</option>
+          </select>
+          <div id="addressFeedback" class="invalid-feedback">กรุณาระบุจังหวัด</div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="district" class="form-label">อำเภอ/เขต</label>
+          <select v-bind:class="{'is-invalid': !district_isValid, 'form-control form-control-lg': true}" id="district" v-model="district" @change="onDistrictChange($event)">
+            <option value="">เลือกอำเภอ</option>
+            <option v-for="item in district_list" :value="item">[[item]]</option>
+          </select>
+          <div id="addressFeedback" class="invalid-feedback">กรุณาระบุอำเภอ</div>
         </div>
       </div>
     </div>
 
     <div class="row mb-4">
       <div class="col-md-6">
-        <label for="province" class="form-label">จังหวัด</label>
-        <select v-bind:class="{'is-invalid': !province_isValid, 'form-control form-control-lg': true}" id="province" v-model="province" @change="onProvinceChange($event)">
-          <option value="" selected>เลือกจังหวัด</option>
-          <option v-for="item in province_list" :value="item">[[item]]</option>
-        </select>
-      </div>
-      <div class="col-md-6">
-        <label for="district" class="form-label">อำเภอ/เขต</label>
-        <select v-bind:class="{'is-invalid': !district_isValid, 'form-control form-control-lg': true}" id="district" v-model="district" @change="onDistrictChange($event)">
-          <option value="">เลือกอำเภอ</option>
-          <option v-for="item in district_list" :value="item">[[item]]</option>
-        </select>
-      </div>
-    </div>
-
-    <div class="row mb-4">
-      <div class="col-md-6">
-        <label for="tambon" class="form-label">ตำบล/แขวง</label>
-        <select v-bind:class="{'is-invalid': !tambon_isValid, 'form-control form-control-lg': true}" v-model="tambon">
-          <option value="">เลือกตำบล</option>
-          <option v-for="item in tambon_list" :value="item">[[item]]</option>
-        </select>
+        <div class="form-group">
+          <label for="tambon" class="form-label">ตำบล/แขวง</label>
+          <select v-bind:class="{'is-invalid': !tambon_isValid, 'form-control form-control-lg': true}" v-model="tambon">
+            <option value="">เลือกตำบล</option>
+            <option v-for="item in tambon_list" :value="item">[[item]]</option>
+          </select>
+          <div id="addressFeedback" class="invalid-feedback">กรุณาระบุตำบล</div>
+        </div>
       </div>
       <div class="col-md-6">
         <label for="postcode" class="form-label">รหัสไปรษณี</label>
         <input type="text" class="form-control form-control-lg" id="postcode" v-model="postcode" />
+      </div>
+    </div>
+    <div class="row mb-4">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="address">บ้านเลขที่</label>
+          <textarea v-bind:class="{'is-invalid': !address_isValid, 'form-control form-control-lg': true}" name="address" id="address" rows="3" v-model="address"></textarea>
+          <div id="addressFeedback" class="invalid-feedback">กรุณากรอกบ้านเลขที่</div>
+        </div>
       </div>
     </div>
 
