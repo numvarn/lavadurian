@@ -3,175 +3,171 @@
 -->
 {% load static %}
 <style>
-    /* Responsive and Crop Image */
-    .thumb-post {
-        position: relative;
-        width: 100%;
-        height: 180px;
-        overflow: hidden;
-    }
+  /* Responsive and Crop Image */
+  .thumb-post {
+    position: relative;
+    width: 100%;
+    height: 180px;
+    overflow: hidden;
+  }
 
-    .row.review {
-        border-bottom: 1px solid #e3e6ec !important;
-    }
+  .row.review {
+    border-bottom: 1px solid #e3e6ec !important;
+  }
 
-    .review-display .checked {
-        color: orange;
-    }
+  .review-display .checked {
+    color: orange;
+  }
+
+  .card-img-top {
+    height: 15rem;
+    object-fit: cover;
+  }
 </style>
 
 {% if product_set1|length != 0 %}
 <div class="card card-header-actions mx-auto">
-    <div class="card-header">
-        เลือกซื้อทุเรียนภูเขาไฟ
-        <div>
-            <a class="btn btn-success btn-icon mr-2" href="{% url 'shopping' %}">
-                <i data-feather="shopping-cart"></i>
-            </a>
-        </div>
+  <div class="card-header">
+    เลือกซื้อทุเรียนภูเขาไฟ
+    <div>
+      <a class="btn btn-success btn-icon mr-2" href="{% url 'shopping' %}">
+        <i data-feather="shopping-cart"></i>
+      </a>
     </div>
-    <div class="card-body">
-        <!--Carousel Wrapper-->
-        <div id="multi-item-example" class="carousel slide carousel-multi-item" data-ride="carousel">
+  </div>
+  <div class="card-body">
+    <!--Carousel Wrapper-->
+    <div id="multi-item-example" class="carousel slide carousel-multi-item" data-ride="carousel">
+      <!--Indicators-->
+      <ol class="carousel-indicators">
+        <li data-target="#multi-item-example" data-slide-to="0" class="active"></li>
+        <li data-target="#multi-item-example" data-slide-to="1"></li>
+        <li data-target="#multi-item-example" data-slide-to="2"></li>
+      </ol>
+      <!--/.Indicators-->
 
-            <!--Indicators-->
-            <ol class="carousel-indicators">
-                <li data-target="#multi-item-example" data-slide-to="0" class="active"></li>
-                <li data-target="#multi-item-example" data-slide-to="1"></li>
-                <li data-target="#multi-item-example" data-slide-to="2"></li>
-            </ol>
-            <!--/.Indicators-->
-
-            <!--Slides-->
-            <div class="carousel-inner" role="listbox">
-
-                <!--First slide-->
-                <div class="carousel-item active">
-                    {% for product in product_set1 %}
-                    <div class="col-md-3" style="float:left">
-                        <div class="card mb-2">
-                            <div class="thumb-post">
-                                <a href="{% url 'shopping-product-view' product.id %}">
-                                    {% if product.img_detault == True %}
-                                    <img class="card-img-top" src="{% static product.image %}"
-                                        alt="{{product.gene_choice}}" />
-                                    {% else %}
-                                    <img class="card-img-top" src="{{product.image}}" alt="{{product.gene_choice}}" />
-                                    {% endif %}
-                                </a>
-                            </div>
-                            <div class="card-footer text-center small">
-                                <a
-                                    href="{% url 'shopping' %}?store={{product.store.id}}">{{product.store.name|truncatechars:20}}</a>
-                            </div>
-                            <div class="card-body">
-                                <!-- <a href="{% url 'shopping-product-view' product.id %}">
+      <!--Slides-->
+      <div class="carousel-inner" role="listbox">
+        <!--First slide-->
+        <div class="carousel-item active">
+          {% for product in product_set1 %}
+          <div class="col-md-3" style="float: left">
+            <div class="card mb-2">
+              <div class="thumb-post">
+                <a href="{% url 'shopping-product-view' product.id %}">
+                  {% if product.img_detault == True %}
+                  <img class="card-img-top" src="{% static product.image %}" alt="{{product.gene_choice}}" />
+                  {% else %}
+                  <img class="card-img-top" src="{{product.image}}" alt="{{product.gene_choice}}" />
+                  {% endif %}
+                </a>
+              </div>
+              <div class="card-footer text-center small">
+                <a href="{% url 'shopping' %}?store={{product.store.id}}">{{product.store.name|truncatechars:20}}</a>
+              </div>
+              <div class="card-body">
+                <!-- <a href="{% url 'shopping-product-view' product.id %}">
                                     <h5 class="card-title text-primary">{{product|truncatechars:20}}</h5>
                                 </a> -->
-                                <div class="row mb-2 small">
-                                    <div class="col">น้ำหนัก (กก.)</div>
-                                    <div class="col text-right">{{product.weight}}</div>
-                                </div>
-                                <div class="row mb-2 small">
-                                    <div class="col">ราคา (ต่อ/กก.)</div>
-                                    <div class="col text-right">{{product.price|floatformat:0}}</div>
-                                </div>
-                                <div class="row mb-2 small">
-                                    <div class="col">เกรดทุเรียน</div>
-                                    <div class="col text-right">{{product.grade_choice}}</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {% endfor %}
+                <div class="row mb-2 small">
+                  <div class="col">น้ำหนัก (กก.)</div>
+                  <div class="col text-right">{{product.weight}}</div>
                 </div>
-                <!--/.First slide-->
-
-                <!--Second slide-->
-                <div class="carousel-item">
-                    {% for product in product_set2 %}
-                    <div class="col-md-3" style="float:left">
-                        <div class="card mb-2">
-                            <div class="thumb-post">
-                                <a href="{% url 'shopping-product-view' product.id %}">
-                                    {% if product.img_detault == True %}
-                                    <img class="card-img-top" src="{% static product.image %}"
-                                        alt="{{product.gene_choice}}" />
-                                    {% else %}
-                                    <img class="card-img-top" src="{{product.image}}" alt="{{product.gene_choice}}" />
-                                    {% endif %}
-                                </a>
-                            </div>
-                            <div class="card-footer text-center small">
-                                <a
-                                    href="{% url 'shopping' %}?store={{product.store.id}}">{{product.store.name|truncatechars:20}}</a>
-                            </div>
-                            <div class="card-body">
-                                <!-- <a href="{% url 'shopping-product-view' product.id %}">
-                                    <h5 class="card-title text-primary">{{product|truncatechars:20}}</h5>
-                                </a> -->
-                                <div class="row mb-2 small">
-                                    <div class="col">น้ำหนัก (กก.)</div>
-                                    <div class="col text-right">{{product.weight}}</div>
-                                </div>
-                                <div class="row mb-2 small">
-                                    <div class="col">ราคา (ต่อ/กก.)</div>
-                                    <div class="col text-right">{{product.price|floatformat:0}}</div>
-                                </div>
-                                <div class="row mb-2 small">
-                                    <div class="col">เกรดทุเรียน</div>
-                                    <div class="col text-right">{{product.grade_choice}}</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {% endfor %}
+                <div class="row mb-2 small">
+                  <div class="col">ราคา (ต่อ/กก.)</div>
+                  <div class="col text-right">{{product.price|floatformat:0}}</div>
                 </div>
-                <!--/.Second slide-->
-
-                <!--Thrid slide-->
-                <div class="carousel-item">
-                    {% for product in product_set3 %}
-                    <div class="col-md-3" style="float:left">
-                        <div class="card mb-2">
-                            <div class="thumb-post">
-                                <a href="{% url 'shopping-product-view' product.id %}">
-                                    {% if product.img_detault == True %}
-                                    <img class="card-img-top" src="{% static product.image %}"
-                                        alt="{{product.gene_choice}}" />
-                                    {% else %}
-                                    <img class="card-img-top" src="{{product.image}}" alt="{{product.gene_choice}}" />
-                                    {% endif %}
-                                </a>
-                            </div>
-                            <div class="card-footer text-center small">
-                                <a
-                                    href="{% url 'shopping' %}?store={{product.store.id}}">{{product.store.name|truncatechars:20}}</a>
-                            </div>
-                            <div class="card-body">
-                                <div class="row mb-2 small">
-                                    <div class="col">น้ำหนัก (กก.)</div>
-                                    <div class="col text-right">{{product.weight}}</div>
-                                </div>
-                                <div class="row mb-2 small">
-                                    <div class="col">ราคา (ต่อ/กก.)</div>
-                                    <div class="col text-right">{{product.price|floatformat:0}}</div>
-                                </div>
-                                <div class="row mb-2 small">
-                                    <div class="col">เกรดทุเรียน</div>
-                                    <div class="col text-right">{{product.grade_choice}}</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {% endfor %}
+                <div class="row mb-2 small">
+                  <div class="col">เกรดทุเรียน</div>
+                  <div class="col text-right">{{product.grade_choice}}</div>
                 </div>
-                <!--/.Thrid slide-->
-
+              </div>
             </div>
-            <!--/.Slides-->
+          </div>
+          {% endfor %}
         </div>
-        <!--/.Carousel Wrapper-->
+        <!--/.First slide-->
+
+        <!--Second slide-->
+        <div class="carousel-item">
+          {% for product in product_set2 %}
+          <div class="col-md-3" style="float: left">
+            <div class="card mb-2">
+              <div class="thumb-post">
+                <a href="{% url 'shopping-product-view' product.id %}">
+                  {% if product.img_detault == True %}
+                  <img class="card-img-top" src="{% static product.image %}" alt="{{product.gene_choice}}" />
+                  {% else %}
+                  <img class="card-img-top" src="{{product.image}}" alt="{{product.gene_choice}}" />
+                  {% endif %}
+                </a>
+              </div>
+              <div class="card-footer text-center small">
+                <a href="{% url 'shopping' %}?store={{product.store.id}}">{{product.store.name|truncatechars:20}}</a>
+              </div>
+              <div class="card-body">
+                <!-- <a href="{% url 'shopping-product-view' product.id %}">
+                                    <h5 class="card-title text-primary">{{product|truncatechars:20}}</h5>
+                                </a> -->
+                <div class="row mb-2 small">
+                  <div class="col">น้ำหนัก (กก.)</div>
+                  <div class="col text-right">{{product.weight}}</div>
+                </div>
+                <div class="row mb-2 small">
+                  <div class="col">ราคา (ต่อ/กก.)</div>
+                  <div class="col text-right">{{product.price|floatformat:0}}</div>
+                </div>
+                <div class="row mb-2 small">
+                  <div class="col">เกรดทุเรียน</div>
+                  <div class="col text-right">{{product.grade_choice}}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        <!--/.Second slide-->
+
+        <!--Thrid slide-->
+        <div class="carousel-item">
+          {% for product in product_set3 %}
+          <div class="col-md-3" style="float: left">
+            <div class="card mb-2">
+              <div class="thumb-post">
+                <a href="{% url 'shopping-product-view' product.id %}">
+                  {% if product.img_detault == True %}
+                  <img class="card-img-top" src="{% static product.image %}" alt="{{product.gene_choice}}" />
+                  {% else %}
+                  <img class="card-img-top" src="{{product.image}}" alt="{{product.gene_choice}}" />
+                  {% endif %}
+                </a>
+              </div>
+              <div class="card-footer text-center small">
+                <a href="{% url 'shopping' %}?store={{product.store.id}}">{{product.store.name|truncatechars:20}}</a>
+              </div>
+              <div class="card-body">
+                <div class="row mb-2 small">
+                  <div class="col">น้ำหนัก (กก.)</div>
+                  <div class="col text-right">{{product.weight}}</div>
+                </div>
+                <div class="row mb-2 small">
+                  <div class="col">ราคา (ต่อ/กก.)</div>
+                  <div class="col text-right">{{product.price|floatformat:0}}</div>
+                </div>
+                <div class="row mb-2 small">
+                  <div class="col">เกรดทุเรียน</div>
+                  <div class="col text-right">{{product.grade_choice}}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        <!--/.Thrid slide-->
+      </div>
+      <!--/.Slides-->
     </div>
+    <!--/.Carousel Wrapper-->
+  </div>
 </div>
 {% endif%}
