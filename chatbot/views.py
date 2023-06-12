@@ -124,7 +124,7 @@ def replyProductByWeight(reply_token, disname, text):
                 "type": "bubble",
                 "hero": {
                     "type": "image",
-                    "url": "https://www.lavadurian.com/static/assets/info/cover/001.png",
+                    "url": "https://www.lavadurian.com/static/assets/info/cover/003.png",
                     "size": "full",
                     "aspectRatio": "4:3",
                     "aspectMode": "cover",
