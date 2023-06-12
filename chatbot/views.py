@@ -124,13 +124,13 @@ def replyProductByWeight(reply_token, disname, text):
                 "type": "bubble",
                 "hero": {
                     "type": "image",
-                    "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/01_1_cafe.png",
+                    "url": "https://www.lavadurian.com/static/assets/info/cover/001.png",
                     "size": "full",
-                    "aspectRatio": "20:13",
+                    "aspectRatio": "4:3",
                     "aspectMode": "cover",
                     "action": {
                     "type": "uri",
-                    "uri": "http://linecorp.com/"
+                    "uri": "https://www.lavadurian.com"
                     }
                 },
                 "body": {
