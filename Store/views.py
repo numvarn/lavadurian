@@ -666,7 +666,8 @@ def preProcessProduct(products_id_set):
                 product.image = image.image.url
         else:
             product.img_detault = True
-            product.image = "/assets/img/product-default/default.jpg"
+            # product.image = "/assets/img/product-default/default.jpg"
+            product.image = "/assets/img/product-default/default_2.png"
 
         product.grade_choice = getModelChoice(product.grade, GRADE_CHOICES)
         product_set.append(product)
