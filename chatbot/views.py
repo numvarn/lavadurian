@@ -649,7 +649,7 @@ def replySuggestStore(reply_token, disname):
     lt = []
     for store in store_list_rand:
         obj = CarouselColumn(
-            thumbnail_image_url='https://www.lavadurian.com/static/assets/img/card/01.jpg',
+            thumbnail_image_url='https://www.lavadurian.com/static/assets/info/cover/001.png',
             title=store.name,
             text=store.slogan,
             actions=[
