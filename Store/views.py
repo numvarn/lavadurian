@@ -526,7 +526,7 @@ def shoppingPage(request):
                 product.image = image.image.url
         else:
             product.img_detault = True
-            product.image = "/assets/img/product-default/default.jpg"
+            product.image = "/assets/img/product-default/default_2.png"
 
         product.status_choice = getModelChoice(
             product.status, PRODUCT_STATUS_CHOICES)
