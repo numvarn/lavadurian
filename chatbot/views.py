@@ -733,7 +733,7 @@ def replyPrice(reply_token, disname):
             "url": "https://www.lavadurian.com/static/assets/img/product-default/default.jpg",
             "size": "full",
             "aspectRatio": "20:13",
-            "aspectMode": "cover",
+            "aspectMode": "fit",
             "action": {
             "type": "uri",
             "uri": "http://linecorp.com/"
