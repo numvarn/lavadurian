@@ -492,7 +492,7 @@ def replyProductByWeight(reply_token, disname, text):
                             },
                             {
                                 "type": "text",
-                                "text": "%s",
+                                "text": "%.2f",
                                 "wrap": true,
                                 "color": "#666666",
                                 "size": "sm",
@@ -515,7 +515,7 @@ def replyProductByWeight(reply_token, disname, text):
                             },
                             {
                                 "type": "text",
-                                "text": "%s",
+                                "text": "%.2f",
                                 "wrap": true,
                                 "color": "#666666",
                                 "size": "sm",
@@ -537,7 +537,7 @@ def replyProductByWeight(reply_token, disname, text):
                             },
                             {
                                 "type": "text",
-                                "text": "%s",
+                                "text": "%.2f",
                                 "flex": 2,
                                 "size": "sm",
                                 "color": "#666666",
