@@ -679,11 +679,11 @@ def replySuggestStore(reply_token, disname):
         text="แนะนำบริการอื่น",
         actions=[
             MessageAction(
-                label='ข้อมูลสวน',
+                label='แนะนำสวนอื่น',
                 text='สวนแนะนำ'
             ),
             URIAction(
-                label='เลือกซื้อจากสวน',
+                label='ไปที่เว็บไซต์',
                 uri='https://www.lavadurian.com/shopping'
             )
         ],
