@@ -102,6 +102,229 @@ def replyProductInStore(reply_token, disname, text):
     store = Store.objects.get(id=int(store_id))
     products = Product.objects.filter(Q(store=store) & ~Q(status=3))
 
+    if len(products) > 0:
+        # สำหรับไว้สุ่มในภายหลัง
+        product_list = []
+        for product in products:
+            if product not in product_list:
+                product_list.append(product)
+
+        if len(product_list) > 10:
+            product_list_rand = random.sample(product_list, 10)
+        else:
+            product_list_rand = product_list
+
+        flex_lt = []
+        for product in product_list_rand:
+            gene_str = getModelChoice(product.gene, GENE_CHOICES)
+            flex_str = '''
+            {
+                "type": "bubble",
+                "hero": {
+                    "type": "image",
+                    "url": "https://www.lavadurian.com/static/assets/info/cover/003.png",
+                    "size": "full",
+                    "aspectRatio": "4:3",
+                    "aspectMode": "cover",
+                    "action": {
+                    "type": "uri",
+                    "uri": "https://www.lavadurian.com"
+                    }
+                },
+                "body": {
+                    "type": "box",
+                    "layout": "vertical",
+                    "contents": [
+                    {
+                        "type": "text",
+                        "text": "%s",
+                        "weight": "bold",
+                        "size": "xl",
+                        "wrap": false,
+                        "align": "start"
+                    },
+                    {
+                        "type": "box",
+                        "layout": "vertical",
+                        "contents": [
+                        {
+                            "type": "text",
+                            "text": "%s"
+                        }
+                        ],
+                        "margin": "md"
+                    },
+                    {
+                        "type": "box",
+                        "layout": "vertical",
+                        "margin": "lg",
+                        "spacing": "sm",
+                        "contents": [
+                        {
+                            "type": "box",
+                            "layout": "baseline",
+                            "spacing": "sm",
+                            "contents": [
+                            {
+                                "type": "text",
+                                "text": "ราคา (ต่อ/กก.)",
+                                "color": "#aaaaaa",
+                                "size": "sm",
+                                "flex_str": 4
+                            },
+                            {
+                                "type": "text",
+                                "text": "%s",
+                                "wrap": true,
+                                "color": "#666666",
+                                "size": "sm",
+                                "flex": 2,
+                                "align": "end"
+                            }
+                            ]
+                        },
+                        {
+                            "type": "box",
+                            "layout": "baseline",
+                            "spacing": "sm",
+                            "contents": [
+                            {
+                                "type": "text",
+                                "text": "น้ำหนัก (กก.)",
+                                "color": "#aaaaaa",
+                                "size": "sm",
+                                "flex": 4
+                            },
+                            {
+                                "type": "text",
+                                "text": "%s",
+                                "wrap": true,
+                                "color": "#666666",
+                                "size": "sm",
+                                "flex": 2,
+                                "align": "end"
+                            }
+                            ]
+                        },
+                        {
+                            "type": "box",
+                            "layout": "baseline",
+                            "contents": [
+                            {
+                                "type": "text",
+                                "text": "ราคารวม (บาท)",
+                                "flex": 4,
+                                "size": "sm",
+                                "color": "#aaaaaa"
+                            },
+                            {
+                                "type": "text",
+                                "text": "%s",
+                                "flex": 2,
+                                "size": "sm",
+                                "color": "#666666",
+                                "wrap": true,
+                                "align": "end"
+                            }
+                            ]
+                        },
+                        {
+                            "type": "box",
+                            "layout": "baseline",
+                            "contents": [
+                            {
+                                "type": "text",
+                                "text": "จำนวน (ลูก)",
+                                "flex": 4,
+                                "size": "sm",
+                                "color": "#aaaaaa"
+                            },
+                            {
+                                "type": "text",
+                                "text": "%s",
+                                "flex": 2,
+                                "size": "sm",
+                                "color": "#666666",
+                                "align": "end",
+                                "wrap": true
+                            }
+                            ]
+                        },
+                        {
+                            "type": "box",
+                            "layout": "baseline",
+                            "contents": [
+                            {
+                                "type": "text",
+                                "text": "เกรดทุเรียน",
+                                "flex": 4,
+                                "size": "sm",
+                                "color": "#aaaaaa"
+                            },
+                            {
+                                "type": "text",
+                                "text": "%s",
+                                "flex": 2,
+                                "size": "sm",
+                                "color": "#666666",
+                                "align": "end",
+                                "wrap": true
+                            }
+                            ]
+                        },
+                        {
+                            "type": "box",
+                            "layout": "baseline",
+                            "contents": [
+                            {
+                                "type": "text",
+                                "text": "ลักษณะการขาย",
+                                "flex": 4,
+                                "size": "sm",
+                                "color": "#aaaaaa"
+                            },
+                            {
+                                "type": "text",
+                                "text": "%s",
+                                "flex": 2,
+                                "size": "sm",
+                                "color": "#666666",
+                                "align": "end",
+                                "wrap": true
+                            }
+                            ]
+                        }
+                        ]
+                    }
+                    ]
+                },
+                "footer": {
+                    "type": "box",
+                    "layout": "horizontal",
+                    "contents": [
+                    {
+                        "type": "button",
+                        "action": {
+                        "type": "uri",
+                        "label": "เลือกซื้อ",
+                        "uri": "https://www.lavadurian.com/shopping/product/%s"
+                        },
+                        "color": "#1DB446"
+                    }
+                    ]
+                }
+            }
+            ''' % (product.store.name,
+                   gene_str, product.price,
+                   product.weight,
+                   product.price * product.weight,
+                   product.values,
+                   getModelChoice(product.grade, GRADE_CHOICES),
+                   getModelChoice(product.status, PRODUCT_STATUS_CHOICES),
+                   product.id)
+
+            flex_lt.append(flex_str)
+
     text_message = TextSendMessage(
         text='สวัสดีคุณ {} กรุณารอสักครู่\nเราคือ chatbot จาก www.lavadurian.com'.format(store.name))
 
