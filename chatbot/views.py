@@ -933,7 +933,7 @@ def replyNews(reply_token, disname):
                 "contents": [
                     {
                         "type": "text",
-                        "text": %s,
+                        "text": {0},
                         "weight": "bold",
                         "size": "xl"
                     },
@@ -989,7 +989,7 @@ def replyNews(reply_token, disname):
                 "flex": 0
             }
         }
-        ''' % ("Hello")
+        ''' % (news.title)
 
         flex_lt.append(flex_str)
 
