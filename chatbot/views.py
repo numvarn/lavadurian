@@ -943,7 +943,7 @@ def replyNews(reply_token, disname):
                         "contents": [
                             {
                                 "type": "text",
-                                "text": "%",
+                                "text": "June 17, 2023, 8:09 a.m.",
                                 "size": "xs",
                                 "color": "#999999"
                             }
@@ -989,7 +989,7 @@ def replyNews(reply_token, disname):
                 "flex": 0
             }
         }
-        ''' % (news.image.url, news.id, news.date_created, news.title, news.title, )
+        ''' % (news.image.url, news.id, news.title, news.title, )
 
         flex_lt.append(flex_str)
 
