@@ -924,7 +924,7 @@ def replyNews(reply_token, disname):
                 "aspectMode": "cover",
                 "action": {
                 "type": "uri",
-                "uri": "https://www.lavadurian.com"
+                "uri": "https://www.lavadurian.com/news/%s"
                 }
             },
             "body": {
@@ -989,7 +989,7 @@ def replyNews(reply_token, disname):
                 "flex": 0
             }
         }
-        ''' % (news.image.url, )
+        ''' % (news.image.url, news.id, )
 
         flex_lt.append(flex_str)
 
