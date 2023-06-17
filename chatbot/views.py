@@ -918,7 +918,7 @@ def replyNews(reply_token, disname):
             "type": "bubble",
             "hero": {
                 "type": "image",
-                "url": "https://storage.googleapis.com/lavadurian/uploads/news_imgs/S__18563079.jpg?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Credential=phisan-s-sskru-ac-th%40lava-durian.iam.gserviceaccount.com%2F20230617%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20230617T030139Z&X-Goog-Expires=86400&X-Goog-SignedHeaders=host&X-Goog-Signature=cf041d38f2bf4380da295bb8aecb4833d98d7e11eb982cde784c0b09973917843774a7215445510943afab1b6827465f414edaa4105cfa408c88cde4280d45461ba06f6ec2c9b18bea02480f36c89893b998352c86a9ffb504dbbef4798ce8d67d42b78a30b3a5f903f56c65456edc350aad372a5167d8337d743c4eff9ab5d19fc548dde6585e6d3ee9c29eab6f427c3ae5edd2a74409780e72aaa6a2c1010310db6ac7e6f722b91d5a434d4f110ae4687b67903a96d9fc7b6b6d75c3b51d8acdae0bc0003889310b065ec86ec4c3697a1ae77cd9cf7d842c771304ae90855371097cd8dca113a0c5a5eab0f23e527a3993cef27ddc03749a8a35dc013e8289",
+                "url": "%s",
                 "size": "full",
                 "aspectRatio": "20:13",
                 "aspectMode": "cover",
@@ -989,7 +989,7 @@ def replyNews(reply_token, disname):
                 "flex": 0
             }
         }
-        '''
+        ''' % (news.image.url, )
 
         flex_lt.append(flex_str)
 
