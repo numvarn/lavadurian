@@ -986,6 +986,55 @@ def replyNews(reply_token, disname):
 
         flex_lt.append(flex_str)
 
+    # การ์ดปิดท้าย
+    flex_close_str = '''
+        {
+            "type": "bubble",
+            "header": {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                {
+                    "type": "text",
+                    "text": "แสดงข้อมูลอื่น ๆ",
+                    "align": "center",
+                    "size": "xl",
+                    "weight": "bold"
+                }
+                ]
+            },
+            "body": {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                {
+                    "type": "button",
+                    "style": "link",
+                    "height": "sm",
+                    "action": {
+                    "type": "uri",
+                    "label": "ไปที่เว็บไซต์",
+                    "uri": "https://www.lavadurian.com/news"
+                    },
+                    "color": "#1DB446"
+                },
+                {
+                    "type": "button",
+                    "style": "link",
+                    "height": "sm",
+                    "action": {
+                    "type": "message",
+                    "label": "อื่น ๆ",
+                    "text": "อื่น ๆ"
+                    },
+                    "color": "#1DB446"
+                }
+                ]
+            }
+        }
+        '''
+    flex_lt.append(flex_close_str)
+
     carousel_str = '''
         {
             "type": "carousel",
