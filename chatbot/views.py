@@ -219,7 +219,7 @@ def replyProductInStore(reply_token, disname, text):
                             },
                             {
                                 "type": "text",
-                                "text": "%s",
+                                "text": "%.2f",
                                 "flex": 2,
                                 "size": "sm",
                                 "color": "#666666",
