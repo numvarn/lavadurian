@@ -682,8 +682,20 @@ def replySuggestStore(reply_token, disname):
                 label='แนะนำสวนอื่น',
                 text='สวนแนะนำ'
             ),
+            URIAction(
+                label='ซื้อจากเว็บไซต์',
+                uri='https://www.lavadurian.com/shopping'
+            )
+        ],
+    )
+
+    obj = CarouselColumn(
+        thumbnail_image_url='https://www.lavadurian.com/static/assets/img/card/02.jpg',
+        title="บริการอื่น",
+        text="แนะนำบริการอื่น",
+        actions=[
             MessageAction(
-                label='บริการอื่น',
+                label='บริการอื่น ๆ',
                 text='อื่น ๆ'
             ),
             URIAction(
