@@ -948,19 +948,6 @@ def replyNews(reply_token, disname):
                                 "color": "#999999"
                             }
                         ]
-                    },
-                    {
-                        "type": "box",
-                        "layout": "vertical",
-                        "contents": [
-                        {
-                            "type": "text",
-                            "wrap": true,
-                            "lineSpacing": "5px",
-                            "text": "%s"
-                        }
-                        ],
-                        "margin": "xl"
                     }
                 ]
             },
@@ -989,7 +976,7 @@ def replyNews(reply_token, disname):
                 "flex": 0
             }
         }
-        ''' % (news.image.url, news.id, news.title, news.title, )
+        ''' % (news.image.url, news.id, news.title, )
 
         flex_lt.append(flex_str)
 
