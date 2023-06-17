@@ -79,6 +79,13 @@ def webhook(request):
     elif intent == "News":
         replyNews(reply_token, disname)
 
+    # เลือกสินค้าภายในร้าน
+    elif intent == "GetProductInStore":
+        text_message = TextSendMessage(
+            text='สวัสดีคุณ {} กรุณารอสักครู่\nเราคือ chatbot จาก www.lavadurian.com'.format(disname))
+
+        line_bot_api.reply_message(reply_token, text_message)
+
     # อื่น ๆ
     else:
         text_message = TextSendMessage(
