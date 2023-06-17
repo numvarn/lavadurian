@@ -21,6 +21,7 @@ from rest_framework.status import (
     HTTP_404_NOT_FOUND,
     HTTP_200_OK
 )
+from News.models import News
 
 from Store.models import (
     Store,
@@ -909,12 +910,10 @@ def replyPrice(reply_token, disname):
 
 
 def replyNews(reply_token, disname):
-    # text_message = TextSendMessage(
-    #     text='สวัสดีคุณ {} กรุณารอสักครู่\nเราคือ chatbot จาก www.lavadurian.com'.format(disname))
-    # line_bot_api.reply_message(reply_token, text_message)
     flex_lt = []
-
-    flex_str = '''
+    news_obj = News.objects.all().order_by("id")
+    for news in news_obj[:5]:
+        flex_str = '''
         {
             "type": "bubble",
             "hero": {
@@ -934,7 +933,7 @@ def replyNews(reply_token, disname):
                 "contents": [
                     {
                         "type": "text",
-                        "text": "พาณิชย์จังหวัดศรีสะเกษ ส่งเสริมการค้าทุเรียนออนไลน์",
+                        "text": "%s",
                         "weight": "bold",
                         "size": "xl"
                     },
@@ -990,9 +989,9 @@ def replyNews(reply_token, disname):
                 "flex": 0
             }
         }
-    '''
+        ''' % (news.title)
 
-    flex_lt.append(flex_str)
+        flex_lt.append(flex_str)
 
     carousel_str = '''
         {
