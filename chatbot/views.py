@@ -912,7 +912,7 @@ def replyPrice(reply_token, disname):
 def replyNews(reply_token, disname):
     flex_lt = []
     news_obj = News.objects.all().order_by("id")
-    for news in news_obj:
+    for news in news_obj[:5]:
         flex_str = '''
         {
             "type": "bubble",
