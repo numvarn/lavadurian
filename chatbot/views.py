@@ -957,7 +957,7 @@ def replyNews(reply_token, disname):
                             "type": "text",
                             "wrap": true,
                             "lineSpacing": "5px",
-                            "text": "%s"
+                            "text": "พาณิชย์จังหวัดศรีสะเกษ ลงพื้นที่ประชาสัมพันธ์เชิญชวนเกษตรกรชาวสวนทุเรียนที่ได้มาตรฐาน  GI  สมัครเข้าร่วมประชาสัมพันธ์และจำหน่ายสินค้า ทุเรียนภูเขาไฟศรีสะเกษ ผ่าน  www.lavadurian.com ณ อำเภอกันทรลักษ์ จังหวัดศรีสะเกษ"
                         }
                         ],
                         "margin": "xl"
@@ -989,7 +989,7 @@ def replyNews(reply_token, disname):
                 "flex": 0
             }
         }
-        ''' % (news.image.url, news.id, news.title, news.body[:250], )
+        ''' % (news.image.url, news.id, news.title, )
 
         flex_lt.append(flex_str)
 
