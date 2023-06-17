@@ -174,7 +174,7 @@ def replyProductInStore(reply_token, disname, text):
                             },
                             {
                                 "type": "text",
-                                "text": "%s",
+                                "text": "%.2f",
                                 "wrap": true,
                                 "color": "#666666",
                                 "size": "sm",
@@ -197,7 +197,7 @@ def replyProductInStore(reply_token, disname, text):
                             },
                             {
                                 "type": "text",
-                                "text": "%s",
+                                "text": "%.2f",
                                 "wrap": true,
                                 "color": "#666666",
                                 "size": "sm",
