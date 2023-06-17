@@ -20284,7 +20284,9 @@ body {
   display: flex;
   -webkit-box-align: center;
           align-items: center;
+  color:#687281;
 }
+
 .footer.footer-dark {
   color: rgba(255, 255, 255, 0.6);
 }

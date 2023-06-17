@@ -1,12 +1,58 @@
-<footer class="footer mt-auto footer-light">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-6 small">Copyright &copy; หอการค้า จังหวัดศรีสะเกษ 2020</div>
-            <div class="col-md-6 text-md-right small">
-                <a href="#!">Privacy Policy</a>
-                &middot;
-                <a href="#!">Terms &amp; Conditions</a>
-            </div>
+{% load static %}
+<footer class="footer-custom mt-4 mb-4 pt-4">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="col-lg-4 col-md-4 footer-contact" style="max-width: none">
+          <div class="mb-2">ผู้ดูแลเว็บไซต์</div>
+          <p>
+            หอการค้าจังหวัดศรีสะเกษ<br />
+            131 ถนนปลัดมณฑล ต.เมืองเหนือ <br />
+            อ.เมือง จ.ศรีสะเกษ<br /><br />
+            <strong>Email:</strong> phisan.shukkhi@gmail.com<br />
+          </p>
         </div>
+      </div>
+      <div class="col-lg-2 col-md-2 footer-links">
+        <div class="mb-2">ลิงค์ที่ใช้งานบ่อย</div>
+        <ul>
+          <li><i class="bx bx-chevron-right"></i> <a href="/" class="footer-link">หน้าแรก</a></li>
+          <li><i class="bx bx-chevron-right"></i> <a href="/members/login">เข้าสู่ระบบ</a></li>
+          <li><i class="bx bx-chevron-right"></i> <a href="/store/list">รายชื่อผู้ขาย</a></li>
+          <li><i class="bx bx-chevron-right"></i> <a href="/shopping">เลือกซื้อทุเรียน</a></li>
+        </ul>
+      </div>
+
+      <div class="col-lg-2 col-md-2 footer-links">
+        <div class="mb-2">ประชาสัมพันธ์</div>
+        <ul>
+          <li><i class="bx bx-chevron-right"></i> <a href="/news">ข่าวประชาสัมพันธ์</a></li>
+          <li><i class="bx bx-chevron-right"></i> <a href="/desc/sales">ขั้นตอนการซื้อ</a></li>
+          <li><i class="bx bx-chevron-right"></i> <a href="/desc">มาตรฐาน</a></li>
+        </ul>
+      </div>
+
+      <div class="col-lg-2 col-md-2 footer-links">
+        <div class="mb-2">ลงทะเบียน</div>
+        <ul>
+          <li><i class="bx bx-chevron-right"></i> <a href="/register/cutter">นักตัด</a></li>
+          <li><i class="bx bx-chevron-right"></i> <a href="/register/packing-house">โรงคัดบรรจุ/ล้ง</a></li>
+        </ul>
+      </div>
+
+      <div class="col-lg-2 col-md-2">
+        <div class="mb-2">สอบถามข้อมูล</div>
+        <div class="mb-2"><img src="{% static 'assets/qrcode/line_oa.png' %}" alt="ติดต่อเรา" style="width: 150px" /></div>
+      </div>
     </div>
+
+    <div class="row mt-4">
+      <div class="col-md-6 small">Copyright &copy; หอการค้า จังหวัดศรีสะเกษ 2020</div>
+      <div class="col-md-6 text-md-right small">
+        <a href="#!">Privacy Policy</a>
+        &middot;
+        <a href="#!">Terms &amp; Conditions</a>
+      </div>
+    </div>
+  </div>
 </footer>
