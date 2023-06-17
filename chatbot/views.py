@@ -672,6 +672,25 @@ def replySuggestStore(reply_token, disname):
 
         lt.append(obj)
 
+    # การ์ดปิดท้าย
+    obj = CarouselColumn(
+        # thumbnail_image_url='https://www.lavadurian.com/static/assets/img/card/01.jpg',
+        # title=store.name,
+        # text=store.slogan,
+        actions=[
+            MessageAction(
+                label='สวนอื่น ๆ',
+                text='แนะนำสวน'
+            ),
+            MessageAction(
+                label='บริการอื่น',
+                text='อื่น ๆ'
+            ),
+        ],
+    )
+
+    lt.append(obj)
+
     carousel_template_message = TemplateSendMessage(
         alt_text='ร้านค้าแนะนำ',
         template=CarouselTemplate(
