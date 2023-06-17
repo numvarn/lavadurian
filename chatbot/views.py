@@ -603,7 +603,7 @@ def replyProfile(reply_token, disname, text):
                 "type": "button",
                 "action": {
                 "type": "message",
-                "label": "ซื้อสินค้า",
+                "label": "ไปที่ร้าน",
                 "text": "ซื้อสินค้าจาก : %s"
                 },
                 "color": "#1DB446"
@@ -634,7 +634,7 @@ def replyProfile(reply_token, disname, text):
             }
         }
         }
-    """ % (store.name, store.id, store.owner, store.slogan, store.phone1, store.phone2, product_count, district, store.id, store.id, store.id)
+    """ % (store.name, store.id, store.owner, store.slogan, store.phone1, store.phone2, product_count, district, store.id, store.id)
 
     flex = json.loads(flex_str)
     replyObj = FlexSendMessage(alt_text='ร้านแนะนำ', contents=flex)
