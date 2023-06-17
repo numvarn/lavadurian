@@ -442,12 +442,12 @@ def replyProfile(reply_token, disname, text):
                 "type": "text",
                 "text": "STORE",
                 "weight": "bold",
-                "color": "#1DB446",
                 "size": "sm"
             },
             {
                 "type": "text",
                 "text": "%s",
+                "color": "#1DB446",
                 "weight": "bold",
                 "size": "xxl",
                 "margin": "md",
