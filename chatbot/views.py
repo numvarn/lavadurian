@@ -1,6 +1,7 @@
 import json
 import random
 from datetime import date
+from bs4 import BeautifulSoup
 from django.shortcuts import render
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
@@ -989,7 +990,7 @@ def replyNews(reply_token, disname):
                 "flex": 0
             }
         }
-        ''' % (news.image.url, news.id, news.title, news.body[:250])
+        ''' % (news.image.url, news.id, news.title, BeautifulSoup(news.body[:250], "lxml").text)
 
         flex_lt.append(flex_str)
 
