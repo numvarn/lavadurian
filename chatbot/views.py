@@ -940,6 +940,8 @@ def replyNews(reply_token, disname):
     flex = json.loads(flex_str)
     replyObj = FlexSendMessage(alt_text='ข่าวประชาสัมพันธ์', contents=flex)
 
+    line_bot_api.reply_message(reply_token, replyObj)
+
 # ---------------------------------------------------------------------
 
 
