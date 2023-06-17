@@ -989,7 +989,7 @@ def replyNews(reply_token, disname):
                 "flex": 0
             }
         }
-        ''' % (news.image.url, news.id, news.title, news.body)
+        ''' % (news.image.url, news.id, news.title, news.title, )
 
         flex_lt.append(flex_str)
 
