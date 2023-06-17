@@ -634,7 +634,7 @@ def replyProductByWeight(reply_token, disname, text):
                             "action": {
                             "type": "message",
                             "label": "ข้อมูลสวน",
-                            "text": "ข้อมูลสวน : "
+                            "text": "ผู้ชาย : %s"
                             },
                             "color": "#1DB446"
                         }
@@ -648,7 +648,8 @@ def replyProductByWeight(reply_token, disname, text):
                    product.values,
                    getModelChoice(product.grade, GRADE_CHOICES),
                    getModelChoice(product.status, PRODUCT_STATUS_CHOICES),
-                   product.id)
+                   product.id,
+                   product.store.id)
 
             flex_lt.append(flex_str)
 
