@@ -933,7 +933,7 @@ def replyNews(reply_token, disname):
                 "contents": [
                     {
                         "type": "text",
-                        "text": "สวัสดีครับ",
+                        "text": "%s",
                         "weight": "bold",
                         "size": "xl"
                     },
@@ -989,7 +989,7 @@ def replyNews(reply_token, disname):
                 "flex": 0
             }
         }
-        '''
+        ''' % (300, )
 
         flex_lt.append(flex_str)
 
