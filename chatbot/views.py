@@ -451,7 +451,12 @@ def replyProfile(reply_token, disname, text):
                 "weight": "bold",
                 "size": "xxl",
                 "margin": "md",
-                "wrap": true
+                "wrap": true,
+                "action": {
+                    "type": "uri",
+                    "label": "action",
+                    "uri": "https://www.lavadurian.com/shopping/?store=%s"
+                }
             },
             {
                 "type": "text",
@@ -629,7 +634,7 @@ def replyProfile(reply_token, disname, text):
             }
         }
         }
-    """ % (store.name, store.owner, store.slogan, store.phone1, store.phone2, product_count, district, store.id, store.id)
+    """ % (store.name, store.id, store.owner, store.slogan, store.phone1, store.phone2, product_count, district, store.id, store.id)
 
     flex = json.loads(flex_str)
     replyObj = FlexSendMessage(alt_text='ร้านแนะนำ', contents=flex)
