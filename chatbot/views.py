@@ -947,11 +947,6 @@ def replyNews(reply_token, disname):
                                 "text": "June 17, 2023, 8:09 a.m.",
                                 "size": "xs",
                                 "color": "#999999"
-                            },
-                            {
-                                "type": "text",
-                                "text": "Hello",
-                                "size": "xl",
                             }
                         ]
                     },
