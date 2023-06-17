@@ -913,217 +913,29 @@ def replyNews(reply_token, disname):
     #     text='สวัสดีคุณ {} กรุณารอสักครู่\nเราคือ chatbot จาก www.lavadurian.com'.format(disname))
     # line_bot_api.reply_message(reply_token, text_message)
 
-    flex_lt = []
-
-    flex_str = """
-            {
-                "type": "bubble",
-                "hero": {
-                    "type": "image",
-                    "url": "https://www.lavadurian.com/static/assets/info/cover/003.png",
-                    "size": "full",
-                    "aspectRatio": "4:3",
-                    "aspectMode": "cover",
-                    "action": {
-                    "type": "uri",
-                    "uri": "https://www.lavadurian.com"
-                    }
-                },
-                "body": {
-                    "type": "box",
-                    "layout": "vertical",
-                    "contents": [
-                    {
-                        "type": "text",
-                        "text": "--",
-                        "weight": "bold",
-                        "size": "xl",
-                        "wrap": false,
-                        "align": "start"
-                    },
-                    {
-                        "type": "box",
-                        "layout": "vertical",
-                        "contents": [
-                        {
-                            "type": "text",
-                            "text": "--"
-                        }
-                        ],
-                        "margin": "md"
-                    },
-                    {
-                        "type": "box",
-                        "layout": "vertical",
-                        "margin": "lg",
-                        "spacing": "sm",
-                        "contents": [
-                        {
-                            "type": "box",
-                            "layout": "baseline",
-                            "spacing": "sm",
-                            "contents": [
-                            {
-                                "type": "text",
-                                "text": "ราคา (ต่อ/กก.)",
-                                "color": "#aaaaaa",
-                                "size": "sm",
-                                "flex_str": 4
-                            },
-                            {
-                                "type": "text",
-                                "text": "--",
-                                "wrap": true,
-                                "color": "#666666",
-                                "size": "sm",
-                                "flex": 2,
-                                "align": "end"
-                            }
-                            ]
-                        },
-                        {
-                            "type": "box",
-                            "layout": "baseline",
-                            "spacing": "sm",
-                            "contents": [
-                            {
-                                "type": "text",
-                                "text": "น้ำหนัก (กก.)",
-                                "color": "#aaaaaa",
-                                "size": "sm",
-                                "flex": 4
-                            },
-                            {
-                                "type": "text",
-                                "text": "--",
-                                "wrap": true,
-                                "color": "#666666",
-                                "size": "sm",
-                                "flex": 2,
-                                "align": "end"
-                            }
-                            ]
-                        },
-                        {
-                            "type": "box",
-                            "layout": "baseline",
-                            "contents": [
-                            {
-                                "type": "text",
-                                "text": "ราคารวม (บาท)",
-                                "flex": 4,
-                                "size": "sm",
-                                "color": "#aaaaaa"
-                            },
-                            {
-                                "type": "text",
-                                "text": "--",
-                                "flex": 2,
-                                "size": "sm",
-                                "color": "#666666",
-                                "wrap": true,
-                                "align": "end"
-                            }
-                            ]
-                        },
-                        {
-                            "type": "box",
-                            "layout": "baseline",
-                            "contents": [
-                            {
-                                "type": "text",
-                                "text": "จำนวน (ลูก)",
-                                "flex": 4,
-                                "size": "sm",
-                                "color": "#aaaaaa"
-                            },
-                            {
-                                "type": "text",
-                                "text": "--",
-                                "flex": 2,
-                                "size": "sm",
-                                "color": "#666666",
-                                "align": "end",
-                                "wrap": true
-                            }
-                            ]
-                        },
-                        {
-                            "type": "box",
-                            "layout": "baseline",
-                            "contents": [
-                            {
-                                "type": "text",
-                                "text": "เกรดทุเรียน",
-                                "flex": 4,
-                                "size": "sm",
-                                "color": "#aaaaaa"
-                            },
-                            {
-                                "type": "text",
-                                "text": "--",
-                                "flex": 2,
-                                "size": "sm",
-                                "color": "#666666",
-                                "align": "end",
-                                "wrap": true
-                            }
-                            ]
-                        },
-                        {
-                            "type": "box",
-                            "layout": "baseline",
-                            "contents": [
-                            {
-                                "type": "text",
-                                "text": "ลักษณะการขาย",
-                                "flex": 4,
-                                "size": "sm",
-                                "color": "#aaaaaa"
-                            },
-                            {
-                                "type": "text",
-                                "text": "--",
-                                "flex": 2,
-                                "size": "sm",
-                                "color": "#666666",
-                                "align": "end",
-                                "wrap": true
-                            }
-                            ]
-                        }
-                        ]
-                    }
-                    ]
-                },
-                "footer": {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                    {
-                        "type": "button",
-                        "action": {
-                        "type": "uri",
-                        "label": "เลือกซื้อ",
-                        "uri": "https://www.lavadurian.com/shopping/product/--"
-                        },
-                        "color": "#1DB446"
-                    }
-                    ]
-                }
-            }
-    """
-
-    flex_lt.append(flex_str)
-
-    carousel_str = '''
-        {
-            "type": "carousel",
-            "contents": [
-                %s
-            ]
-        }
-        ''' % (",".join(flex_lt))
+    flex_str = '''
+{
+  "type": "carousel",
+  "contents": [
+    {
+      "type": "bubble",
+      "body": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": []
+      }
+    },
+    {
+      "type": "bubble",
+      "body": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": []
+      }
+    }
+  ]
+}
+    '''
 
     flex = json.loads(flex_str)
     replyObj = FlexSendMessage(alt_text='ข่าวประชาสัมพันธ์', contents=flex)
