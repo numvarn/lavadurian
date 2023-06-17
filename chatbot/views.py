@@ -949,6 +949,17 @@ def replyNews(reply_token, disname):
                             "color": "#999999"
                         }
                         ]
+                    },
+                    {
+                        "type": "box",
+                        "layout": "vertical",
+                        "contents": [
+                        {
+                            "type": "text",
+                            "text": "June 17, 2023, 8:09 a.m.",
+                            "size": "xl",
+                        }
+                        ]
                     }
                 ]
             },
