@@ -682,6 +682,10 @@ def replySuggestStore(reply_token, disname):
                 label='แนะนำสวนอื่น',
                 text='สวนแนะนำ'
             ),
+            MessageAction(
+                label='บริการอื่น',
+                text='อื่น ๆ'
+            ),
             URIAction(
                 label='ไปที่เว็บไซต์',
                 uri='https://www.lavadurian.com/shopping'
