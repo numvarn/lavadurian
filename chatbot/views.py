@@ -634,7 +634,7 @@ def replyProductByWeight(reply_token, disname, text):
                             "action": {
                             "type": "message",
                             "label": "ข้อมูลสวน",
-                            "text": "ผู้ชาย : %s"
+                            "text": "ผู้ขาย : %s"
                             },
                             "color": "#1DB446"
                         }
