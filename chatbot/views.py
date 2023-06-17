@@ -933,7 +933,7 @@ def replyNews(reply_token, disname):
                 "contents": [
                     {
                         "type": "text",
-                        "text": "%s",
+                        "text": "พาณิชย์จังหวัดศรีสะเกษ ส่งเสริมการค้าทุเรียนออนไลน์",
                         "weight": "bold",
                         "size": "xl"
                     },
@@ -989,9 +989,9 @@ def replyNews(reply_token, disname):
                 "flex": 0
             }
         }
-    ''' % (news.title)
+        '''
 
-    flex_lt.append(flex_str)
+        flex_lt.append(flex_str)
 
     carousel_str = '''
         {
