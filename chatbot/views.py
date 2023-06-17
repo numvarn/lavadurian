@@ -912,33 +912,32 @@ def replyNews(reply_token, disname):
     # text_message = TextSendMessage(
     #     text='สวัสดีคุณ {} กรุณารอสักครู่\nเราคือ chatbot จาก www.lavadurian.com'.format(disname))
     # line_bot_api.reply_message(reply_token, text_message)
+    flex_lt = []
 
     flex_str = '''
-{
-  "type": "carousel",
-  "contents": [
-    {
-      "type": "bubble",
-      "body": {
-        "type": "box",
-        "layout": "vertical",
-        "contents": []
-      }
-    },
-    {
-      "type": "bubble",
-      "body": {
-        "type": "box",
-        "layout": "vertical",
-        "contents": []
-      }
-    }
-  ]
-}
+        {
+            "type": "bubble",
+            "body": {
+                "type": "box",
+                "layout": "vertical",
+                "contents": []
+            }
+        }
     '''
 
-    flex = json.loads(flex_str)
-    replyObj = FlexSendMessage(alt_text='ข่าวประชาสัมพันธ์', contents=flex)
+    flex_lt.append(flex_str)
+
+    carousel_str = '''
+        {
+            "type": "carousel",
+            "contents": [
+                %s
+            ]
+        }
+    ''' % (",".join(flex_lt))
+
+    carousel = json.loads(carousel_str)
+    replyObj = FlexSendMessage(alt_text='ข่าวประชาสัมพันธ์', contents=carousel)
 
     line_bot_api.reply_message(reply_token, replyObj)
 
