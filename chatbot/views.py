@@ -976,7 +976,7 @@ def replyNews(reply_token, disname):
                 "flex": 0
             }
         }
-        ''' % (news.image.url, news.id, news.date_created, news.title, )
+        ''' % (news.image.url, news.id, news.title, news.date_created, )
 
         flex_lt.append(flex_str)
 
