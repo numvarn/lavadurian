@@ -955,7 +955,7 @@ def replyNews(reply_token, disname):
                         "contents": [
                         {
                             "type": "text",
-                            "text": "พาณิชย์จังหวัดศรีสะเกษ ลงพื้นที่ประชาสัมพันธ์เชิญชวนเกษตรกรชาวสวนทุเรียนที่ได้มาตรฐาน",
+                            "text": "%s",
                             "wrap": true
                         }
                         ],
@@ -988,7 +988,7 @@ def replyNews(reply_token, disname):
                 "flex": 0
             }
         }
-        ''' % (news.image.url, news.id, news.title, news.date_created, news.id, )
+        ''' % (news.image.url, news.id, news.title, news.date_created, news.title[:250], news.id, )
 
         flex_lt.append(flex_str)
 
