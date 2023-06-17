@@ -674,7 +674,7 @@ def replySuggestStore(reply_token, disname):
 
     # การ์ดปิดท้าย
     obj = CarouselColumn(
-        thumbnail_image_url='https://www.lavadurian.com/static/assets/img/card/01.jpg',
+        thumbnail_image_url='https://www.lavadurian.com/static/assets/img/card/02.jpg',
         title="บริการอื่น",
         text="แนะนำบริการอื่น",
         actions=[
