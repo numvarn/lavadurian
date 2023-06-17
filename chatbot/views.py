@@ -100,7 +100,7 @@ def replyProductInStore(reply_token, disname, text):
     store_id = text_lt[1].strip()
 
     store = Store.objects.get(id=int(store_id))
-    products = Product.objects.filter(Q(store=Store) & ~Q(status=3))
+    products = Product.objects.filter(Q(store=store) & ~Q(status=3))
 
     text_message = TextSendMessage(
         text='สวัสดีคุณ {} กรุณารอสักครู่\nเราคือ chatbot จาก www.lavadurian.com'.format(store.name))
