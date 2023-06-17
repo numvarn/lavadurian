@@ -674,18 +674,18 @@ def replySuggestStore(reply_token, disname):
 
     # การ์ดปิดท้าย
     obj = CarouselColumn(
-        # thumbnail_image_url='https://www.lavadurian.com/static/assets/img/card/01.jpg',
-        # title=store.name,
-        # text=store.slogan,
+        thumbnail_image_url='https://www.lavadurian.com/static/assets/img/card/01.jpg',
+        title="บริการอื่น",
+        text="แนะนำบริการอื่น",
         actions=[
             MessageAction(
-                label='สวนอื่น ๆ',
-                text='แนะนำสวน'
+                label='ข้อมูลสวน',
+                text='สวนแนะนำ'
             ),
-            MessageAction(
-                label='บริการอื่น',
-                text='อื่น ๆ'
-            ),
+            URIAction(
+                label='เลือกซื้อจากสวน',
+                uri='https://www.lavadurian.com/shopping'
+            )
         ],
     )
 
