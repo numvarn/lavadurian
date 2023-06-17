@@ -325,10 +325,20 @@ def replyProductInStore(reply_token, disname, text):
 
             flex_lt.append(flex_str)
 
-    text_message = TextSendMessage(
-        text='สวัสดีคุณ {} กรุณารอสักครู่\nเราคือ chatbot จาก www.lavadurian.com'.format(store.name))
+    carousel_str = '''
+    {
+        "type": "carousel",
+        "contents": [
+            %s
+        ]
+    }
+    ''' % (",".join(flex_lt))
 
-    line_bot_api.reply_message(reply_token, text_message)
+    carousel = json.loads(carousel_str)
+    replyObj = FlexSendMessage(
+        alt_text='รายการสินค้าตามที่เลือก', contents=carousel)
+
+    line_bot_api.reply_message(reply_token, replyObj)
 
 # ---------------------------------------------------------------------
 
