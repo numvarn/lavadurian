@@ -947,13 +947,19 @@ def replyNews(reply_token, disname):
                                 "text": "June 17, 2023, 8:09 a.m.",
                                 "size": "xs",
                                 "color": "#999999"
-                            },
-                            {
-                                "type": "text",
-                                "text": "พาณิชย์จังหวัดศรีสะเกษ ลงพื้นที่ประชาสัมพันธ์เชิญชวนเกษตรกรชาวสวนทุเรียนที่ได้มาตรฐาน  GI  สมัครเข้าร่วมประชาสัมพันธ์และจำหน่ายสินค้า \"ทุเรียนภูเขาไฟศรีสะเกษ\" ผ่าน  www.lavadurian.com ณ อำเภอกันทรลักษ์ จังหวัดศรีสะเกษ",
-                                "wrap": true
                             }
                         ]
+                    },
+                    {
+                        "type": "box",
+                        "layout": "vertical",
+                        "contents": [
+                        {
+                            "type": "text",
+                            "text": "Hello"
+                        }
+                        ],
+                        "margin": "md"
                     }
                 ]
             },
