@@ -603,7 +603,7 @@ def replyProfile(reply_token, disname, text):
                 "type": "button",
                 "action": {
                 "type": "message",
-                "label": "เลือกสินค้า",
+                "label": "สินค้า",
                 "text": "เลือกสินค้าจาก : %s"
                 },
                 "color": "#1DB446"
