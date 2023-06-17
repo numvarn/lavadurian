@@ -963,7 +963,7 @@ def replyNews(reply_token, disname):
                     "action": {
                     "type": "uri",
                     "label": "รายละเอียด",
-                    "uri": "https://linecorp.com"
+                    "uri": "https://www.lavadurian.com/news/%s"
                     }
                 },
                 {
@@ -976,7 +976,7 @@ def replyNews(reply_token, disname):
                 "flex": 0
             }
         }
-        ''' % (news.image.url, news.id, news.title, news.date_created, )
+        ''' % (news.image.url, news.id, news.title, news.date_created, news.id, )
 
         flex_lt.append(flex_str)
 
