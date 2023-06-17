@@ -933,7 +933,7 @@ def replyNews(reply_token, disname):
                 "contents": [
                     {
                         "type": "text",
-                        "text": {0},
+                        "text": "{0}",
                         "weight": "bold",
                         "size": "xl"
                     },
