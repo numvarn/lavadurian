@@ -934,29 +934,29 @@ def replyNews(reply_token, disname):
                 "contents": []
             },
             "footer": {
-                "type": "box",
-                "layout": "vertical",
-                "spacing": "sm",
-                "contents": [
-                {
-                    "type": "button",
-                    "style": "link",
-                    "height": "sm",
-                    "action": {
-                    "type": "uri",
-                    "label": "รายละเอียด",
-                    "uri": "https://linecorp.com"
-                    }
-                },
-                {
-                    "type": "box",
-                    "layout": "vertical",
-                    "contents": [],
-                    "margin": "sm"
-                }
-                ],
-                "flex": 0
-            },
+        "type": "box",
+        "layout": "vertical",
+        "spacing": "sm",
+        "contents": [
+          {
+            "type": "button",
+            "style": "link",
+            "height": "sm",
+            "action": {
+              "type": "uri",
+              "label": "รายละเอียด",
+              "uri": "https://linecorp.com"
+            }
+          },
+          {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [],
+            "margin": "sm"
+          }
+        ],
+        "flex": 0
+      }
         }
     '''
 
