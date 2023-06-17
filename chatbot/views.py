@@ -932,12 +932,6 @@ def replyNews(reply_token, disname):
                 "layout": "vertical",
                 "contents": [
                     {
-                        "type": "text",
-                        "text": "%s",
-                        "weight": "bold",
-                        "size": "xl"
-                    },
-                    {
                         "type": "box",
                         "layout": "vertical",
                         "contents": [
@@ -988,7 +982,7 @@ def replyNews(reply_token, disname):
                 "flex": 0
             }
         }
-        ''' % (news.image.url, news.id, news.title, news.date_created, news.title[:250], news.id, )
+        ''' % (news.image.url, news.id, news.date_created, news.title[:250], news.id, )
 
         flex_lt.append(flex_str)
 
