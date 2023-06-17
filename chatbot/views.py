@@ -937,7 +937,7 @@ def replyNews(reply_token, disname):
                         "contents": [
                             {
                                 "type": "text",
-                                "text": "%s",
+                                "text": "วันที่รายงาน %s",
                                 "size": "xs",
                                 "color": "#999999"
                             }
