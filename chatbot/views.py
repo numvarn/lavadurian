@@ -688,6 +688,7 @@ def replySuggestStore(reply_token, disname):
             )
         ],
     )
+    lt.append(obj)
 
     obj = CarouselColumn(
         thumbnail_image_url='https://www.lavadurian.com/static/assets/img/card/02.jpg',
@@ -704,7 +705,6 @@ def replySuggestStore(reply_token, disname):
             )
         ],
     )
-
     lt.append(obj)
 
     carousel_template_message = TemplateSendMessage(
