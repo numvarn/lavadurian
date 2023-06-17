@@ -949,7 +949,7 @@ def replyNews(reply_token, disname):
                                 "color": "#999999"
                             }
                         ]
-                    },
+                    }
                 ]
             },
             "footer": {
