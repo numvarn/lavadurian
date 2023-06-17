@@ -620,15 +620,24 @@ def replyProductByWeight(reply_token, disname, text):
                     "type": "box",
                     "layout": "horizontal",
                     "contents": [
-                    {
-                        "type": "button",
-                        "action": {
-                        "type": "uri",
-                        "label": "เลือกซื้อ",
-                        "uri": "https://www.lavadurian.com/shopping/product/%s"
+                        {
+                            "type": "button",
+                            "action": {
+                            "type": "uri",
+                            "label": "เลือกซื้อ",
+                            "uri": "https://www.lavadurian.com/shopping/product/%s"
+                            },
+                            "color": "#1DB446"
                         },
-                        "color": "#1DB446"
-                    }
+                        {
+                            "type": "button",
+                            "action": {
+                            "type": "message",
+                            "label": "ข้อมูลสวน",
+                            "text": "ข้อมูลสวน : "
+                            },
+                            "color": "#1DB446"
+                        }
                     ]
                 }
             }
