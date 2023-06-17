@@ -81,10 +81,7 @@ def webhook(request):
 
     # เลือกสินค้าภายในร้าน
     elif intent == "GetProductInStore":
-        text_message = TextSendMessage(
-            text='สวัสดีคุณ {} กรุณารอสักครู่\nเราคือ chatbot จาก www.lavadurian.com'.format(disname))
-
-        line_bot_api.reply_message(reply_token, text_message)
+        replyProductInStore(reply_token, disname, text)
 
     # อื่น ๆ
     else:
@@ -94,6 +91,20 @@ def webhook(request):
         line_bot_api.reply_message(reply_token, text_message)
 
     return Response(status=HTTP_200_OK)
+
+# ---------------------------------------------------------------------
+
+
+def replyProductInStore(reply_token, disname, text):
+    text_lt = text.split(":")
+    store_id = text_lt[1].strip()
+
+    store = Store.objects.get(id=int(store_id))
+
+    text_message = TextSendMessage(
+        text='สวัสดีคุณ {} กรุณารอสักครู่\nเราคือ chatbot จาก www.lavadurian.com'.format(store.name))
+
+    line_bot_api.reply_message(reply_token, text_message)
 
 # ---------------------------------------------------------------------
 
