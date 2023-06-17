@@ -932,14 +932,12 @@ def replyNews(reply_token, disname):
                 "type": "box",
                 "layout": "vertical",
                 "contents": [
-                {
-                    "type": "text",
-                    "text": "ประชาสัมพันธ์",
-                    "weight": "bold",
-                    "size": "xl",
-                    "wrap": false,
-                    "align": "start"
-                }
+                    {
+                        "type": "text",
+                        "text": "พาณิชย์จังหวัดศรีสะเกษ ส่งเสริมการค้าทุเรียนออนไลน์",
+                        "weight": "bold",
+                        "size": "xl"
+                    }
                 ]
             },
             "footer": {
