@@ -74,6 +74,10 @@ def webhook(request):
     elif intent == "GetProductByWeight":
         replyProductByWeight(reply_token, disname, text)
 
+    # ข่าวประชาสัมพันธ์
+    elif intent == "News":
+        replyNews(reply_token, disname)
+
     # อื่น ๆ
     else:
         text_message = TextSendMessage(
@@ -900,6 +904,17 @@ def replyPrice(reply_token, disname):
     replyObj = FlexSendMessage(alt_text='สอบถามราคา', contents=flex)
 
     line_bot_api.reply_message(reply_token, replyObj)
+
+# ---------------------------------------------------------------------
+
+
+def replyNews(reply_token, disname):
+    text_message = TextSendMessage(
+        text='สวัสดีคุณ {} กรุณารอสักครู่\nเราคือ chatbot จาก www.lavadurian.com'.format(disname))
+
+    line_bot_api.reply_message(reply_token, text_message)
+
+# ---------------------------------------------------------------------
 
 
 def getModelChoice(intValue, choices):
