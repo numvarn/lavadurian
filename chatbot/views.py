@@ -916,79 +916,201 @@ def replyNews(reply_token, disname):
 
     flex_str = '''
     {
-  "type": "bubble",
-  "hero": {
-    "type": "image",
-    "url": "https://storage.googleapis.com/lavadurian/uploads/news_imgs/S__18563079.jpg?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Credential=phisan-s-sskru-ac-th%40lava-durian.iam.gserviceaccount.com%2F20230617%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20230617T030139Z&X-Goog-Expires=86400&X-Goog-SignedHeaders=host&X-Goog-Signature=cf041d38f2bf4380da295bb8aecb4833d98d7e11eb982cde784c0b09973917843774a7215445510943afab1b6827465f414edaa4105cfa408c88cde4280d45461ba06f6ec2c9b18bea02480f36c89893b998352c86a9ffb504dbbef4798ce8d67d42b78a30b3a5f903f56c65456edc350aad372a5167d8337d743c4eff9ab5d19fc548dde6585e6d3ee9c29eab6f427c3ae5edd2a74409780e72aaa6a2c1010310db6ac7e6f722b91d5a434d4f110ae4687b67903a96d9fc7b6b6d75c3b51d8acdae0bc0003889310b065ec86ec4c3697a1ae77cd9cf7d842c771304ae90855371097cd8dca113a0c5a5eab0f23e527a3993cef27ddc03749a8a35dc013e8289",
-    "size": "full",
-    "aspectRatio": "20:13",
-    "aspectMode": "cover",
-    "action": {
-      "type": "uri",
-      "uri": "http://linecorp.com/"
-    }
-  },
-  "body": {
-    "type": "box",
-    "layout": "vertical",
-    "contents": [
-      {
-        "type": "text",
-        "text": "พาณิชย์จังหวัดศรีสะเกษ ส่งเสริมการค้าทุเรียนออนไลน์",
-        "weight": "bold",
-        "size": "xl"
-      },
-      {
-        "type": "box",
-        "layout": "vertical",
-        "contents": [
-          {
-            "type": "text",
-            "text": "June 17, 2023, 8:09 a.m.",
-            "size": "xs",
-            "color": "#999999"
-          }
-        ]
-      },
-      {
-        "type": "box",
-        "layout": "vertical",
-        "contents": [
-          {
-            "type": "text",
-            "text": "พาณิชย์จังหวัดศรีสะเกษ ลงพื้นที่ประชาสัมพันธ์เชิญชวนเกษตรกรชาวสวนทุเรียนที่ได้มาตรฐาน  GI  สมัครเข้าร่วมประชาสัมพันธ์และจำหน่ายสินค้า \"ทุเรียนภูเขาไฟศรีสะเกษ\" ผ่าน  www.lavadurian.com ณ อำเภอกันทรลักษ์ จังหวัดศรีสะเกษ",
-            "wrap": true
-          }
-        ],
-        "margin": "xl"
-      }
-    ]
-  },
-  "footer": {
-    "type": "box",
-    "layout": "vertical",
-    "spacing": "sm",
-    "contents": [
-      {
-        "type": "button",
-        "style": "link",
-        "height": "sm",
-        "action": {
-          "type": "uri",
-          "label": "รายละเอียด",
-          "uri": "https://linecorp.com"
+        "type": "bubble",
+        "hero": {
+            "type": "image",
+            "url": "https://www.lavadurian.com/static/assets/info/cover/003.png",
+            "size": "full",
+            "aspectRatio": "4:3",
+            "aspectMode": "cover",
+            "action": {
+            "type": "uri",
+            "uri": "https://www.lavadurian.com"
+            }
+        },
+        "body": {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+            {
+                "type": "text",
+                "text": "%s",
+                "weight": "bold",
+                "size": "xl",
+                "wrap": false,
+                "align": "start"
+            },
+            {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                {
+                    "type": "text",
+                    "text": "%s"
+                }
+                ],
+                "margin": "md"
+            },
+            {
+                "type": "box",
+                "layout": "vertical",
+                "margin": "lg",
+                "spacing": "sm",
+                "contents": [
+                {
+                    "type": "box",
+                    "layout": "baseline",
+                    "spacing": "sm",
+                    "contents": [
+                    {
+                        "type": "text",
+                        "text": "ราคา (ต่อ/กก.)",
+                        "color": "#aaaaaa",
+                        "size": "sm",
+                        "flex_str": 4
+                    },
+                    {
+                        "type": "text",
+                        "text": "%s",
+                        "wrap": true,
+                        "color": "#666666",
+                        "size": "sm",
+                        "flex": 2,
+                        "align": "end"
+                    }
+                    ]
+                },
+                {
+                    "type": "box",
+                    "layout": "baseline",
+                    "spacing": "sm",
+                    "contents": [
+                    {
+                        "type": "text",
+                        "text": "น้ำหนัก (กก.)",
+                        "color": "#aaaaaa",
+                        "size": "sm",
+                        "flex": 4
+                    },
+                    {
+                        "type": "text",
+                        "text": "%s",
+                        "wrap": true,
+                        "color": "#666666",
+                        "size": "sm",
+                        "flex": 2,
+                        "align": "end"
+                    }
+                    ]
+                },
+                {
+                    "type": "box",
+                    "layout": "baseline",
+                    "contents": [
+                    {
+                        "type": "text",
+                        "text": "ราคารวม (บาท)",
+                        "flex": 4,
+                        "size": "sm",
+                        "color": "#aaaaaa"
+                    },
+                    {
+                        "type": "text",
+                        "text": "%s",
+                        "flex": 2,
+                        "size": "sm",
+                        "color": "#666666",
+                        "wrap": true,
+                        "align": "end"
+                    }
+                    ]
+                },
+                {
+                    "type": "box",
+                    "layout": "baseline",
+                    "contents": [
+                    {
+                        "type": "text",
+                        "text": "จำนวน (ลูก)",
+                        "flex": 4,
+                        "size": "sm",
+                        "color": "#aaaaaa"
+                    },
+                    {
+                        "type": "text",
+                        "text": "%s",
+                        "flex": 2,
+                        "size": "sm",
+                        "color": "#666666",
+                        "align": "end",
+                        "wrap": true
+                    }
+                    ]
+                },
+                {
+                    "type": "box",
+                    "layout": "baseline",
+                    "contents": [
+                    {
+                        "type": "text",
+                        "text": "เกรดทุเรียน",
+                        "flex": 4,
+                        "size": "sm",
+                        "color": "#aaaaaa"
+                    },
+                    {
+                        "type": "text",
+                        "text": "%s",
+                        "flex": 2,
+                        "size": "sm",
+                        "color": "#666666",
+                        "align": "end",
+                        "wrap": true
+                    }
+                    ]
+                },
+                {
+                    "type": "box",
+                    "layout": "baseline",
+                    "contents": [
+                    {
+                        "type": "text",
+                        "text": "ลักษณะการขาย",
+                        "flex": 4,
+                        "size": "sm",
+                        "color": "#aaaaaa"
+                    },
+                    {
+                        "type": "text",
+                        "text": "%s",
+                        "flex": 2,
+                        "size": "sm",
+                        "color": "#666666",
+                        "align": "end",
+                        "wrap": true
+                    }
+                    ]
+                }
+                ]
+            }
+            ]
+        },
+        "footer": {
+            "type": "box",
+            "layout": "horizontal",
+            "contents": [
+            {
+                "type": "button",
+                "action": {
+                "type": "uri",
+                "label": "เลือกซื้อ",
+                "uri": "https://www.lavadurian.com/shopping/product/%s"
+                },
+                "color": "#1DB446"
+            }
+            ]
         }
-      },
-      {
-        "type": "box",
-        "layout": "vertical",
-        "contents": [],
-        "margin": "sm"
-      }
-    ],
-    "flex": 0
-  }
-}
+    }
     '''
 
     flex_lt.append(flex_str)
