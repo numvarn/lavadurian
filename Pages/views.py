@@ -44,6 +44,12 @@ def registerPackingHouse(request):
     context = {}
     return render(request, 'register/packing-house.html', context)
 
+
+def registerSaler(request):
+    context = {}
+    return render(request, 'register/saler.html', context)
+
+
 # Handle Error
 
 
