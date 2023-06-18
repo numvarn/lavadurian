@@ -1,0 +1,413 @@
+{% extends 'base.html' %}
+<!---->
+{% block title %} ขึ้นทะเบียนนักตัด ทุเรียนภูเขาไฟศรีสะเกษ {% endblock title %}
+<!---->
+{% block content %}
+<section class="container py-5 bg-white">
+  <form action="" id="form-cutter">
+    <h1 class="text-center mb-4">แบบขึ้นทะเบียนผู้ขายทุเรียนภูเขาไฟศรีสะเกษ ฤดูกาลผลิต ปี พ.ศ. 2566</h1>
+
+    <hr class="mb-4 mt-4" />
+
+    <h3 class="mt-4">ข้อมูลผู้ลงทะเบียน</h3>
+
+    <div class="row mb-4 mt-4">
+      <div class="col-md-6">
+        <div class="mb-3">
+          <label for="formFile" class="form-label">คำนำหน้า</label>
+          <select class="form-control form-control-lg" aria-label=".form-select-lg" id="prefix" v-model="prefix">
+            <option value="นาย">นาย</option>
+            <option value="นางสาว">นางสาว</option>
+            <option value="นาง">นาง</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <label for="lname" class="form-label">เลขประจำตัวประชาชน</label>
+        <input type="text" v-bind:class="{'is-invalid': !citizen_isValid, 'form-control form-control-lg': true}" id="citizen" v-model="citizen" />
+        <div id="lnameFeedback" class="invalid-feedback">กรุณากรอก หมายเลขบัตรประชาชน</div>
+      </div>
+    </div>
+
+    <div class="row mb-4 mt-4">
+      <div class="col">
+        <label for="fname" class="form-label">ชื่อ</label>
+        <input type="text" v-bind:class="{'is-invalid': !fname_isValid, 'form-control form-control-lg': true}" id="fname" aria-describedby="fnameFeedback" required v-model="fname" />
+        <div id="fnameFeedback" class="invalid-feedback">กรุณากรอก ชื่อ ของผู้ลงทะเบียน</div>
+      </div>
+
+      <div class="col">
+        <label for="lname" class="form-label">นามสกุล</label>
+        <input type="text" v-bind:class="{'is-invalid': !lname_isValid, 'form-control form-control-lg': true}" id="lname" aria-describedby="lnameFeedback" required v-model="lname" />
+        <div id="lnameFeedback" class="invalid-feedback">กรุณากรอก นามสกุล ของผู้ลงทะเบียน</div>
+      </div>
+    </div>
+
+    <div class="row mb-4 mt-4">
+      <div class="col-md-6">
+        <label for="phone" class="form-label">เบอร์โทรศัพท์มือถือ</label>
+        <input type="text" v-bind:class="{'is-invalid': !phone_isValid, 'form-control form-control-lg': true}" id="phone" aria-describedby="phoneFeedback" required v-model="phone" />
+        <div id="phoneFeedback" class="invalid-feedback">กรุณากรอก เบอร์โทรศัพท์มือถือ</div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="mb-3">
+          <label class="form-label">รูปภาพผู้ขาย</label>
+          <div class="custom-file">
+            <label class="custom-file-label form-label form-control form-control-lg" for="validatedCustomFile">Choose file...</label>
+            <input type="file" class="form-control form-control-lg custom-file-input" id="validatedCustomFile" />
+            <div class="invalid-feedback">กรุณาเลือกรูปภาพผู้ขาย</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <br />
+    <hr class="mb-4" />
+    <br />
+
+    <h3 class="mb-4">ที่อยู่สำหรับติดต่อ</h3>
+    <div class="row mb-4">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="province" class="form-label">จังหวัด</label>
+          <select v-bind:class="{'is-invalid': !province_isValid, 'form-control form-control-lg': true}" id="province" v-model="province" @change="onProvinceChange($event)">
+            <option value="" selected>เลือกจังหวัด</option>
+            <option v-for="item in province_list" :value="item">[[item]]</option>
+          </select>
+          <div id="addressFeedback" class="invalid-feedback">กรุณาระบุจังหวัด</div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="district" class="form-label">อำเภอ/เขต</label>
+          <select v-bind:class="{'is-invalid': !district_isValid, 'form-control form-control-lg': true}" id="district" v-model="district" @change="onDistrictChange($event)">
+            <option value="">เลือกอำเภอ</option>
+            <option v-for="item in district_list" :value="item">[[item]]</option>
+          </select>
+          <div id="addressFeedback" class="invalid-feedback">กรุณาระบุอำเภอ</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-4">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="tambon" class="form-label">ตำบล/แขวง</label>
+          <select v-bind:class="{'is-invalid': !tambon_isValid, 'form-control form-control-lg': true}" v-model="tambon">
+            <option value="">เลือกตำบล</option>
+            <option v-for="item in tambon_list" :value="item">[[item]]</option>
+          </select>
+          <div id="addressFeedback" class="invalid-feedback">กรุณาระบุตำบล</div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <label for="postcode" class="form-label">รหัสไปรษณี</label>
+        <input type="text" class="form-control form-control-lg" id="postcode" v-model="postcode" />
+      </div>
+    </div>
+    <div class="row mb-4">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="address">บ้านเลขที่</label>
+          <textarea v-bind:class="{'is-invalid': !address_isValid, 'form-control form-control-lg': true}" name="address" id="address" rows="3" v-model="address"></textarea>
+          <div id="addressFeedback" class="invalid-feedback">กรุณากรอกบ้านเลขที่</div>
+        </div>
+      </div>
+    </div>
+
+    <br />
+    <hr class="mb-4" />
+    <br />
+
+    <h3 class="mb-4">รูปแบบการจำหน่าย</h3>
+    <div class="row mb-4">
+      <div class="col-md-6">
+        <div class="mb-3">
+          <label for="retail" class="form-label">ขายปลีก</label>
+          <select class="form-control form-control-lg" aria-label=".form-select-lg" id="retail" v-model="retail">
+            <option value="ไม่ใช่">ไม่ใช่</option>
+            <option value="ใช่">ใช่</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="mb-3">
+          <label for="wholesale" class="form-label">ขายส่ง</label>
+          <select class="form-control form-control-lg" aria-label=".form-select-lg" id="wholesale" v-model="wholesale">
+            <option value="ไม่ใช่">ไม่ใช่</option>
+            <option value="ใช่">ใช่</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <hr class="mb-4" />
+    <h3 class="mt-4 mb-4">ช่องทางการจำหน่าย</h3>
+
+    <div class="row mb-4">
+      <div class="col-md-6">
+        <div class="mb-3">
+          <label for="store_owner" class="form-label">ร้านค้าของตัวเอง</label>
+          <select class="form-control form-control-lg" aria-label=".form-select-lg" id="store_owner" v-model="store_owner" @change="onStroeOwnerChange($event)">
+            <option value="ไม่ใช่">ไม่ใช่</option>
+            <option value="ใช่">ใช่</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div v-if="store_owner_bool">
+      <div class="row mb-4">
+        <div class="col-md-6">
+          <label for="store_address" class="form-label">ที่อยู่ร้านค้า</label>
+          <input type="text" class="form-control form-control-lg" id="store_address" v-model="store_address" />
+        </div>
+      </div>
+      <div class="row mb-4">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="store_province" class="form-label">จังหวัด</label>
+            <select v-bind:class="{'is-invalid': !store_province_isValid, 'form-control form-control-lg': true}" id="store_province" v-model="store_province" @change="onstore_provinceChange($event)">
+              <option value="" selected>เลือกจังหวัด</option>
+              <option v-for="item in store_province_list" :value="item">[[item]]</option>
+            </select>
+            <div id="addressFeedback" class="invalid-feedback">กรุณาระบุจังหวัด</div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="district" class="form-label">อำเภอ/เขต</label>
+            <select v-bind:class="{'is-invalid': !district_isValid, 'form-control form-control-lg': true}" id="district" v-model="district" @change="onDistrictChange($event)">
+              <option value="">เลือกอำเภอ</option>
+              <option v-for="item in district_list" :value="item">[[item]]</option>
+            </select>
+            <div id="addressFeedback" class="invalid-feedback">กรุณาระบุอำเภอ</div>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-4">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="tambon" class="form-label">ตำบล/แขวง</label>
+            <select v-bind:class="{'is-invalid': !tambon_isValid, 'form-control form-control-lg': true}" v-model="tambon">
+              <option value="">เลือกตำบล</option>
+              <option v-for="item in tambon_list" :value="item">[[item]]</option>
+            </select>
+            <div id="addressFeedback" class="invalid-feedback">กรุณาระบุตำบล</div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <label for="postcode" class="form-label">รหัสไปรษณี</label>
+          <input type="text" class="form-control form-control-lg" id="postcode" v-model="postcode" />
+        </div>
+      </div>
+    </div>
+
+    <hr class="mb-4" />
+    <br />
+    <h3>ใบรับรองผ่านการฝึกอบรมการตัดทุเรียน</h3>
+
+    <div class="row mb-4">
+      <div class="col-md-6">
+        <div class="mb-3">
+          <label for="certificate" class="form-label">ใบรับรอง</label>
+          <select class="form-control form-control-lg" aria-label=".form-select-lg" id="certificate" v-model="certificate" @change="onCertChange($event)">
+            <option value="ไม่มี">ไม่มี</option>
+            <option value="มี">มี</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-4" v-if="cert_from_bool">
+      <div class="col-md-6">
+        <label for="cert_from" class="form-label">ได้รับใบรับรองจากหน่วยงาน</label>
+        <input type="text" class="form-control form-control-lg" id="cert_from" v-model="cert_from" />
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <a href="#" class="btn btn-primary" @click="onSubmit($event)">ลงทะเบียนผู้ตัด</a>
+      </div>
+    </div>
+  </form>
+</section>
+{% endblock content %}
+<!---->
+{% block javascript %}
+<script>
+  const register = Vue.createApp({
+    delimiters: ["[[", "]]"],
+    data() {
+      return {
+        province_list: [],
+        district_list: [],
+        tambon_list: [],
+
+        prefix: "นาย",
+        date: "",
+        fname: "",
+        lname: "",
+        citizen: "",
+        phone: "",
+        experience: 1,
+        address: "",
+        province: "",
+        district: "",
+        tambon: "",
+        postcode: "",
+        cutter_type: "เกษตรกร",
+        training: "ไม่เคย",
+        certificate: "ไม่มี",
+
+        wholesale: "ไม่ใช่",
+        retail: "ไม่ใช่",
+
+        store_owner: "ไม่ใช่",
+        store_owner_bool: false,
+        store_address: "",
+        store_province: "",
+        store_province_list: [],
+
+        train_from: "",
+        train_from_bool: false,
+
+        cert_from: "",
+        cert_from_bool: false,
+
+        isValid: true,
+        fname_isValid: true,
+        lname_isValid: true,
+        phone_isValid: true,
+        citizen_isValid: true,
+        experience_isValid: true,
+        address_isValid: true,
+        province_isValid: true,
+        district_isValid: true,
+        tambon_isValid: true,
+        citizenfile_isValid: true,
+
+        store_province_isValid: true,
+      };
+    },
+    mounted() {
+      axios.get("{% url 'ajax-get-province' %}").then((response) => {
+        this.province_list = response.data["data"]["province"];
+        this.store_province_list = response.data["data"]["province"];
+      });
+    },
+    methods: {
+      onProvinceChange(e) {
+        this.province = e.target.value;
+
+        if (this.province != "") {
+          form_data = new FormData();
+          form_data.append("province", this.province);
+          form_data.append("csrfmiddlewaretoken", "{{csrf_token}}");
+
+          axios.post("{% url 'ajax-get-district' %}", form_data).then((response) => {
+            this.district_list = response.data["data"]["district"];
+          });
+        }
+      },
+      onDistrictChange(e) {
+        this.district = e.target.value;
+
+        if (this.district != "") {
+          form_data = new FormData();
+          form_data.append("province", this.province);
+          form_data.append("district", this.district);
+          form_data.append("csrfmiddlewaretoken", "{{csrf_token}}");
+
+          axios.post("{% url 'ajax-get-tambon' %}", form_data).then((response) => {
+            this.tambon_list = response.data["data"]["tambon"];
+          });
+        }
+      },
+      onStroeOwnerChange(e) {
+        this.store_owner = e.target.value;
+        if (this.store_owner == "ใช่") {
+          this.store_owner_bool = true;
+        } else {
+          this.store_owner_bool = false;
+        }
+      },
+      onCertChange(e) {
+        this.certificate = e.target.value;
+        if (this.certificate == "มี") {
+          this.cert_from_bool = true;
+        } else {
+          this.cert_from_bool = false;
+        }
+      },
+      onSubmit(e) {
+        e.preventDefault();
+
+        this.fname_isValid = true;
+        if (this.fname == "") {
+          this.fname_isValid = false;
+          this.isValid = false;
+        }
+
+        this.lname_isValid = true;
+        if (this.lname == "") {
+          this.lname_isValid = false;
+          this.isValid = false;
+        }
+
+        this.citizen_isValid = true;
+        if (this.citizen == "" || this.citizen.length < 13) {
+          this.citizen_isValid = false;
+          this.isValid = false;
+        }
+
+        this.phone_isValid = true;
+        if (this.phone == "") {
+          this.phone_isValid = false;
+          this.isValid = false;
+        }
+
+        this.experience_isValid = true;
+        if (this.experience == "" || this.experience < 0) {
+          this.experience_isValid = false;
+          this.isValid = false;
+        }
+
+        this.address_isValid = true;
+        if (this.address == "") {
+          this.address_isValid = false;
+          this.isValid = false;
+        }
+
+        this.province_isValid = true;
+        if (this.province == "") {
+          this.province_isValid = false;
+          this.isValid = false;
+        }
+
+        this.district_isValid = true;
+        if (this.district == "") {
+          this.district_isValid = false;
+          this.isValid = false;
+        }
+
+        this.tambon_isValid = true;
+        if (this.tambon == "") {
+          this.tambon_isValid = false;
+          this.isValid = false;
+        }
+
+        if (this.isValid) {
+          console.log("Ok");
+        } else {
+          window.scrollTo(0, 0);
+        }
+      },
+    },
+  });
+
+  register.mount("#form-cutter");
+</script>
+{% endblock javascript %}
