@@ -1,191 +1,172 @@
-{% extends 'base2.html' %}
-
-{% load static %}
-{% load custom_tags %}
-
-{% block title %}
-{{title}}
-{%endblock%}
-
-{% block subtitle %}
-{{subtitle}}
-{% endblock %}
-
-{% block content %}
+{% extends 'base2.html' %} {% load static %} {% load custom_tags %} {% block title %} {{title}} {%endblock%} {% block subtitle %} {{subtitle}} {% endblock %} {% block content %}
 <style>
-    .row.review {
-        border-bottom: 1px solid #e3e6ec !important;
-    }
-    .review-display .checked {
-        color: orange;
-    }
+  .row.review {
+    border-bottom: 1px solid #e3e6ec !important;
+  }
+  .review-display .checked {
+    color: orange;
+  }
 </style>
 <div class="row">
-    <div class="col-xl-9 col-md-8 col-sm-12">
-        <div class="card card-header-actions mb-4">
-            <div class="card-header">
-                รายละเอียดสินค้า
-                <div>
-                    {% if request.GET.store != None %}
-                    <a class="btn btn-primary btn-sm" href="{% url 'shopping' %}?store={{request.GET.store}}">กลับ</a>
-                    {% else %}
-                    <a class="btn btn-primary btn-sm" href="{% url 'shopping' %}">กลับ</a>
-                    {% endif %}
-
-                    {% if product.values > 0 %}
-                    <a class="btn btn-success btn-sm" href="{% url 'cart-add' product.id %}"><i data-feather="shopping-cart"></i>&nbsp;&nbsp;ใส่ลงตระกร้า</a>
-                    {% endif %}
-                </div>
-            </div>
-            <div class="card-body text-dark">
-                {% if product.values <= 0 %}
-                <div class="alert alert-info" role="alert">
-                    Out of stock : ไม่สามารถสั่งซื้อได้ เนื่องจากไม่เหลือสินค้าชิ้นนี้อยู่ในคลังสินค้า
-                </div>
-                {% endif %}
-                <div class="row mb-3">
-                    <div class="col">วันที่อัปเดทสินค้า</div>
-                    <div class="col">{{product.date_update|thai_time}}</div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col">เกรดทุเรียน</div>
-                    <div class="col">{{product.grade_choice}}</div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col">สายพันธ์ุ</div>
-                    <div class="col">{{product.gene_choice}}</div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col">จำนวนที่มีขาย (ลูก)</div>
-                    <div class="col">{{product.values}}</div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col">ราคาต่อกิโลกรัม</div>
-                    <div class="col">{{product.price}}</div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col">น้ำหนักเฉลี่ยต่อลูก</div>
-                    <div class="col">{{product.weight}}</div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col">รายละเอียดเพิ่มเติม</div>
-                    <div class="col">{{product.desc|linebreaks}}</div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col">สถานะการขาย</div>
-                    <div class="col">{{product.status_choice}}</div>
-                </div>
-            </div>
-            <div class="card-footer text-right">
-                <!--facebook share 2-->
-                <div id="fb-root"></div>
-                <script async defer crossorigin="anonymous" src="https://connect.facebook.net/th_TH/sdk.js#xfbml=1&version=v7.0&appId=139883523312429&autoLogAppEvents=1"></script>
-                <div class="fb-share-button" data-href="" data-layout="button_count" data-size="small"><a target="_blank" href="" class="fb-xfbml-parse-ignore">SHARE</a></div>
-            </div>
+  <div class="col-xl-9 col-md-8 col-sm-12">
+    <div class="alert alert-warning" role="alert">
+      <div class="mb-2">แจ้งผู้ซื้อ !!</div>
+      <div>สถานะสินค้าเป็นแบบสั่งจองล่วงหน้า ขอแนะนำให้ท่านติดต่อกับชาวสวนเพื่อสอบถามจากเบอร์โทรที่ให้ไว้</div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xl-9 col-md-8 col-sm-12">
+    <div class="card card-header-actions mb-4">
+      <div class="card-header">
+        รายละเอียดสินค้า
+        <div>
+          {% if request.GET.store != None %}
+          <a class="btn btn-primary btn-sm" href="{% url 'shopping' %}?store={{request.GET.store}}">กลับ</a>
+          {% else %}
+          <a class="btn btn-primary btn-sm" href="{% url 'shopping' %}">กลับ</a>
+          {% endif %} {% if product.values > 0 and product.status == 1 %}
+          <a class="btn btn-success btn-sm" href="{% url 'cart-add' product.id %}"><i data-feather="shopping-cart"></i>&nbsp;&nbsp;ใส่ลงตระกร้า</a>
+          {% endif %}
         </div>
-
-        <div class="mb-4">
-            <div class="card border-top-0 border-bottom-0 border-right-0 border-left-lg border-success h-100">
-                <div class="card-body">
-                    <div class="d-flex align-items-center">
-                        <div class="flex-grow-1">
-                            <div class="medium font-weight-bold text-success mb-2">ติดต่อผู้ขาย</div>
-                            <div class="h5"><span class="text-gray-600">เบอร์โทรหลัก : </span> {{product.store.phone1}}
-                            </div>
-                            <div class="h5"><span class="text-gray-600">เบอร์โทรสำรอง : </span> {{product.store.phone2}}
-                            </div>
-                        </div>
-                        <div class="ml-2"><i class="fas fa-user fa-2x text-gray-200"></i></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="card card-header-actions mb-4">
-            <div class="card-header">
-                ข้อมูลผู้ขาย
-                <div>
-                    <a class="btn btn-primary btn-sm"
-                        href="{% url 'shopping' %}?store={{product.store.id}}">แสดงสินค้าอื่น ๆ ของร้าน</a>
-                </div>
-            </div>
-            <div class="card-body text-dark">
-                <div class="row mb-3">
-                    <div class="col">ผู้ขาย</div>
-                    <div class="col text-left">{{trader.account}}</div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col">ลัษณะผู้ขาย</div>
-                    <div class="col text-left">{{trader.trader_type}}</div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col">ชื่อสวน/ชื่อร้าน</div>
-                    <div class="col text-left">{{trader.store_name}}</div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col">ที่ตั้งสวน/ร้าน</div>
-                    <div class="col text-left">{{product.store.district_choice}}</div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col">วันที่เปิดร้านในระบบ</div>
-                    <div class="col text-left">{{trader.date_regis|thai_time}}</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Show Review is it exist -->
-        {% if reviews|length != 0 %}
-        <div class="card card-header-actions mb-4">
-            <div class="card-header">
-                รีวิวจากลูกค้า
-                <div>
-                    คะแนนรวม {{score_avg}}
-                </div>
-            </div>
-            <div class="card-body review-display">
-                {% for review in reviews %}
-                <div class="row mb-2">
-                    <div class="col-6">
-                        <div class="text-success small">{{review.date_review|thai_time}}</div>
-                    </div>
-                    <div class="col-6 text-right small">
-                        {% for i in review.rate %}
-                        {% if i <= review.score %}
-                        <span class="fa fa-star checked"></span>
-                        {% else %}
-                        <span class="fa fa-star"></span>
-                        {% endif %}
-                        {% endfor %}
-                    </div>
-                </div>
-                <div class="row review mb-4">
-                    <div class="col-12">
-                        <div class="mb-4 text-dark">{{review.comment|linebreaks}}</div>
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
-        </div>
+      </div>
+      <div class="card-body text-dark">
+        {% if product.values <= 0 %}
+        <div class="alert alert-info" role="alert">Out of stock : ไม่สามารถสั่งซื้อได้ เนื่องจากไม่เหลือสินค้าชิ้นนี้อยู่ในคลังสินค้า</div>
         {% endif %}
-    </div>
-    <!-- รูปภาพ -->
-    <div class="col-xl-3 col-md-4 col-sm-12">
-        {% for image in images %}
-        <div class="card mb-2">
-            <img class="card-img-top" src="{{image.url}}" alt="product image">
+        <div class="row mb-3">
+          <div class="col">วันที่อัปเดทสินค้า</div>
+          <div class="col">{{product.date_update|thai_time}}</div>
         </div>
-        {% endfor %}
+        <div class="row mb-3">
+          <div class="col">เกรดทุเรียน</div>
+          <div class="col">{{product.grade_choice}}</div>
+        </div>
+        <div class="row mb-3">
+          <div class="col">สายพันธ์ุ</div>
+          <div class="col">{{product.gene_choice}}</div>
+        </div>
+        <div class="row mb-3">
+          <div class="col">จำนวนที่มีขาย (ลูก)</div>
+          <div class="col">{{product.values}}</div>
+        </div>
+        <div class="row mb-3">
+          <div class="col">ราคาต่อกิโลกรัม</div>
+          <div class="col">{{product.price}}</div>
+        </div>
+        <div class="row mb-3">
+          <div class="col">น้ำหนักเฉลี่ยต่อลูก</div>
+          <div class="col">{{product.weight}}</div>
+        </div>
+        <div class="row mb-3">
+          <div class="col">รายละเอียดเพิ่มเติม</div>
+          <div class="col">{{product.desc|linebreaks}}</div>
+        </div>
+        <div class="row mb-3">
+          <div class="col">สถานะการขาย</div>
+          <div class="col">{{product.status_choice}}</div>
+        </div>
+      </div>
+      <div class="card-footer text-right">
+        <!--facebook share 2-->
+        <div id="fb-root"></div>
+        <script async defer crossorigin="anonymous" src="https://connect.facebook.net/th_TH/sdk.js#xfbml=1&version=v7.0&appId=139883523312429&autoLogAppEvents=1"></script>
+        <div class="fb-share-button" data-href="" data-layout="button_count" data-size="small"><a target="_blank" href="" class="fb-xfbml-parse-ignore">SHARE</a></div>
+      </div>
+    </div>
 
-        <!-- Social QR Code -->
-        {% for qrcode in qr_codes %}
-        <div class="card mb-2">
-            <img class="card-img-top" src="{{qrcode.qr_code.url}}" alt="qrcode">
-            <div class="card-footer d-flex align-items-center justify-content-between small">
-                ติดต่อผู้ขาย : {{qrcode.social_name}}
+    <div class="mb-4">
+      <div class="card border-top-0 border-bottom-0 border-right-0 border-left-lg border-success h-100">
+        <div class="card-body">
+          <div class="d-flex align-items-center">
+            <div class="flex-grow-1">
+              <div class="medium font-weight-bold text-success mb-2">ติดต่อผู้ขาย</div>
+              <div class="h5"><span class="text-gray-600">เบอร์โทรหลัก : </span> {{product.store.phone1}}</div>
+              <div class="h5"><span class="text-gray-600">เบอร์โทรสำรอง : </span> {{product.store.phone2}}</div>
             </div>
+            <div class="ml-2"><i class="fas fa-user fa-2x text-gray-200"></i></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card card-header-actions mb-4">
+      <div class="card-header">
+        ข้อมูลผู้ขาย
+        <div>
+          <a class="btn btn-primary btn-sm" href="{% url 'shopping' %}?store={{product.store.id}}">แสดงสินค้าอื่น ๆ ของร้าน</a>
+        </div>
+      </div>
+      <div class="card-body text-dark">
+        <div class="row mb-3">
+          <div class="col">ผู้ขาย</div>
+          <div class="col text-left">{{trader.account}}</div>
+        </div>
+        <div class="row mb-3">
+          <div class="col">ลัษณะผู้ขาย</div>
+          <div class="col text-left">{{trader.trader_type}}</div>
+        </div>
+        <div class="row mb-3">
+          <div class="col">ชื่อสวน/ชื่อร้าน</div>
+          <div class="col text-left">{{trader.store_name}}</div>
+        </div>
+        <div class="row mb-3">
+          <div class="col">ที่ตั้งสวน/ร้าน</div>
+          <div class="col text-left">{{product.store.district_choice}}</div>
+        </div>
+        <div class="row mb-3">
+          <div class="col">วันที่เปิดร้านในระบบ</div>
+          <div class="col text-left">{{trader.date_regis|thai_time}}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Show Review is it exist -->
+    {% if reviews|length != 0 %}
+    <div class="card card-header-actions mb-4">
+      <div class="card-header">
+        รีวิวจากลูกค้า
+        <div>คะแนนรวม {{score_avg}}</div>
+      </div>
+      <div class="card-body review-display">
+        {% for review in reviews %}
+        <div class="row mb-2">
+          <div class="col-6">
+            <div class="text-success small">{{review.date_review|thai_time}}</div>
+          </div>
+          <div class="col-6 text-right small">
+            {% for i in review.rate %} {% if i <= review.score %}
+            <span class="fa fa-star checked"></span>
+            {% else %}
+            <span class="fa fa-star"></span>
+            {% endif %} {% endfor %}
+          </div>
+        </div>
+        <div class="row review mb-4">
+          <div class="col-12">
+            <div class="mb-4 text-dark">{{review.comment|linebreaks}}</div>
+          </div>
         </div>
         {% endfor %}
+      </div>
     </div>
-        
+    {% endif %}
+  </div>
+  <!-- รูปภาพ -->
+  <div class="col-xl-3 col-md-4 col-sm-12">
+    {% for image in images %}
+    <div class="card mb-2">
+      <img class="card-img-top" src="{{image.url}}" alt="product image" />
+    </div>
+    {% endfor %}
+
+    <!-- Social QR Code -->
+    {% for qrcode in qr_codes %}
+    <div class="card mb-2">
+      <img class="card-img-top" src="{{qrcode.qr_code.url}}" alt="qrcode" />
+      <div class="card-footer d-flex align-items-center justify-content-between small">ติดต่อผู้ขาย : {{qrcode.social_name}}</div>
+    </div>
+    {% endfor %}
+  </div>
 </div>
 {% endblock %}
