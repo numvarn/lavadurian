@@ -168,7 +168,7 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="store_province" class="form-label">จังหวัด</label>
-            <select v-bind:class="{'is-invalid': !store_province_isValid, 'form-control form-control-lg': true}" id="store_province" v-model="store_province" @change="onstore_provinceChange($event)">
+            <select v-bind:class="{'is-invalid': !store_province_isValid, 'form-control form-control-lg': true}" id="store_province" v-model="store_province" @change="onStore_provinceChange($event)">
               <option value="" selected>เลือกจังหวัด</option>
               <option v-for="item in store_province_list" :value="item">[[item]]</option>
             </select>
@@ -177,10 +177,10 @@
         </div>
         <div class="col-md-6">
           <div class="form-group">
-            <label for="district" class="form-label">อำเภอ/เขต</label>
-            <select v-bind:class="{'is-invalid': !district_isValid, 'form-control form-control-lg': true}" id="district" v-model="district" @change="onDistrictChange($event)">
+            <label for="store_district" class="form-label">อำเภอ/เขต</label>
+            <select v-bind:class="{'is-invalid': !store_district_isValid, 'form-control form-control-lg': true}" id="store_district" v-model="store_district" @change="onStore_DistrictChange($event)">
               <option value="">เลือกอำเภอ</option>
-              <option v-for="item in district_list" :value="item">[[item]]</option>
+              <option v-for="item in store_district_list" :value="item">[[item]]</option>
             </select>
             <div id="addressFeedback" class="invalid-feedback">กรุณาระบุอำเภอ</div>
           </div>
@@ -189,10 +189,10 @@
       <div class="row mb-4">
         <div class="col-md-6">
           <div class="form-group">
-            <label for="tambon" class="form-label">ตำบล/แขวง</label>
-            <select v-bind:class="{'is-invalid': !tambon_isValid, 'form-control form-control-lg': true}" v-model="tambon">
+            <label for="store_tambon" class="form-label">ตำบล/แขวง</label>
+            <select v-bind:class="{'is-invalid': !store_tambon_isValid, 'form-control form-control-lg': true}" v-model="store_tambon">
               <option value="">เลือกตำบล</option>
-              <option v-for="item in tambon_list" :value="item">[[item]]</option>
+              <option v-for="item in store_tambon_list" :value="item">[[item]]</option>
             </select>
             <div id="addressFeedback" class="invalid-feedback">กรุณาระบุตำบล</div>
           </div>
@@ -269,7 +269,11 @@
         store_owner_bool: false,
         store_address: "",
         store_province: "",
+        store_district: "",
+        store_tambon: "",
         store_province_list: [],
+        store_district_list: [],
+        store_tambon_list: [],
 
         train_from: "",
         train_from_bool: false,
@@ -290,6 +294,8 @@
         citizenfile_isValid: true,
 
         store_province_isValid: true,
+        store_district_isValid: true,
+        store_tambon_isValid: true,
       };
     },
     mounted() {
@@ -323,6 +329,33 @@
 
           axios.post("{% url 'ajax-get-tambon' %}", form_data).then((response) => {
             this.tambon_list = response.data["data"]["tambon"];
+          });
+        }
+      },
+      onStore_provinceChange(e) {
+        this.store_province = e.target.value;
+
+        if (this.store_province != "") {
+          form_data = new FormData();
+          form_data.append("province", this.store_province);
+          form_data.append("csrfmiddlewaretoken", "{{csrf_token}}");
+
+          axios.post("{% url 'ajax-get-district' %}", form_data).then((response) => {
+            this.store_district_list = response.data["data"]["district"];
+          });
+        }
+      },
+      onStore_DistrictChange(e) {
+        this.store_district = e.target.value;
+
+        if (this.store_district != "") {
+          form_data = new FormData();
+          form_data.append("province", this.store_province);
+          form_data.append("district", this.store_district);
+          form_data.append("csrfmiddlewaretoken", "{{csrf_token}}");
+
+          axios.post("{% url 'ajax-get-tambon' %}", form_data).then((response) => {
+            this.store_tambon_list = response.data["data"]["tambon"];
           });
         }
       },
