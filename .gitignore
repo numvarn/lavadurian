@@ -7,3 +7,16 @@ credentials.json
 manage.py
 .DS_Store
 manage_local.py
+
+db_news.json
+user.json
+regis_gi.json
+trader.json
+store_bookbank.json
+store_location.json
+store_product_img.json
+store_product.json
+store_qrcode.json
+store_rec_product.json
+store_review.json
+store_store.json
