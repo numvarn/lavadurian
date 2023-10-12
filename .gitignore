@@ -6,3 +6,4 @@ runserver_local.sh
 credentials.json
 manage.py
 .DS_Store
+manage_local.py
